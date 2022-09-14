@@ -9,9 +9,9 @@ int keybordInput(void) {
 	int width = 640;
 	int height = 480;
 
+	int moviment = 5;
 	bool done = false;
-	int pos_x = width / 2;
-	int pos_y = height / 2;
+	int pos[2] = { width / 2 -30, height / 2 -30 };
 
 	bool keys[4] = {false, false, false, false};
 
@@ -41,7 +41,7 @@ int keybordInput(void) {
 	while (!done) {
 		ALLEGRO_EVENT ev;
 
-		al_draw_filled_rectangle(pos_x, pos_y, pos_x + 30, pos_y + 30, al_map_rgb(255, 0, 0));
+		al_draw_filled_rectangle(pos[0], pos[1], pos[0] + 30, pos[1] + 30, al_map_rgb(255, 0, 0));
 
 		al_flip_display();
 
@@ -54,15 +54,19 @@ int keybordInput(void) {
 			switch (ev.keyboard.keycode)
 			{
 				case ALLEGRO_KEY_UP:
+				case ALLEGRO_KEY_W:
 					keys[UP] = true;
 					break;
 				case ALLEGRO_KEY_DOWN:
+				case ALLEGRO_KEY_S:
 					keys[DOWN] = true;
 					break;
 				case ALLEGRO_KEY_LEFT:
+				case ALLEGRO_KEY_A:
 					keys[LEFT] = true;
 					break;
 				case ALLEGRO_KEY_RIGHT:
+				case ALLEGRO_KEY_D:
 					keys[RIGHT] = true;
 					break;
 			}
@@ -71,15 +75,19 @@ int keybordInput(void) {
 			switch (ev.keyboard.keycode)
 			{
 				case ALLEGRO_KEY_UP:
+				case ALLEGRO_KEY_W:
 					keys[UP] = false;
 					break;
 				case ALLEGRO_KEY_DOWN:
+				case ALLEGRO_KEY_S:
 					keys[DOWN] = false;
 					break;
 				case ALLEGRO_KEY_LEFT:
+				case ALLEGRO_KEY_A:
 					keys[LEFT] = false;
 					break;
 				case ALLEGRO_KEY_RIGHT:
+				case ALLEGRO_KEY_D:
 					keys[RIGHT] = false;
 					break;
 			}
@@ -88,10 +96,14 @@ int keybordInput(void) {
 			done = true;
 		}
 
-		pos_y -= keys[UP] * 10;
-		pos_y += keys[DOWN] * 10;
-		pos_x -= keys[LEFT] * 10;
-		pos_x += keys[RIGHT] * 10;
+		if (pos[0] < 0 || pos[0] > width || pos[1] < 0 || pos[1] > height) {
+			done = true;
+		}
+
+		pos[1] -= keys[UP] * moviment;
+		pos[1] += keys[DOWN] * moviment;
+		pos[0] -= keys[LEFT] * moviment;
+		pos[0] += keys[RIGHT] * moviment;
 
 	}
 
