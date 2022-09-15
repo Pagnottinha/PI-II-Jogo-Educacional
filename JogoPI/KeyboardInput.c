@@ -4,6 +4,7 @@
 #include <stdbool.h>
 
 enum KEYS { UP, DOWN, LEFT, RIGHT };
+enum POS {X, Y};
 
 int keybordInput(void) {
 	int width = 640;
@@ -41,7 +42,7 @@ int keybordInput(void) {
 	while (!done) {
 		ALLEGRO_EVENT ev;
 
-		al_draw_filled_rectangle(pos[0], pos[1], pos[0] + 30, pos[1] + 30, al_map_rgb(255, 0, 0));
+		al_draw_filled_rectangle(pos[X], pos[Y], pos[X] + 30, pos[Y] + 30, al_map_rgb(255, 0, 0));
 
 		al_flip_display();
 
@@ -96,14 +97,14 @@ int keybordInput(void) {
 			done = true;
 		}
 
-		if (pos[0] < 0 || pos[0] > width || pos[1] < 0 || pos[1] > height) {
+		if (pos[X] < 0 || pos[X] + 30> width || pos[Y] < 0 || pos[Y] + 30 > height) {
 			done = true;
 		}
 
-		pos[1] -= keys[UP] * moviment;
-		pos[1] += keys[DOWN] * moviment;
-		pos[0] -= keys[LEFT] * moviment;
-		pos[0] += keys[RIGHT] * moviment;
+		pos[Y] -= keys[UP] * moviment;
+		pos[Y] += keys[DOWN] * moviment;
+		pos[X] -= keys[LEFT] * moviment;
+		pos[X] += keys[RIGHT] * moviment;
 
 	}
 

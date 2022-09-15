@@ -144,12 +144,18 @@
   <ItemGroup>
     <ClCompile Include="Desenhos.c" />
     <ClCompile Include="KeyboardInput.c" />
+    <ClCompile Include="keyboardInputWithTimer.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="Mouse.c" />
+    <ClCompile Include="Prototipo.c" />
     <ClCompile Include="Textos.c" />
+    <ClCompile Include="Time.c" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Objetos.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

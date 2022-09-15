@@ -8,6 +8,9 @@ int main(void) {
 		printf("2- Desenhos\n");
 		printf("3- KeybordInput\n");
 		printf("4- Mouse\n");
+		printf("5- Timing\n");
+		printf("6- KeyboardInputWithTimer\n");
+		printf("7- Prototipo\n");
 		printf("Resposta: ");
 		scanf_s("%d", &resposta);
 
@@ -29,6 +32,15 @@ int main(void) {
 				break;
 			case 4:
 				mouse();
+				break;
+			case 5:
+				timing();
+				break;
+			case 6:
+				keybordInputWithTimer();
+				break;
+			case 7:
+				prototipo();
 				break;
 			default:
 				printf("Nao tem essa escolha!\n");
