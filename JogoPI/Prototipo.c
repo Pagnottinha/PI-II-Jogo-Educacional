@@ -9,13 +9,6 @@
 
 enum ACOES {UP, DOWN, LEFT, RIGHT, ATTACK, BLOCK};
 
-void initPlayer(Player *player);
-void desenharPlayer(Player* player);
-void andarPlayerCima(Player* player);
-void andarPlayerBaixo(Player* player);
-void andarPlayerEsqueda(Player* player);
-void andarPlayerDireita(Player* player);
-
 int prototipo(void) {
 
 	bool done = false;
@@ -23,6 +16,7 @@ int prototipo(void) {
 	bool desenhar = true;
 
 	Player player;
+	Lanca lanca;
 
 	ALLEGRO_DISPLAY* display = NULL;
 	ALLEGRO_EVENT_QUEUE* event_queue = NULL;
@@ -43,6 +37,7 @@ int prototipo(void) {
 	timer = al_create_timer(1.0 / FPS);
 
 	initPlayer(&player);
+	initLanca(&lanca);
 
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
 	al_register_event_source(event_queue, al_get_timer_event_source(timer));
@@ -69,6 +64,7 @@ int prototipo(void) {
 
 			if (acoes[RIGHT])
 				andarPlayerDireita(&player);
+
 		}
 		else if (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
 			done = true;
@@ -92,6 +88,9 @@ int prototipo(void) {
 				case ALLEGRO_KEY_RIGHT:
 					acoes[RIGHT] = true;
 					break;
+				case ALLEGRO_KEY_K:
+					acoes[ATTACK] = true;
+					break;
 			}
 		}
 		else if (ev.type == ALLEGRO_EVENT_KEY_UP) {
@@ -114,6 +113,9 @@ int prototipo(void) {
 				case ALLEGRO_KEY_D:
 					acoes[RIGHT] = false;
 					break;
+				case ALLEGRO_KEY_K:
+					acoes[ATTACK] = false;
+					break;
 			}
 		}
 
@@ -121,6 +123,7 @@ int prototipo(void) {
 			desenhar = false;
 
 			desenharPlayer(&player);
+			desenharLanca(&lanca, &player);
 
 			al_flip_display();
 
@@ -144,7 +147,7 @@ void initPlayer(Player *player) {
 }
 
 void desenharPlayer(Player* player) {
-	al_draw_filled_rectangle(player->pos[X], player->pos[Y], player->pos[X] + 20, player->pos[Y] + 35, al_map_rgb(255, 0, 0));
+	al_draw_filled_rectangle(player->pos[X], player->pos[Y], player->pos[X] + 20, player->pos[Y] + 35, al_map_rgb(0, 255, 0));
 }
 
 void andarPlayerCima(Player* player) {
@@ -165,5 +168,23 @@ void andarPlayerEsqueda(Player* player) {
 void andarPlayerDireita(Player* player) {
 	if (player->pos[X] + 20 < WIDTH) {
 		player->pos[X] += player->velocidade;
+	}
+}
+
+void initLanca(Lanca* lanca) {
+	lanca->ID = LANCA;
+	lanca->dano = 2;
+	lanca->ataque = false;
+}
+
+void desenharLanca(Lanca* lanca, Player* player) {
+	lanca->pos[X] = player->pos[X] + 20;
+	lanca->pos[Y] = player->pos[Y];
+	al_draw_filled_rectangle(lanca->pos[X], lanca->pos[Y], lanca->pos[X] + 5, lanca->pos[Y] + 30, al_map_rgb(0, 0, 255));
+}
+
+void atacarLanca(Lanca* lanca) {
+	if (!lanca->ataque) {
+		lanca->pos[Y] -= 10;
 	}
 }
