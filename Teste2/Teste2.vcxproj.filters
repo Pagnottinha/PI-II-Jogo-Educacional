@@ -20,10 +20,7 @@
     </Font>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\Desktop\ADASD\Teste.c">
-      <Filter>Arquivos de Origem</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Desktop\ADASD\Teste2.c">
+    <ClCompile Include="ProjetoTeste.c">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
   </ItemGroup>

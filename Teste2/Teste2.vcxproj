@@ -144,8 +144,7 @@
     <Font Include="..\..\..\..\Desktop\ADASD\arial.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\Desktop\ADASD\Teste.c" />
-    <ClCompile Include="..\..\..\..\Desktop\ADASD\Teste2.c" />
+    <ClCompile Include="ProjetoTeste.c" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
