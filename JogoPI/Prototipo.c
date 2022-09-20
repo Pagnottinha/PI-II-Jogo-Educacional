@@ -37,10 +37,8 @@ int prototipo(void) {
 	event_queue = al_create_event_queue();
 	timer = al_create_timer(1.0 / FPS);
 
-	initPlayer(&player);
-	initLanca(&lanca);
-
-	imagePlayer = criarBitmapPlayer(&player, display);
+	initPlayer(&player, display);
+	initLanca(&lanca, &player, display);
 
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
 	al_register_event_source(event_queue, al_get_timer_event_source(timer));
@@ -67,6 +65,13 @@ int prototipo(void) {
 
 			if (acoes[DOWN])
 				andarPlayerBaixo(&player);
+
+			if (acoes[ATTACK])
+				atacarLanca(&lanca);
+			else {
+				lanca.pos[X] = lanca.player->pos[X] + 20;
+				lanca.pos[Y] = lanca.player->pos[Y] - 10;
+			}
 
 		}
 		else if (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
@@ -125,8 +130,8 @@ int prototipo(void) {
 		if (desenhar && al_event_queue_is_empty(event_queue)) {
 			desenhar = false;
 
-			desenharPlayer(&player, imagePlayer);
-			desenharLanca(&lanca, &player);
+			desenharPlayer(&player);
+			desenharLanca(&lanca);
 
 			al_flip_display();
 
@@ -140,32 +145,32 @@ int prototipo(void) {
 	return 0;
 }
 
-void initPlayer(Player *player) {
+void initPlayer(Player *player, ALLEGRO_DISPLAY* display) {
 	player->ID = PLAYER;
 	player->pos[X] = WIDTH / 2;
 	player->pos[Y] = HEIGHT / 2;
+	player->dimensoes[W] = 20;
+	player->dimensoes[H] = 30;
 	player->velocidade = 3;
 	player->vida = 3;
+	player->imagem = criarBitmapPlayer(player, display);
 }
 
 ALLEGRO_BITMAP* criarBitmapPlayer(Player* player, ALLEGRO_DISPLAY* display) {
-	ALLEGRO_BITMAP* image = al_create_bitmap(20, 40);
+	ALLEGRO_BITMAP* image = al_create_bitmap(player->dimensoes[W], player->dimensoes[H]);
 
 	al_set_target_bitmap(image);
 
-	al_clear_to_color(al_map_rgb(50, 50, 50));
-
-	al_draw_filled_ellipse(10, 5, 10, 5, al_map_rgb(0, 255, 0));
-	al_draw_filled_rectangle(0, 5, 20, 40, al_map_rgb(0, 255, 0));
+	al_draw_filled_rectangle(0, 0, player->dimensoes[W], player->dimensoes[H], al_map_rgb(0, 255, 0));
 
 	al_set_target_bitmap(al_get_backbuffer(display));
 
 	return image;
 }
 
-void desenharPlayer(Player* player, ALLEGRO_BITMAP* imagePlayer) {
+void desenharPlayer(Player* player) {
 	al_draw_bitmap(
-		imagePlayer, 
+		player->imagem, 
 		player->pos[X], 
 		player->pos[Y] , 
 		0
@@ -193,13 +198,41 @@ void andarPlayerDireita(Player* player) {
 	}
 }
 
-void initLanca(Lanca* lanca) {
+void initLanca(Lanca* lanca, Player* player, ALLEGRO_DISPLAY* display) {
 	lanca->ID = LANCA;
+	lanca->dimensoes[W] = 3;
+	lanca->dimensoes[H] = 40;
+	lanca->pos[BX] = lanca->dimensoes[W] / 2;
+	lanca->pos[BY] = lanca->dimensoes[H] / 2;
 	lanca->dano = 2;
+	lanca->player = player;
+	lanca->imagem = criarBitmapLanca(lanca, display);
 }
 
-void desenharLanca(Lanca* lanca, Player* player) {
-	lanca->pos[X] = player->pos[X] + 20;
-	lanca->pos[Y] = player->pos[Y] - 10;
-	al_draw_filled_rectangle(lanca->pos[X], lanca->pos[Y], lanca->pos[X] + 3, lanca->pos[Y] + 50, al_map_rgb(0, 0, 255));
+ALLEGRO_BITMAP* criarBitmapLanca(Lanca* lanca, ALLEGRO_DISPLAY* display) {
+	ALLEGRO_BITMAP* image = al_create_bitmap(3, 40);
+
+	al_set_target_bitmap(image);
+
+	al_clear_to_color(al_map_rgb(50, 50, 50));
+
+	al_draw_filled_rectangle(0, 0, lanca->dimensoes[W], lanca->dimensoes[H], al_map_rgb(0, 0, 255));
+
+	al_set_target_bitmap(al_get_backbuffer(display));
+
+	return image;
+}
+
+void desenharLanca(Lanca* lanca) {
+	al_draw_bitmap(
+		lanca->imagem,
+		lanca->pos[X],
+		lanca->pos[Y],
+		0
+	);
+}
+
+void atacarLanca(Lanca* lanca) {
+	lanca->pos[Y] = lanca->player->pos[Y] - lanca->dimensoes[Y] / 2;
+	lanca->pos[X] = lanca->player->pos[X] + 20;
 }
