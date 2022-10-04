@@ -1,16 +1,23 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 #include "player.h"
-#include "constantes.h"
+#include <stdio.h>
+#include <string.h>
 
 int main(void) {
+	// Declaração de variáveis para funcionar o Allegro
 	ALLEGRO_DISPLAY* display = NULL;
 	ALLEGRO_EVENT_QUEUE* eventQueue = NULL;
 	ALLEGRO_TIMER* timer = NULL;
+
+	// Booleans
 	bool done = false;
 	bool desenhar = true;
+
+	// Player
 	Player player;
 
+	// INIT ALLEGRO
 	if (!al_init())
 		return -1;
 
@@ -33,15 +40,15 @@ int main(void) {
 
 	initPlayer(&player, display);
 
+	// inicio do jogo
 	while (!done) {
 		ALLEGRO_EVENT ev;
-		al_wait_for_event(eventQueue, &ev);
+		al_wait_for_event(eventQueue, &ev); // esperar evento
 
-		if (ev.type == ALLEGRO_EVENT_TIMER) {
+		if (ev.type == ALLEGRO_EVENT_TIMER) { // quando der um frame do jogo
 
 			desenhar = true;
 			
-
 			if (player.acoes[LEFT])
 				andarPlayerEsqueda(&player);
 
@@ -54,10 +61,11 @@ int main(void) {
 			if (player.acoes[DOWN])
 				andarPlayerBaixo(&player);
 
+			// TODO: Uma sprite para quando o player ficar parado!
 			if (player.acoes[UP] || player.acoes[DOWN] || player.acoes[LEFT] || player.acoes[RIGHT]) {
 				if (++player.ContFrame >= player.frameDelay) {
 					player.FrameAtual++;
-					if (player.FrameAtual >= player.maxFrame)
+					if (player.FrameAtual >= player.maxFrame[player.tipoAnimacao])
 						player.FrameAtual = 0;
 
 					player.ContFrame = 0;
@@ -66,7 +74,7 @@ int main(void) {
 
 
 		}
-		else if (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
+		else if (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE) { // quando clicar no X do display
 			done = true;
 		}
 		else if (ev.type == ALLEGRO_EVENT_KEY_DOWN) {
@@ -113,7 +121,7 @@ int main(void) {
 			}
 		}
 
-		if (desenhar && al_event_queue_is_empty(eventQueue)) {
+		if (desenhar && al_event_queue_is_empty(eventQueue)) { // desenhar somente quando tiver frames
 
 			desenhar = false;
 

@@ -3,15 +3,15 @@
 #include "constantes.h"
 
 enum POS {X, Y};
-enum TYPE_BITMAP {WALKING};
+enum TYPE_BITMAP {WALKING, LOOKING};
 enum WALKING {UP, DOWN, LEFT, RIGHT};
 
 typedef struct {
 	double POS[2];
 	double velocidade;
-	bool acoes[4];
+	bool acoes[QNT_ACOES];
 
-	int maxFrame;
+	int maxFrame[NUM_SPITES];
 	int FrameAtual;
 	int ContFrame;
 	int frameDelay;
@@ -19,10 +19,14 @@ typedef struct {
 	int linhaAnimacao;
 	int tipoAnimacao;
 
-	ALLEGRO_BITMAP* sheets[1][4];
+	ALLEGRO_BITMAP* sheets[NUM_SPITES];
 } Player, Inimigo;
 
-void createSpriteSheet(int arraySize, char path[][41], char name[]);
+// SPRITES
+void createSpriteSheet(char path[][NUM_PATH], char name[]);
+void juntarSpriteSheets(char path[][NUM_PATH], char name[]);
+
+// PLAYER
 void initPlayer(Player* player, ALLEGRO_DISPLAY* display);
 void desenharPlayer(Player* player);
 void andarPlayerCima(Player* player);
