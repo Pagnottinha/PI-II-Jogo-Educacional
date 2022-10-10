@@ -316,8 +316,8 @@ void UpdateEnemie(struct Enemie enemie[], struct Player *player, int size)
 		{
 
 			//if (((player.x - monster->x < 64 ) && (player.x - monster->x > -64)) && ((player.y - monster->y < 64) && (player.y - monster->y > -64)))
-			if (((player->pos_x - enemie[i].pos_x < 150) && (player->pos_x - enemie[i].pos_x > -150)) && ((player->pos_y - enemie[i].pos_y < 150) && (player->pos_y - enemie[i].pos_y > -150)))
-			{
+			//if (((player->pos_x - enemie[i].pos_x < 150) && (player->pos_x - enemie[i].pos_x > -150)) && ((player->pos_y - enemie[i].pos_y < 150) && (player->pos_y - enemie[i].pos_y > -150)))
+			//{
 				if (enemie[i].pos_x > player->pos_x) {
 					enemie[i].pos_x -= enemie[i].velocidade;
 				}
@@ -331,7 +331,7 @@ void UpdateEnemie(struct Enemie enemie[], struct Player *player, int size)
 				else if (enemie[i].pos_y < player->pos_y) {
 					enemie[i].pos_y += enemie[i].velocidade;
 				}
-			}
+			//}
 			
 			
 
