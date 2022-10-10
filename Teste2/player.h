@@ -12,8 +12,7 @@ struct Enemie
 	int ID;
 	int limiteX;
 	int limiteY;
-
-	double velocidade;
+	int velocidade;
 };
 
 struct Player
@@ -25,8 +24,9 @@ struct Player
 	int pos_y;
 	int limiteX;
 	int limiteY;
-
+	int areaX;
+	int areaY;
+	int velocidade;
 	double pontuacao;
-	double velocidade;
 };
 

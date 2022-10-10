@@ -7,13 +7,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "player.h"
-#define NUM_ENEMIE 10
+#define NUM_ENEMIE 1
 
 ALLEGRO_DISPLAY *display = NULL;
 ALLEGRO_EVENT_QUEUE *event_queue = NULL;
 ALLEGRO_TIMER *timer = NULL;
-int width = 640;
-int height = 480;
+int width = 1000;
+int height = 750;
 
 enum KEYS {UP, DOWN, LEFT, RIGHT, SPACE};
 
@@ -26,8 +26,8 @@ void MovePlayerLeft(struct Player *player);
 
 void InitEnemie(struct Enemie enemie[], int size);
 void DrawEnemie(struct Enemie enemie[], int size);
-void StartEnemie(struct Enemie enemie[], int size);
-void UpdateEnemie(struct Enemie enemie[], int size);
+void StartEnemie(struct Enemie enemie[], struct Player *player ,int size);
+void UpdateEnemie(struct Enemie enemie[], struct Player *player, int size);
 
 void InputTimer()
 {
@@ -66,6 +66,8 @@ void InputTimer()
 
 	al_start_timer(timer);
 
+	StartEnemie(enemie, &player ,NUM_ENEMIE);
+	
 	while (!done)
 	{
 		ALLEGRO_EVENT ev;
@@ -84,8 +86,8 @@ void InputTimer()
 			if (keys[RIGHT])
 				MovePlayerRight(&player);
 
-			StartEnemie(enemie, NUM_ENEMIE);
-			UpdateEnemie(enemie, NUM_ENEMIE);
+			UpdateEnemie(enemie, &player, NUM_ENEMIE);
+
 		}
 		else if (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
 		{
@@ -168,6 +170,8 @@ void InitPlayer(struct Player *player)
 	player->ID = PLAYER;
 	player->pos_x = width / 2;
 	player->pos_y = height / 2;
+	player->areaX = player->pos_x + 190;
+	player->areaY = player->pos_y + 190;
 	player->vida = true;
 	player->velocidade = 5;
 	player->limiteX = 6;
@@ -178,34 +182,53 @@ void InitPlayer(struct Player *player)
 void DrawnPlayer(struct Player *player)
 {
 	al_draw_filled_rectangle(player->pos_x, player->pos_y, player->pos_x + 30, player->pos_y + 30, al_map_rgb(0, 0, 255));
+	al_draw_rectangle(player->pos_x - 80, player->pos_y - 80, player->pos_x + 110, player->pos_y + 110, al_map_rgb(0, 255, 0), 2);
 }
+	//
+
 
 void MovePlayerUp(struct Player *player)
 {
 	player->pos_y -= player->velocidade;
+	player->areaY -= player->velocidade;
 	if (player->pos_y < 0)
 		player->pos_y = 0;
+	
+	if (player->areaY < -95)
+		player->areaY = -95;
 }
 
 void MovePlayerDown(struct Player *player)
 {
 	player->pos_y += player->velocidade;
-	if (player->pos_y > height)
-		player->pos_y = height;
+	player->areaY += player->velocidade;
+	if (player->pos_y > height - 30)
+		player->pos_y = height - 30;
+	
+	if (player->areaY > height - 95)
+		player->areaY = height - 95;
 }
 
 void MovePlayerRight(struct Player *player)
 {
 	player->pos_x += player->velocidade;
-	if (player->pos_x > width)
-		player->pos_x = width;
+	player->areaX += player->velocidade;
+	if (player->pos_x > width - 30)
+		player->pos_x = width - 30;
+
+	if (player->areaX > width - 95)
+		player->areaX = width - 95;
 }
 
 void MovePlayerLeft(struct Player *player)
 {
 	player->pos_x -= player->velocidade;
+	player->areaX -= player->velocidade;
 	if (player->pos_x < 0)
 		player->pos_x = 0;
+
+	if (player->areaX < -95)
+		player->areaX = -95;
 }
 
 
@@ -215,7 +238,7 @@ void InitEnemie(struct Enemie enemie[], int size)
 	{
 		enemie[i].ID = ENEMY;
 		enemie[i].vida = false;
-		enemie[i].velocidade = 2.5;
+		enemie[i].velocidade = 1;
 		enemie[i].limiteX = 18;
 		enemie[i].limiteY = 16;
 	}
@@ -232,34 +255,96 @@ void DrawEnemie(struct Enemie enemie[], int size)
 	}
 }
 
-void StartEnemie(struct Enemie enemie[], int size)
+void StartEnemie(struct Enemie enemie[], struct Player *player ,int size)
 {
 	for (int i = 0; i < size; i++)
 	{
-		if (!enemie[i].vida)
-		{
-			if (rand() % 500 == 0)
-			{
+		//if (!enemie[i].vida)
+		//{
+			//if (rand() % 500 == 0)
+			//{
 				enemie[i].vida = true;
-				enemie[i].pos_x = 30 + rand() % (width - 60);
-				enemie[i].pos_y = height - 479;
+				enemie[i].pos_x = rand() % (width - 40);
+				enemie[i].pos_y = rand() % (height - 40);
+				/*
+					if (enemie[i].pos_x < 0)
+					enemie[i].pos_x = 0;
+				if (enemie[i].pos_x > width - 20)
+					enemie[i].pos_x = width - 20;
+				if (enemie[i].pos_y > height - 20)
+					enemie[i].pos_y = height - 20;
+				if (enemie[i].pos_y < 0)
+					enemie[i].pos_y = 0;
 
-				break;
-			}
-		}
+				*/
+				
+				printf("Valor da posicao x do jogador: %d\nValor da posicao y do jogador: %d\n\n", player->pos_x, player->pos_y);
+				printf("Valor da posicao x em volta do jogador: %d\nValor da posicao y em volta do jogador: %d\n\n", player->areaX, player->areaY);
+				printf("Valor da posicao x: %d\nValor da posicao y: %d\n\n", enemie[i].pos_x, enemie[i].pos_y);
+				
+				while (enemie[i].pos_x > (player->areaX - player->pos_x) && enemie[i].pos_x < (player->areaX + player->pos_x)
+					&& enemie[i].pos_y >(player->areaY - player->pos_y) && enemie[i].pos_y < (player->areaY + player->pos_y))
+				{
+					enemie[i].pos_x = rand() % (width - 40);
+					enemie[i].pos_y = rand() % (height - 40);
+					/*
+					if (enemie[i].pos_x < 0)
+						enemie[i].pos_x = 0;
+					if (enemie[i].pos_x > width - 20)
+						enemie[i].pos_x = width - 20;
+					if (enemie[i].pos_y > height - 20)
+						enemie[i].pos_y = height - 20;
+					if (enemie[i].pos_y < 0)
+						enemie[i].pos_y = 0;
+
+					*/
+					printf("Valor da posicao x: %d\nValor da posicao y: %d\n\n", enemie[i].pos_x, enemie[i].pos_y);
+				}
+			
+				//break; //30 + rand() % (width - 60)
+			//}
+		//}
 	}
 }
 
-void UpdateEnemie(struct Enemie enemie[], int size)
+
+void UpdateEnemie(struct Enemie enemie[], struct Player *player, int size)
 {
 	for (int i = 0; i < size; i++)
 	{
 		if (enemie[i].vida)
 		{
-			enemie[i].pos_y += enemie[i].velocidade;
 
-			if (enemie[i].pos_y > height)
-				enemie[i].vida = false;
+			//if (((player.x - monster->x < 64 ) && (player.x - monster->x > -64)) && ((player.y - monster->y < 64) && (player.y - monster->y > -64)))
+			if (((player->pos_x - enemie[i].pos_x < 150) && (player->pos_x - enemie[i].pos_x > -150)) && ((player->pos_y - enemie[i].pos_y < 150) && (player->pos_y - enemie[i].pos_y > -150)))
+			{
+				if (enemie[i].pos_x > player->pos_x) {
+					enemie[i].pos_x -= enemie[i].velocidade;
+				}
+				else if (enemie[i].pos_x < player->pos_x) {
+					enemie[i].pos_x += enemie[i].velocidade;
+				}
+
+				if (enemie[i].pos_y > player->pos_y) {
+					enemie[i].pos_y -= enemie[i].velocidade;
+				}
+				else if (enemie[i].pos_y < player->pos_y) {
+					enemie[i].pos_y += enemie[i].velocidade;
+				}
+			}
+			
+			
+
+			//
+			//((enemie[i].pos_y < player->areaY + player->pos_y) && (enemie[i].pos_y > player->areaY - player->pos_y)) && ((enemie[i].pos_x > player->areaX - player->pos_x) && (enemie[i].pos_x < player->areaX + player->pos_x))
+			
+			//if ()
+				//enemie[i].pos_x = player->pos_x - enemie[i].velocidade;
+			//if (enemie[i].pos_y < player->areaY + player->pos_y && enemie[i].pos_x < player->areaX + player->pos_x)
+				//enemie[i].pos_y = player->pos_y - enemie[i].velocidade;
+				//enemie[i].pos_x = player->pos_x - enemie[i].velocidade;
+			//if (enemie[i].pos_y > player->areaY - player->pos_y)
+				//enemie[i].pos_y = player->pos_y - enemie[i].velocidade;
 		}
 	}
 }
