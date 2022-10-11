@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "player.h"
-#define NUM_ENEMIE 1
+#define NUM_ENEMIE 3
 
 ALLEGRO_DISPLAY *display = NULL;
 ALLEGRO_EVENT_QUEUE *event_queue = NULL;
@@ -28,6 +28,8 @@ void InitEnemie(struct Enemie enemie[], int size);
 void DrawEnemie(struct Enemie enemie[], int size);
 void StartEnemie(struct Enemie enemie[], struct Player *player ,int size);
 void UpdateEnemie(struct Enemie enemie[], struct Player *player, int size);
+
+//void LookAtack(enum KEYS direcao, struct Player *player);
 
 void InputTimer()
 {
@@ -170,8 +172,12 @@ void InitPlayer(struct Player *player)
 	player->ID = PLAYER;
 	player->pos_x = width / 2;
 	player->pos_y = height / 2;
-	player->areaX = player->pos_x + 190;
-	player->areaY = player->pos_y + 190;
+	player->areaSpawnX = player->pos_x + 190;
+	player->areaSpawnY = player->pos_y + 190;
+	player->areaAtaqX = player->pos_x + 150;
+	player->areaAtaqY = player->pos_y + 150;
+	player->atackX = player->pos_x + 15;
+	player->atackY = player->pos_y + 15;
 	player->vida = true;
 	player->velocidade = 5;
 	player->limiteX = 6;
@@ -182,55 +188,101 @@ void InitPlayer(struct Player *player)
 void DrawnPlayer(struct Player *player)
 {
 	al_draw_filled_rectangle(player->pos_x, player->pos_y, player->pos_x + 30, player->pos_y + 30, al_map_rgb(0, 0, 255));
-	al_draw_rectangle(player->pos_x - 80, player->pos_y - 80, player->pos_x + 110, player->pos_y + 110, al_map_rgb(0, 255, 0), 2);
+	al_draw_line(player->atackX, player->areaAtaqY, player->atackX, player->atackY - 45, al_map_rgb(253, 239, 144), 2);
+	al_draw_circle(player->pos_x + 15, player->pos_y + 15, 80, al_map_rgb(0, 255, 0), 2);
+	al_draw_circle(player->pos_x + 15, player->pos_y + 15, 60, al_map_rgb(255, 255, 0), 2);
 }
-	//
-
 
 void MovePlayerUp(struct Player *player)
 {
 	player->pos_y -= player->velocidade;
-	player->areaY -= player->velocidade;
+	player->atackY -= 45;
+	
 	if (player->pos_y < 0)
 		player->pos_y = 0;
 	
-	if (player->areaY < -95)
-		player->areaY = -95;
+	if (player->areaSpawnY < -95)
+		player->areaSpawnY = -95;
+
+	if (player->areaAtaqY < -75)
+		player->areaAtaqY = -75;
+
+	//LookAtack(UP, &player);
 }
 
 void MovePlayerDown(struct Player *player)
 {
 	player->pos_y += player->velocidade;
-	player->areaY += player->velocidade;
+	player->atackY += 45;
+
 	if (player->pos_y > height - 30)
 		player->pos_y = height - 30;
 	
-	if (player->areaY > height - 95)
-		player->areaY = height - 95;
+	if (player->areaSpawnY > height - 95)
+		player->areaSpawnY = height - 95;
+	
+	if (player->areaAtaqY > height - 75)
+		player->areaAtaqY = height - 75;
+	
+	//LookAtack(DOWN, &player);
 }
 
 void MovePlayerRight(struct Player *player)
 {
 	player->pos_x += player->velocidade;
-	player->areaX += player->velocidade;
+	player->atackX += 45;
+
 	if (player->pos_x > width - 30)
 		player->pos_x = width - 30;
 
-	if (player->areaX > width - 95)
-		player->areaX = width - 95;
+	if (player->areaSpawnX > width - 95)
+		player->areaSpawnX = width - 95;
+
+	if (player->areaAtaqX > width - 75)
+		player->areaAtaqX = width - 75;
+
+	//LookAtack(RIGHT, &player);
 }
 
 void MovePlayerLeft(struct Player *player)
 {
 	player->pos_x -= player->velocidade;
-	player->areaX -= player->velocidade;
+	player->atackX -= 45;
+
 	if (player->pos_x < 0)
 		player->pos_x = 0;
 
-	if (player->areaX < -95)
-		player->areaX = -95;
+	if (player->areaSpawnX < -95)
+		player->areaSpawnX = -95;
+	
+	if (player->areaAtaqX < -75)
+		player->areaAtaqX = -75;
+	
+	//LookAtack(LEFT, &player);
 }
 
+/*
+void LookAtack(enum KEYS direcao, struct Player *player)
+{
+	if (direcao == UP)
+	{
+		player->atackY -= 45;
+	}
+	else if (direcao == DOWN)
+	{
+		player->atackY += 45;
+	}
+	else if (direcao == RIGHT)
+	{
+		player->atackX += 45;
+	}
+	else
+	{
+		player->atackX -= 45;
+	}
+}
+
+*/
 
 void InitEnemie(struct Enemie enemie[], int size)
 {
@@ -279,11 +331,11 @@ void StartEnemie(struct Enemie enemie[], struct Player *player ,int size)
 				*/
 				
 				printf("Valor da posicao x do jogador: %d\nValor da posicao y do jogador: %d\n\n", player->pos_x, player->pos_y);
-				printf("Valor da posicao x em volta do jogador: %d\nValor da posicao y em volta do jogador: %d\n\n", player->areaX, player->areaY);
+				printf("Valor da posicao x em volta do jogador: %d\nValor da posicao y em volta do jogador: %d\n\n", player->areaSpawnX, player->areaSpawnY);
 				printf("Valor da posicao x: %d\nValor da posicao y: %d\n\n", enemie[i].pos_x, enemie[i].pos_y);
 				
-				while (enemie[i].pos_x > (player->areaX - player->pos_x) && enemie[i].pos_x < (player->areaX + player->pos_x)
-					&& enemie[i].pos_y >(player->areaY - player->pos_y) && enemie[i].pos_y < (player->areaY + player->pos_y))
+				while (enemie[i].pos_x > (player->areaSpawnX - player->pos_x) && enemie[i].pos_x < (player->areaSpawnX + player->pos_x)
+					&& enemie[i].pos_y >(player->areaSpawnY - player->pos_y) && enemie[i].pos_y < (player->areaSpawnY + player->pos_y))
 				{
 					enemie[i].pos_x = rand() % (width - 40);
 					enemie[i].pos_y = rand() % (height - 40);

@@ -24,9 +24,14 @@ struct Player
 	int pos_y;
 	int limiteX;
 	int limiteY;
-	int areaX;
-	int areaY;
+	int atackX;
+	int atackY;
+	int areaSpawnX;
+	int areaSpawnY;
+	int areaAtaqX;
+	int areaAtaqY;
 	int velocidade;
+	
 	double pontuacao;
 };
 
