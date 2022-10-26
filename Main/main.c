@@ -1,14 +1,9 @@
-#include <allegro5/allegro.h>
-#include <allegro5/allegro_image.h>
+#include "Init.h"
 #include "player.h"
 #include <stdio.h>
 #include <string.h>
 
 int main(void) {
-	// Declaração de variáveis para funcionar o Allegro
-	ALLEGRO_DISPLAY* display = NULL;
-	ALLEGRO_EVENT_QUEUE* eventQueue = NULL;
-	ALLEGRO_TIMER* timer = NULL;
 
 	// Booleans
 	bool done = false;
@@ -17,33 +12,18 @@ int main(void) {
 	// Player
 	Player player;
 
-	// INIT ALLEGRO
-	if (!al_init())
+	Allegro* allegro = init();
+
+	if (allegro == NULL) {
 		return -1;
+	}
 
-	display = al_create_display(WIDTH, HEIGHT);
-
-	if (!display)
-		return 0;
-
-	eventQueue = al_create_event_queue();
-	timer = al_create_timer(1.0 / FPS);
-
-	al_install_keyboard();
-	al_init_image_addon();
-
-	al_register_event_source(eventQueue, al_get_keyboard_event_source());
-	al_register_event_source(eventQueue, al_get_display_event_source(display));
-	al_register_event_source(eventQueue, al_get_timer_event_source(timer));
-
-	al_start_timer(timer);
-
-	initPlayer(&player, display);
+	initPlayer(&player, allegro->display);
 
 	// inicio do jogo
 	while (!done) {
 		ALLEGRO_EVENT ev;
-		al_wait_for_event(eventQueue, &ev); // esperar evento
+		al_wait_for_event(allegro->eventQueue, &ev); // esperar evento
 
 		if (ev.type == ALLEGRO_EVENT_TIMER) { // quando der um frame do jogo
 
@@ -121,7 +101,7 @@ int main(void) {
 			}
 		}
 
-		if (desenhar && al_event_queue_is_empty(eventQueue)) { // desenhar somente quando tiver frames
+		if (desenhar && al_is_event_queue_empty(allegro->eventQueue)) { // desenhar somente quando tiver frames
 
 			desenhar = false;
 
@@ -134,8 +114,7 @@ int main(void) {
 		
 	}
 
-	al_destroy_event_queue(eventQueue);
-	al_destroy_display(display);
+	destroy(allegro);
 
 	return 0;
 }
