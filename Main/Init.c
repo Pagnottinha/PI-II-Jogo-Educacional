@@ -1,17 +1,20 @@
 #include "init.h"
 
-Allegro* init() {
+Allegro init() {
+	Allegro allegro;
 
 	if (!al_init()) {
-		return NULL;
+		allegro.deuCerto = false;
+		return allegro;
 	}
 
-	Allegro allegro;
 	allegro.display = al_create_display(WIDTH, HEIGHT);
 	allegro.eventQueue = al_create_event_queue();
 	allegro.timer = al_create_timer(1.0 / FPS);
 
 	if (deuCerto(&allegro)) {
+		allegro.deuCerto = true;
+
 		al_install_keyboard();
 		al_init_image_addon();
 
@@ -21,10 +24,11 @@ Allegro* init() {
 
 		al_start_timer(allegro.timer);
 
-		return &allegro;
+		return allegro;
 	}
 	else {
-		return NULL;
+		allegro.deuCerto = false;
+		return allegro;
 	}
 }
 bool deuCerto(Allegro* allegro) {

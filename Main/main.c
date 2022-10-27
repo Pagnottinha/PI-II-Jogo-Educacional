@@ -12,18 +12,17 @@ int main(void) {
 	// Player
 	Player player;
 
-	Allegro* allegro = init();
+	Allegro allegro = init();
 
-	if (allegro == NULL) {
+	if (!allegro.deuCerto)
 		return -1;
-	}
 
-	initPlayer(&player, allegro->display);
+	initPlayer(&player, allegro.display);
 
 	// inicio do jogo
 	while (!done) {
 		ALLEGRO_EVENT ev;
-		al_wait_for_event(allegro->eventQueue, &ev); // esperar evento
+		al_wait_for_event(allegro.eventQueue, &ev); // esperar evento
 
 		if (ev.type == ALLEGRO_EVENT_TIMER) { // quando der um frame do jogo
 
@@ -101,7 +100,7 @@ int main(void) {
 			}
 		}
 
-		if (desenhar && al_is_event_queue_empty(allegro->eventQueue)) { // desenhar somente quando tiver frames
+		if (desenhar && al_is_event_queue_empty(allegro.eventQueue)) { // desenhar somente quando tiver frames
 
 			desenhar = false;
 
@@ -114,7 +113,7 @@ int main(void) {
 		
 	}
 
-	destroy(allegro);
+	destroy(&allegro);
 
 	return 0;
 }
