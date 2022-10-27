@@ -188,7 +188,7 @@ void InitPlayer(struct Player *player)
 void DrawnPlayer(struct Player *player)
 {
 	al_draw_filled_rectangle(player->pos_x, player->pos_y, player->pos_x + 30, player->pos_y + 30, al_map_rgb(0, 0, 255));
-	al_draw_line(player->atackX, player->areaAtaqY, player->atackX, player->atackY - 45, al_map_rgb(253, 239, 144), 2);
+	
 	al_draw_circle(player->pos_x + 15, player->pos_y + 15, 80, al_map_rgb(0, 255, 0), 2);
 	al_draw_circle(player->pos_x + 15, player->pos_y + 15, 60, al_map_rgb(255, 255, 0), 2);
 }
