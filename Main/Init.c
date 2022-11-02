@@ -2,6 +2,7 @@
 
 Allegro init() {
 	Allegro allegro;
+	allegro.deuCerto = false;
 
 	if (al_init()) {
 
@@ -21,12 +22,6 @@ Allegro init() {
 
 			al_start_timer(allegro.timer);
 		}
-		else {
-			allegro.deuCerto = false;
-		}
-	}
-	else {
-		allegro.deuCerto = false;
 	}
 
 	return allegro;
