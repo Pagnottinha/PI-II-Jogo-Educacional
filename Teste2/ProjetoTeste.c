@@ -7,13 +7,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "player.h"
-#define NUM_ENEMIE 3
+#define NUM_ENEMIE 10
 
 ALLEGRO_DISPLAY *display = NULL;
 ALLEGRO_EVENT_QUEUE *event_queue = NULL;
 ALLEGRO_TIMER *timer = NULL;
 int width = 1000;
 int height = 750;
+int cont = 2;
+int enemieDeath = 2;
 
 enum KEYS {UP, DOWN, LEFT, RIGHT, SPACE};
 
@@ -28,6 +30,8 @@ void InitEnemie(struct Enemie enemie[], int size);
 void DrawEnemie(struct Enemie enemie[], int size);
 void StartEnemie(struct Enemie enemie[], struct Player *player ,int size);
 void UpdateEnemie(struct Enemie enemie[], struct Player *player, int size);
+//bool EnemieLive(struct Enemie enemie[], struct Player *player, int size);
+
 
 //void LookAtack(enum KEYS direcao, struct Player *player);
 
@@ -60,7 +64,7 @@ void InputTimer()
 	
 	srand(time(NULL));
 	InitPlayer(&player);
-	InitEnemie(enemie, NUM_ENEMIE);
+	InitEnemie(enemie, cont);
 
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
 	al_register_event_source(event_queue, al_get_display_event_source(display));
@@ -68,7 +72,7 @@ void InputTimer()
 
 	al_start_timer(timer);
 
-	StartEnemie(enemie, &player ,NUM_ENEMIE);
+	StartEnemie(enemie, &player, cont);
 	
 	while (!done)
 	{
@@ -88,7 +92,17 @@ void InputTimer()
 			if (keys[RIGHT])
 				MovePlayerRight(&player);
 
-			UpdateEnemie(enemie, &player, NUM_ENEMIE);
+			UpdateEnemie(enemie, &player, cont);
+			//enemieDeath = EnemieLive(enemie, &player, cont);
+
+			if (enemieDeath == 0 && cont != 10)
+			{
+				cont += 2;
+				enemieDeath = cont;
+				InitEnemie(enemie, cont);
+				StartEnemie(enemie, &player, cont);
+				DrawEnemie(enemie, cont);
+			}
 
 		}
 		else if (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
@@ -157,7 +171,7 @@ void InputTimer()
 			redraw = false;
 
 			DrawnPlayer(&player);
-			DrawEnemie(enemie, NUM_ENEMIE);
+			DrawEnemie(enemie, cont);
 			al_flip_display();
 			al_clear_to_color(al_map_rgb(0, 0, 0));	
 		}
@@ -188,7 +202,7 @@ void InitPlayer(struct Player *player)
 void DrawnPlayer(struct Player *player)
 {
 	al_draw_filled_rectangle(player->pos_x, player->pos_y, player->pos_x + 30, player->pos_y + 30, al_map_rgb(0, 0, 255));
-	al_draw_line(player->pos_x + 15, player->pos_y + 15, player->pos_x + 15, player->pos_y - 45, al_map_rgb(253, 239, 144), 2);
+	//al_draw_line(player->atackX, player->areaAtaqY, player->atackX, player->atackY - 45, al_map_rgb(253, 239, 144), 2);
 	al_draw_circle(player->pos_x + 15, player->pos_y + 15, 80, al_map_rgb(0, 255, 0), 2);
 	al_draw_circle(player->pos_x + 15, player->pos_y + 15, 60, al_map_rgb(255, 255, 0), 2);
 }
@@ -284,6 +298,8 @@ void LookAtack(enum KEYS direcao, struct Player *player)
 
 */
 
+
+
 void InitEnemie(struct Enemie enemie[], int size)
 {
 	for (int i = 0; i < size; i++)
@@ -311,8 +327,8 @@ void StartEnemie(struct Enemie enemie[], struct Player *player ,int size)
 {
 	for (int i = 0; i < size; i++)
 	{
-		//if (!enemie[i].vida)
-		//{
+		if (!enemie[i].vida)
+		{
 			//if (rand() % 500 == 0)
 			//{
 				enemie[i].vida = true;
@@ -355,10 +371,23 @@ void StartEnemie(struct Enemie enemie[], struct Player *player ,int size)
 			
 				//break; //30 + rand() % (width - 60)
 			//}
-		//}
+		}
 	}
 }
+/*
+bool EnemieLive(struct Enemie enemie[], struct Player *player,int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		if (enemie[i].pos_x == player->pos_x && enemie[i].pos_y == player->pos_y)
+		{
+			enemie[i].vida = false;
+			return true;
+		}
+	}
 
+	return false;
+} */
 
 void UpdateEnemie(struct Enemie enemie[], struct Player *player, int size)
 {
@@ -398,6 +427,14 @@ void UpdateEnemie(struct Enemie enemie[], struct Player *player, int size)
 			//if (enemie[i].pos_y > player->areaY - player->pos_y)
 				//enemie[i].pos_y = player->pos_y - enemie[i].velocidade;
 		}
+		
+		if (enemie[i].pos_x == player->pos_x && enemie[i].pos_y == player->pos_y && enemie[i].vida)
+		{
+			enemie[i].vida = false;
+			enemieDeath--;
+		}
+		
+		
 	}
 }
 
