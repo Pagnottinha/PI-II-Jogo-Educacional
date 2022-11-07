@@ -14,10 +14,10 @@
 		"Sprites/Player/walking4.bmp"
 	};
 
-	juntarSpriteSheet(path, "walking.bmp");
+	juntarSpriteSheets(path, "walking.bmp");
 */
 
-void createSpriteSheet(char path[][NUM_PATH], char name[]) { // CRIA SPRITES EM UMA LINHA
+void createSpriteSheet(char path[NUM_CRIAR_SPRITES][NUM_PATH], char name[]) { // CRIA SPRITES EM UMA LINHA
 	
 	ALLEGRO_BITMAP* image[NUM_CRIAR_SPRITES];
 	ALLEGRO_BITMAP* outImage;
@@ -43,7 +43,7 @@ void createSpriteSheet(char path[][NUM_PATH], char name[]) { // CRIA SPRITES EM 
 	al_save_bitmap(name, outImage);
 }
 
-void juntarSpriteSheets(char path[][NUM_PATH], char name[]) { // JUNTA AS SPRITES DE UMA DIMENSÃO 
+void juntarSpriteSheets(char path[NUM_CRIAR_SPRITES][NUM_PATH], char name[]) { // JUNTA AS SPRITES DE UMA DIMENSÃO 
 	ALLEGRO_BITMAP* image[NUM_CRIAR_SPRITES];
 	ALLEGRO_BITMAP* outImage;
 
@@ -83,53 +83,55 @@ void initPlayer(Player* player, ALLEGRO_DISPLAY* display) {
 	player->velocidade = 2;
 	
 	// frame
-	player->framePOS[X] = 96;
-	player->framePOS[Y] = 96;
+	player->dimensoesFrame[X] = 286;
+	player->dimensoesFrame[Y] = 130;
 	player->ContFrame = 0;
 	player->FrameAtual = 0;
-	player->linhaAnimacao = 1;
+	player->linhaAnimacao = DIREITA;
 	player->frameDelay = 15;
-	player->tipoAnimacao = WALKING; // bitmap inicial
+	player->dimensoesLanca[X] = 102;
+	player->dimensoesLanca[Y] = 5;
 
-	// walking
-	player->maxFrame[WALKING] = 8;
+	player->maxFrame[CORRENDO] = 6;
+	player->maxFrame[IDLE] = 6;
+	player->maxFrame[ATACANDO] = 6;
 
 	// declarar 
-	player->sheets[WALKING] = al_load_bitmap("Sprites/Player/walking.bmp");
+	player->sheets[CORRENDO] = al_load_bitmap("Sprites/Player/correr.png");
+	player->sheets[ATACANDO] = al_load_bitmap("Sprites/Player/ataque.png");
+	player->sheets[IDLE] = al_load_bitmap("Sprites/Player/idle.png");
 	
-	for (i = 0; i < NUM_SPITES; i++) {
-		al_convert_mask_to_alpha(player->sheets[i], al_map_rgb(94, 66, 41));
+	for (i = 0; i < NUM_SPRITES; i++) {
+		al_convert_mask_to_alpha(player->sheets[i], al_map_rgb(0, 0, 0));
 	}
 }
 
 void andarPlayerCima(Player* player) {
-	player->linhaAnimacao = UP;
-	player->tipoAnimacao = WALKING;
+	player->tipoAnimacao = CORRENDO;
 	if (player->POS[Y] > 0) {
 		player->POS[Y] -= player->velocidade;
 	}
 }
 
 void andarPlayerBaixo(Player* player) {
-	player->linhaAnimacao = DOWN;
-	player->tipoAnimacao = WALKING;
-	if (player->POS[Y] < HEIGHT - player->framePOS[X]) {
+	player->tipoAnimacao = CORRENDO;
+	if (player->POS[Y] < HEIGHT - player->dimensoesFrame[Y]) {
 		player->POS[Y] += player->velocidade;
 	}
 }
 
 void andarPlayerEsqueda(Player* player) {
-	player->linhaAnimacao = LEFT;
-	player->tipoAnimacao = WALKING;
-	if (player->POS[X] > 0) {
+	player->linhaAnimacao = ESQUERDA;
+	player->tipoAnimacao = CORRENDO;
+	if (player->POS[X] > 0 - (player->dimensoesLanca[X] - 50)) {
 		player->POS[X] -= player->velocidade;
 	}
 }
 
 void andarPlayerDireita(Player* player) {
-	player->linhaAnimacao = RIGHT;
-	player->tipoAnimacao = WALKING;
-	if (player->POS[X] < WIDTH - player->framePOS[X]) {
+	player->linhaAnimacao = DIREITA;
+	player->tipoAnimacao = CORRENDO;
+	if (player->POS[X] < WIDTH - (50 + player->dimensoesLanca[X] + 82)) {
 		player->POS[X] += player->velocidade;
 	}
 }
@@ -137,9 +139,9 @@ void andarPlayerDireita(Player* player) {
 void desenharPlayer(Player* player) {
 	
 	// pegar o frame no bitmap
-	int fx = player->FrameAtual * player->framePOS[X];
-	int fy = player->linhaAnimacao * player->framePOS[Y];
+	int fx = player->FrameAtual * player->dimensoesFrame[X];
+	int fy = player->linhaAnimacao * player->dimensoesFrame[Y];
 
-	al_draw_bitmap_region(player->sheets[player->tipoAnimacao], fx, fy, player->framePOS[X], player->framePOS[Y],
+	al_draw_bitmap_region(player->sheets[player->tipoAnimacao], fx, fy, player->dimensoesFrame[X], player->dimensoesFrame[Y],
 		player->POS[X], player->POS[Y], 0);
 }

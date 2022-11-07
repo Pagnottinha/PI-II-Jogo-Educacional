@@ -1,13 +1,13 @@
 #pragma once
 // DISPLAY
 #define FPS 60
-#define WIDTH 800
-#define HEIGHT 800
+#define WIDTH 1080
+#define HEIGHT 720
 
 // SPRITES
-#define NUM_PATH 28
-#define NUM_CRIAR_SPRITES 4
-#define NUM_SPITES 1
+#define NUM_PATH 25
+#define NUM_CRIAR_SPRITES 2
+#define NUM_SPRITES 3
 
 // PLAYER
 #define QNT_ACOES 4

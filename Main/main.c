@@ -27,28 +27,31 @@ int main(void) {
 		if (ev.type == ALLEGRO_EVENT_TIMER) { // quando der um frame do jogo
 
 			desenhar = true;
-			
-			if (player.acoes[LEFT])
-				andarPlayerEsqueda(&player);
-
-			if (player.acoes[RIGHT])
-				andarPlayerDireita(&player);
-
-			if (player.acoes[UP])
-				andarPlayerCima(&player);
-
-			if (player.acoes[DOWN])
-				andarPlayerBaixo(&player);
 
 			// TODO: Uma sprite para quando o player ficar parado!
 			if (player.acoes[UP] || player.acoes[DOWN] || player.acoes[LEFT] || player.acoes[RIGHT]) {
-				if (++player.ContFrame >= player.frameDelay) {
-					player.FrameAtual++;
-					if (player.FrameAtual >= player.maxFrame[player.tipoAnimacao])
-						player.FrameAtual = 0;
+				if (player.acoes[LEFT])
+					andarPlayerEsqueda(&player);
 
-					player.ContFrame = 0;
-				}
+				if (player.acoes[RIGHT])
+					andarPlayerDireita(&player);
+
+				if (player.acoes[UP])
+					andarPlayerCima(&player);
+
+				if (player.acoes[DOWN])
+					andarPlayerBaixo(&player);
+			}
+			else {
+				player.tipoAnimacao = IDLE;
+			}
+
+			if (++player.ContFrame >= player.frameDelay) {
+				player.FrameAtual++;
+				if (player.FrameAtual >= player.maxFrame[player.tipoAnimacao])
+					player.FrameAtual = 0;
+
+				player.ContFrame = 0;
 			}
 
 
