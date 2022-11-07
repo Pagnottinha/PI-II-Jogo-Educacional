@@ -2,7 +2,7 @@
 #include <allegro5/allegro_image.h>
 #include "constantes.h"
 
-enum POS {X, Y};
+enum POS {X, Y };
 enum TYPE_BITMAP {CORRENDO, ATACANDO, IDLE};
 enum DIRECOES {UP, DOWN, LEFT, RIGHT};
 enum ANIMACAO {DIREITA, ESQUERDA};
@@ -12,7 +12,7 @@ typedef struct {
 	double velocidade;
 	bool acoes[QNT_ACOES];
 
-	int maxFrame[NUM_SPRITES];
+	int maxFrame[NUM_SPRITES_PLAYER];
 	int FrameAtual;
 	int ContFrame;
 	int frameDelay;
@@ -21,12 +21,12 @@ typedef struct {
 	int linhaAnimacao;
 	int tipoAnimacao;
 
-	ALLEGRO_BITMAP* sheets[NUM_SPRITES];
-} Player, Inimigo;
+	ALLEGRO_BITMAP* sheets[NUM_SPRITES_PLAYER];
+} Player;
 
 // SPRITES
-void createSpriteSheet(char path[][NUM_PATH], char name[]);
-void juntarSpriteSheets(char path[][NUM_PATH], char name[]);
+void createSpriteSheet(char path[NUM_CRIAR_SPRITES][NUM_PATH], char name[]);
+void juntarSpriteSheets(char path[NUM_CRIAR_SPRITES][NUM_PATH], char name[]);
 
 // PLAYER
 void initPlayer(Player* player, ALLEGRO_DISPLAY* display);

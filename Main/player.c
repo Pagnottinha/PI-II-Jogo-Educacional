@@ -80,7 +80,7 @@ void initPlayer(Player* player, ALLEGRO_DISPLAY* display) {
 	player->POS[X] = al_get_display_width(display) / 2;
 	player->POS[Y] = al_get_display_height(display) / 2;
 
-	player->velocidade = 2;
+	player->velocidade = 2.5;
 	
 	// frame
 	player->dimensoesFrame[X] = 286;
@@ -101,7 +101,7 @@ void initPlayer(Player* player, ALLEGRO_DISPLAY* display) {
 	player->sheets[ATACANDO] = al_load_bitmap("Sprites/Player/ataque.png");
 	player->sheets[IDLE] = al_load_bitmap("Sprites/Player/idle.png");
 	
-	for (i = 0; i < NUM_SPRITES; i++) {
+	for (i = 0; i < NUM_SPRITES_PLAYER; i++) {
 		al_convert_mask_to_alpha(player->sheets[i], al_map_rgb(0, 0, 0));
 	}
 }

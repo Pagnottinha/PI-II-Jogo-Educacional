@@ -1,5 +1,5 @@
 #include "Init.h"
-#include "player.h"
+#include "Inimigo.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -11,6 +11,7 @@ int main(void) {
 
 	// Player
 	Player player;
+	Enemies enemies;
 
 	Allegro allegro = init();
 
@@ -18,6 +19,8 @@ int main(void) {
 		return -1;
 
 	initPlayer(&player, allegro.display);
+	enemies.countEnemies = 2;
+	InitEnemie(&enemies);
 
 	// inicio do jogo
 	while (!done) {
@@ -54,6 +57,13 @@ int main(void) {
 				player.ContFrame = 0;
 			}
 
+			UpdateEnemie(&enemies, player);
+
+			if (enemies.enemieDeath == 0 && enemies.countEnemies != 10) {
+				enemies.countEnemies += 2;
+				enemies.enemieDeath = enemies.countEnemies;
+				InitEnemie(&enemies);
+			}
 
 		}
 		else if (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE) { // quando clicar no X do display
@@ -107,8 +117,9 @@ int main(void) {
 
 			desenhar = false;
 
+			DrawEnemie(enemies);
 			desenharPlayer(&player);
-
+			
 			al_flip_display();
 
 			al_clear_to_color(al_map_rgb(0, 0, 0));

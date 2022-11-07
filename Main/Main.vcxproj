@@ -141,6 +141,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="inimigo.c" />
     <ClCompile Include="Init.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="player.c" />
@@ -150,6 +151,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="constantes.h" />
+    <ClInclude Include="Inimigo.h" />
     <ClInclude Include="Init.h" />
     <ClInclude Include="player.h" />
   </ItemGroup>
