@@ -12,10 +12,13 @@
 ALLEGRO_DISPLAY *display = NULL;
 ALLEGRO_EVENT_QUEUE *event_queue = NULL;
 ALLEGRO_TIMER *timer = NULL;
+ALLEGRO_FONT* font24;
+
 int width = 1000;
 int height = 750;
 int cont = 2;
 int enemieDeath = 2;
+
 
 enum KEYS {UP, DOWN, LEFT, RIGHT, SPACE};
 
@@ -31,6 +34,7 @@ void DrawEnemie(struct Enemie enemie[], int size);
 void StartEnemie(struct Enemie enemie[], struct Player *player ,int size);
 void UpdateEnemie(struct Enemie enemie[], struct Player *player, int size);
 //bool EnemieLive(struct Enemie enemie[], struct Player *player, int size);
+
 
 
 //void LookAtack(enum KEYS direcao, struct Player *player);
@@ -55,10 +59,12 @@ void InputTimer()
 	if (!display)
 		return -1;
 
-
-	al_init_primitives_addon();
 	al_install_keyboard();
-
+	al_init_font_addon();
+	al_init_ttf_addon();
+	al_init_primitives_addon();
+	
+	font24 = al_load_font("arial.ttf", 24, 0);
 	event_queue = al_create_event_queue();
 	timer = al_create_timer(1.0 / FPS);
 	
@@ -66,11 +72,13 @@ void InputTimer()
 	InitPlayer(&player);
 	InitEnemie(enemie, cont);
 
+
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
 	al_register_event_source(event_queue, al_get_display_event_source(display));
 	al_register_event_source(event_queue, al_get_timer_event_source(timer));
 
 	al_start_timer(timer);
+
 
 	StartEnemie(enemie, &player, cont);
 	
@@ -93,16 +101,20 @@ void InputTimer()
 				MovePlayerRight(&player);
 
 			UpdateEnemie(enemie, &player, cont);
+
 			//enemieDeath = EnemieLive(enemie, &player, cont);
 
 			if (enemieDeath == 0 && cont != 10)
 			{
+				printf("Round %d", cont);
+				//al_draw_textf(font24, al_map_rgb(255, 255, 255), width / 2, height / 2, ALLEGRO_ALIGN_CENTER, "Round %d", cont);
 				cont += 2;
 				enemieDeath = cont;
 				InitEnemie(enemie, cont);
 				StartEnemie(enemie, &player, cont);
 				DrawEnemie(enemie, cont);
 			}
+
 
 		}
 		else if (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
@@ -462,4 +474,4 @@ int main(void)
 	} while (item != 0);
 	
 	return 0;
-}
+} 
