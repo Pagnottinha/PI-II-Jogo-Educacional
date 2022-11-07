@@ -15,6 +15,7 @@ ALLEGRO_TIMER *timer = NULL;
 int width = 1000;
 int height = 750;
 int cont = 2;
+int enemieDeath = 2;
 
 enum KEYS {UP, DOWN, LEFT, RIGHT, SPACE};
 
@@ -29,6 +30,7 @@ void InitEnemie(struct Enemie enemie[], int size);
 void DrawEnemie(struct Enemie enemie[], int size);
 void StartEnemie(struct Enemie enemie[], struct Player *player ,int size);
 void UpdateEnemie(struct Enemie enemie[], struct Player *player, int size);
+//bool EnemieLive(struct Enemie enemie[], struct Player *player, int size);
 
 
 //void LookAtack(enum KEYS direcao, struct Player *player);
@@ -70,7 +72,7 @@ void InputTimer()
 
 	al_start_timer(timer);
 
-	StartEnemie(enemie, &player ,cont);
+	StartEnemie(enemie, &player, cont);
 	
 	while (!done)
 	{
@@ -91,6 +93,16 @@ void InputTimer()
 				MovePlayerRight(&player);
 
 			UpdateEnemie(enemie, &player, cont);
+			//enemieDeath = EnemieLive(enemie, &player, cont);
+
+			if (enemieDeath == 0 && cont != 10)
+			{
+				cont += 2;
+				enemieDeath = cont;
+				InitEnemie(enemie, cont);
+				StartEnemie(enemie, &player, cont);
+				DrawEnemie(enemie, cont);
+			}
 
 		}
 		else if (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
@@ -315,8 +327,8 @@ void StartEnemie(struct Enemie enemie[], struct Player *player ,int size)
 {
 	for (int i = 0; i < size; i++)
 	{
-		//if (!enemie[i].vida)
-		//{
+		if (!enemie[i].vida)
+		{
 			//if (rand() % 500 == 0)
 			//{
 				enemie[i].vida = true;
@@ -359,10 +371,23 @@ void StartEnemie(struct Enemie enemie[], struct Player *player ,int size)
 			
 				//break; //30 + rand() % (width - 60)
 			//}
-		//}
+		}
 	}
 }
+/*
+bool EnemieLive(struct Enemie enemie[], struct Player *player,int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		if (enemie[i].pos_x == player->pos_x && enemie[i].pos_y == player->pos_y)
+		{
+			enemie[i].vida = false;
+			return true;
+		}
+	}
 
+	return false;
+} */
 
 void UpdateEnemie(struct Enemie enemie[], struct Player *player, int size)
 {
@@ -402,6 +427,14 @@ void UpdateEnemie(struct Enemie enemie[], struct Player *player, int size)
 			//if (enemie[i].pos_y > player->areaY - player->pos_y)
 				//enemie[i].pos_y = player->pos_y - enemie[i].velocidade;
 		}
+		
+		if (enemie[i].pos_x == player->pos_x && enemie[i].pos_y == player->pos_y && enemie[i].vida)
+		{
+			enemie[i].vida = false;
+			enemieDeath--;
+		}
+		
+		
 	}
 }
 
