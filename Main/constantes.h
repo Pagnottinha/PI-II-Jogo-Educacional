@@ -1,4 +1,3 @@
-#pragma once
 // DISPLAY
 #define FPS 60
 #define WIDTH 1080
@@ -11,7 +10,7 @@
 #define NUM_SPRITES_ENEMIE 2
 
 // PLAYER
-#define QNT_ACOES 4
+#define QNT_ACOES 5
 
 // INIMIES
 #define NUM_ENEMIES 10

@@ -1,4 +1,4 @@
-#include "player.h"
+#include "inimigo.h"
 #include <stdio.h>
 
 /*
@@ -70,6 +70,7 @@ void juntarSpriteSheets(char path[NUM_CRIAR_SPRITES][NUM_PATH], char name[]) { /
 }
 
 void initPlayer(Player* player, ALLEGRO_DISPLAY* display) {
+	player->vivo = true;
 	// deixar todos os estados de ação em false
 	int i;
 	for (i = 0; i < QNT_ACOES; i++) {
@@ -90,7 +91,9 @@ void initPlayer(Player* player, ALLEGRO_DISPLAY* display) {
 	player->linhaAnimacao = DIREITA;
 	player->frameDelay = 15;
 	player->dimensoesLanca[X] = 102;
-	player->dimensoesLanca[Y] = 5;
+	player->dimensoesLanca[Y] = 11;
+	player->hitboxPlayer = 40;
+	player->hitboxLanca = 90;
 
 	player->maxFrame[CORRENDO] = 6;
 	player->maxFrame[IDLE] = 6;
@@ -144,4 +147,45 @@ void desenharPlayer(Player* player) {
 
 	al_draw_bitmap_region(player->sheets[player->tipoAnimacao], fx, fy, player->dimensoesFrame[X], player->dimensoesFrame[Y],
 		player->POS[X], player->POS[Y], 0);
+}
+
+void destroyBitmapsPlayer(Player* player) {
+	for (int i = 0; i < NUM_SPRITES_PLAYER; i++) {
+		al_destroy_bitmap(player->sheets[i]);
+	}
+}
+
+void ataquePlayer(Player* player, Enemies* enemies) {
+	if (player->tipoAnimacao != ATACANDO) {
+		player->FrameAtual = 0;
+		player->tipoAnimacao = ATACANDO;
+	}
+	
+	if (player->FrameAtual == 4) {
+		for (int i = 0; i < enemies->countEnemies; i++) {
+			Enemie* enemie = &enemies->enemie[i];
+			if (playerAcertou(player, enemie) && enemie->vida) {
+				enemie->vida = false;
+				enemies->enemieDeath++;
+			}
+		}
+	}
+	else if (player->FrameAtual >= player->maxFrame[ATACANDO] - 1) {
+		player->acoes[ATAQUE] = false;
+	}
+}
+
+bool playerAcertou(Player* player, Enemie* enemie) {
+	if (player->linhaAnimacao == ESQUERDA) {
+		return (player->POS[X] < enemie->POS[X] + enemie->dimensoesFrame[X]) &&
+			(player->POS[X] > enemie->POS[X]) &&
+			((player->POS[Y] + player->hitboxLanca) > enemie->POS[Y]) &&
+			((player->POS[Y] + player->hitboxLanca + player->dimensoesLanca[Y]) < enemie->POS[Y] + enemie->dimensoesFrame[Y]);
+	}
+	else {
+		return (player->POS[X] + player->dimensoesFrame[X] > enemie->POS[X]) &&
+			(player->POS[X] + player->dimensoesFrame[X] < enemie->POS[X] + enemie->dimensoesFrame[X]) &&
+			((player->POS[Y] + player->hitboxLanca) > enemie->POS[Y]) &&
+			((player->POS[Y] + player->hitboxLanca + player->dimensoesLanca[Y]) < enemie->POS[Y] + enemie->dimensoesFrame[Y]);
+	}
 }

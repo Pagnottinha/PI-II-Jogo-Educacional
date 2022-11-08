@@ -19,11 +19,12 @@ int main(void) {
 		return -1;
 
 	initPlayer(&player, allegro.display);
-	enemies.countEnemies = 2;
+	enemies.countEnemies = 0;
+	enemies.enemieDeath = 0;
 	InitEnemie(&enemies);
 
 	// inicio do jogo
-	while (!done) {
+	while (!done && player.vivo) {
 		ALLEGRO_EVENT ev;
 		al_wait_for_event(allegro.eventQueue, &ev); // esperar evento
 
@@ -31,8 +32,10 @@ int main(void) {
 
 			desenhar = true;
 
-			// TODO: Uma sprite para quando o player ficar parado!
-			if (player.acoes[UP] || player.acoes[DOWN] || player.acoes[LEFT] || player.acoes[RIGHT]) {
+			if (player.acoes[ATAQUE]) {
+				ataquePlayer(&player, &enemies);
+			}
+			else if (player.acoes[UP] || player.acoes[DOWN] || player.acoes[LEFT] || player.acoes[RIGHT]) {
 				if (player.acoes[LEFT])
 					andarPlayerEsqueda(&player);
 
@@ -59,10 +62,10 @@ int main(void) {
 
 			UpdateEnemie(&enemies, player);
 
-			if (enemies.enemieDeath == 0 && enemies.countEnemies != 10) {
+			if (enemies.enemieDeath == enemies.countEnemies && enemies.countEnemies != 10) {
 				enemies.countEnemies += 2;
-				enemies.enemieDeath = enemies.countEnemies;
-				InitEnemie(&enemies);
+				enemies.enemieDeath = 0;
+				NewWave(&enemies);
 			}
 
 		}
@@ -87,6 +90,9 @@ int main(void) {
 				case ALLEGRO_KEY_D:
 				case ALLEGRO_KEY_RIGHT:
 					player.acoes[RIGHT] = true;
+					break;
+				case ALLEGRO_KEY_SPACE:
+					player.acoes[ATAQUE] = true;
 					break;
 			}
 		}
@@ -128,6 +134,8 @@ int main(void) {
 	}
 
 	destroy(&allegro);
+	destroyBitmapsEnemie(&enemies);
+	destroyBitmapsPlayer(&player);
 
 	return 0;
 }

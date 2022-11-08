@@ -3,11 +3,12 @@
 #include "constantes.h"
 
 enum POS {X, Y };
-enum TYPE_BITMAP {CORRENDO, ATACANDO, IDLE};
-enum DIRECOES {UP, DOWN, LEFT, RIGHT};
-enum ANIMACAO {DIREITA, ESQUERDA};
+enum TYPE_BITMAP {CORRENDO, ATACANDO, IDLE };
+enum ACOES {UP, DOWN, LEFT, RIGHT, ATAQUE };
+enum ANIMACAO {DIREITA, ESQUERDA };
 
 typedef struct {
+	bool vivo;
 	double POS[2];
 	double velocidade;
 	bool acoes[QNT_ACOES];
@@ -18,6 +19,8 @@ typedef struct {
 	int frameDelay;
 	int dimensoesFrame[2];
 	int dimensoesLanca[2];
+	int hitboxPlayer;
+	int hitboxLanca;
 	int linhaAnimacao;
 	int tipoAnimacao;
 
@@ -35,3 +38,4 @@ void andarPlayerCima(Player* player);
 void andarPlayerBaixo(Player* player);
 void andarPlayerEsqueda(Player* player);
 void andarPlayerDireita(Player* player);
+void destroyBitmapsPlayer(Player* player);

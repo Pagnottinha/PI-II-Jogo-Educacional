@@ -1,5 +1,6 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
+#include "constantes.h"
 #include "player.h"
 
 typedef struct {
@@ -25,7 +26,14 @@ typedef struct {
 	int enemieDeath;
 } Enemies;
 
+// Inimigo
 void InitEnemie(Enemies* enemies);
 void DrawEnemie(Enemies enemies);
+void NewWave(Enemies* enemies);
 void UpdateEnemie(Enemies* enemies, Player player);
-//bool EnemieLive(struct Enemie enemie[], struct Player *player, int size);
+
+void destroyBitmapsEnemie(Enemies* enemies);
+
+// player ataque
+void ataquePlayer(Player* player, Enemie* enemie);
+bool playerAcertou(Player* player, Enemies* enemies);

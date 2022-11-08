@@ -2,11 +2,19 @@
 
 void InitEnemie(Enemies* enemies)
 {
-    for (int i = 0; i < enemies->countEnemies; i++)
+
+    ALLEGRO_BITMAP* correndo = al_load_bitmap("Sprites/Inimigo/correr.png");
+    ALLEGRO_BITMAP* atacando = al_load_bitmap("Sprites/Inimigo/ataque.png");
+
+    al_convert_mask_to_alpha(correndo, al_map_rgb(0, 0, 0));
+    al_convert_mask_to_alpha(atacando, al_map_rgb(0, 0, 0));
+
+
+    for (int i = 0; i < NUM_ENEMIES; i++)
     {
         Enemie* enemie = &enemies->enemie[i];
 
-        enemie->vida = true;
+        enemie->vida = false;
         enemie->velocidade = 1;
 
 		// frame
@@ -21,13 +29,17 @@ void InitEnemie(Enemies* enemies)
 		enemie->maxFrame[CORRENDO] = 6;
 		enemie->maxFrame[ATACANDO] = 6;
 
-        enemie->sheets[CORRENDO] = al_load_bitmap("Sprites/Inimigo/correr.png");
-        enemie->sheets[ATACANDO] = al_load_bitmap("Sprites/Inimigo/ataque.png");
+        enemie->sheets[CORRENDO] = correndo;
+        enemie->sheets[ATACANDO] = atacando;
 
-        int j;
-		for (j = 0; j < NUM_SPRITES_ENEMIE; j++) {
-			al_convert_mask_to_alpha(enemie->sheets[j], al_map_rgb(0, 0, 0));
-		}
+    }
+}
+
+void NewWave(Enemies* enemies) {
+    for (int i = 0; i < enemies->countEnemies; i++) {
+        Enemie* enemie = &enemies->enemie[i];
+
+        enemie->vida = true;
 
         if (rand() % 2) {
             enemie->POS[X] = -enemie->dimensoesFrame[X];
@@ -36,10 +48,7 @@ void InitEnemie(Enemies* enemies)
             enemie->POS[X] = WIDTH + enemie->dimensoesFrame[X];
         }
 
-        enemie->POS[Y] = rand() % (HEIGHT - 40);
-
-        
-
+        enemie->POS[Y] = rand() % HEIGHT;
     }
 }
 
@@ -86,10 +95,10 @@ void UpdateEnemie(Enemies* enemies, Player player)
             }
         }
 
-        if (enemie->POS[X] == player.POS[Y] && enemie->POS[Y] == player.POS[Y] && enemie->vida)
+        if (enemie->POS[X] == player.POS[X] && enemie->POS[Y] == player.POS[Y] && enemie->vida)
         {
             enemie->vida = false;
-            enemies->enemieDeath--;
+            enemies->enemieDeath++;
         }
         else if (++enemie->ContFrame >= enemie->frameDelay) {
             enemie->FrameAtual++;
@@ -100,5 +109,14 @@ void UpdateEnemie(Enemies* enemies, Player player)
             enemie->ContFrame = 0;
         }
         
+    }
+}
+
+void destroyBitmapsEnemie(Enemies* enemies) {
+    for (int i = 0; i < enemies->countEnemies; i++) {
+        Enemie* enemie = &enemies->enemie[i];
+        for (int j = 0; j < NUM_SPRITES_ENEMIE; j++) {
+            al_destroy_bitmap(enemie->sheets[j]);
+        }
     }
 }

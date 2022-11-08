@@ -11,6 +11,8 @@ Allegro init() {
 		allegro.timer = al_create_timer(1.0 / FPS);
 
 		if (deuCerto(&allegro)) {
+			srand(time(NULL));
+
 			allegro.deuCerto = true;
 
 			al_install_keyboard();

@@ -1,6 +1,8 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 #include "constantes.h"
+#include "stdlib.h"
+#include "time.h"
 
 typedef struct {
 	ALLEGRO_DISPLAY* display;
