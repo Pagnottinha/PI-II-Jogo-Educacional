@@ -48,7 +48,7 @@ void NewWave(Enemies* enemies) {
             enemie->POS[X] = -enemie->dimensoesFrame[X];
         }
         else {
-            enemie->POS[X] = WIDTH + enemie->dimensoesFrame[X];
+            enemie->POS[X] = WIDTH;
         }
 
         enemie->POS[Y] = rand() % HEIGHT;
@@ -89,15 +89,14 @@ void UpdateEnemie(Enemies* enemies, Player* player)
             else {
 
                 // ARRUMAR CONDIÇÕES
-                if (enemie->POS[X] > player->POS[X]) {
+                if (enemie->POS[X] >= player->POS[X] + player->dimensoesFrame[X] / 2 + player->hitboxPlayer) {
                     enemie->linhaAnimacao = ESQUERDA;
                     enemie->POS[X] -= enemie->velocidade;
                 }
-                else if (enemie->POS[X] < player->POS[X] + player->dimensoesFrame[X] / 2 + player->hitboxPlayer) {
+                else if (enemie->POS[X] <= player->POS[X]) {
                     enemie->linhaAnimacao = DIREITA;
                     enemie->POS[X] += enemie->velocidade;
                 }
-
 
                 if (enemie->POS[Y] > player->POS[Y]) {
                     enemie->POS[Y] -= enemie->velocidade;
@@ -107,9 +106,6 @@ void UpdateEnemie(Enemies* enemies, Player* player)
                 }
             }
         }
-
-
-        
         
         if (++enemie->ContFrame >= enemie->frameDelay) {
             enemie->FrameAtual++;
@@ -132,12 +128,12 @@ bool enemieAtaca(Enemie* enemie, Player* player) {
 }
 
 void destroyBitmapsEnemie(Enemies* enemies) {
-    for (int i = 0; i < enemies->countEnemies; i++) {
-        Enemie* enemie = &enemies->enemie[i];
-        for (int j = 0; j < NUM_SPRITES_ENEMIE; j++) {
-            al_destroy_bitmap(enemie->sheets[j]);
-        }
+
+    Enemie* enemie = &enemies->enemie[0];
+    for (int j = 0; j < NUM_SPRITES_ENEMIE; j++) {
+        al_destroy_bitmap(enemie->sheets[j]);
     }
+
 }
 
 void ataqueEnemie(Enemie* enemie, Player* player) {

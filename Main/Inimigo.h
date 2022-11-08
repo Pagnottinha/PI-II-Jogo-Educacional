@@ -6,8 +6,8 @@
 typedef struct {
 	bool vida;
 
-	int POS[2];
-	int velocidade;
+	double POS[2];
+	double velocidade;
 
 	int maxFrame[NUM_SPRITES_ENEMIE];
 	int FrameAtual;

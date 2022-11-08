@@ -84,7 +84,7 @@ void initPlayer(Player* player, ALLEGRO_DISPLAY* display) {
 	player->POS[X] = al_get_display_width(display) / 2;
 	player->POS[Y] = al_get_display_height(display) / 2;
 
-	player->velocidade = 2.5;
+	player->velocidade = 2;
 	
 	// frame
 	player->dimensoesFrame[X] = 286;
