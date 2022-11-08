@@ -16,6 +16,7 @@ void InitEnemie(Enemies* enemies)
 
         enemie->vida = false;
         enemie->velocidade = 1;
+        enemie->dano = 30;
 
 		// frame
 		enemie->dimensoesFrame[X] = 151;
@@ -144,8 +145,11 @@ void ataqueEnemie(Enemie* enemie, Player* player) {
 
     if ((enemie->FrameAtual == 3 || enemie->FrameAtual == 4) && enemieAcertou(enemie, player)) {
         
-        if (--player->vida == 0) {
+        player->vida[ATUAL] -= enemie->dano;
+
+        if (player->vida[ATUAL] <= 0) {
             player->vivo = false;
+            player->vida[ATUAL] = 0;
             return;
         }
 

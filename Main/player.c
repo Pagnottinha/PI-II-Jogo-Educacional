@@ -72,7 +72,8 @@ void juntarSpriteSheets(char path[NUM_CRIAR_SPRITES][NUM_PATH], char name[]) { /
 void initPlayer(Player* player, ALLEGRO_DISPLAY* display) {
 
 	player->vivo = true;
-	player->vida = 3;
+	player->vida[MAXIMA] = 120;
+	player->vida[ATUAL] = player->vida[MAXIMA];
 
 	// deixar todos os estados de ação em false
 	int i;

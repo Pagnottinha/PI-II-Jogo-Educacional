@@ -18,14 +18,18 @@ typedef struct {
 	int tipoAnimacao;
 	int hitboxEspada;
 	int dimensoesEspada[2];
+	int dano;
 
 	ALLEGRO_BITMAP* sheets[NUM_SPRITES_ENEMIE];
 } Enemie;
+
+enum WAVES {MAX, QNT};
 
 typedef struct {
 	Enemie enemie[NUM_ENEMIES];
 	int countEnemies;
 	int enemieDeath;
+	int waves[2];
 } Enemies;
 
 // Inimigo

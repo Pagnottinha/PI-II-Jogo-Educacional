@@ -2,6 +2,9 @@
 #include "Inimigo.h"
 #include <stdio.h>
 #include <string.h>
+#include <allegro5\allegro_font.h>
+#include <allegro5\allegro_ttf.h>
+#include <allegro5\allegro_primitives.h>
 
 int main(void) {
 
@@ -15,12 +18,22 @@ int main(void) {
 
 	Allegro allegro = init();
 
+	ALLEGRO_FONT* font24;
+
+	al_init_primitives_addon();
+	al_init_font_addon();
+	al_init_ttf_addon();
+
+	font24 = al_load_font("arial.ttf", 24, 0);
+
 	if (!allegro.deuCerto)
 		return -1;
 
 	initPlayer(&player, allegro.display);
 	enemies.countEnemies = 0;
 	enemies.enemieDeath = 0;
+	enemies.waves[MAX] = 5;
+	enemies.waves[QNT] = 0;
 	InitEnemie(&enemies);
 
 	// inicio do jogo
@@ -62,10 +75,16 @@ int main(void) {
 
 			UpdateEnemie(&enemies, &player);
 
-			if (enemies.enemieDeath == enemies.countEnemies && enemies.countEnemies != 10) {
+
+			if (enemies.enemieDeath == enemies.countEnemies) {
+				enemies.waves[QNT]++;
 				enemies.countEnemies += 2;
 				enemies.enemieDeath = 0;
-				NewWave(&enemies);
+
+				if (enemies.waves[QNT] <= enemies.waves[MAX])
+					NewWave(&enemies);
+				else
+					done = true;
 			}
 
 		}
@@ -122,6 +141,14 @@ int main(void) {
 		if (desenhar && al_is_event_queue_empty(allegro.eventQueue)) { // desenhar somente quando tiver frames
 
 			desenhar = false;
+
+			al_draw_text(font24, al_map_rgb(255, 255, 255), 20, 20, 0, "Vida: ");
+			al_draw_textf(font24, al_map_rgb(255, 255, 255), WIDTH - 150, 20, 0, "Onda %d", enemies.waves[QNT]);
+			al_draw_textf(font24, al_map_rgb(255, 255, 255), 20, HEIGHT - 40, 0, "Inimigos Restantes %d", enemies.countEnemies - enemies.enemieDeath);
+
+			al_draw_rectangle(80, 25, 200, 45, al_map_rgb(0, 255, 0), 2);
+
+			al_draw_filled_rectangle(80, 25, player.vida[ATUAL] + 80, 45, al_map_rgb(0, 255, 0));
 
 			DrawEnemie(enemies);
 			desenharPlayer(&player);

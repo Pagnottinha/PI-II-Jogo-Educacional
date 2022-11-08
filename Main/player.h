@@ -6,10 +6,10 @@ enum POS {X, Y };
 enum TYPE_BITMAP {CORRENDO, ATACANDO, IDLE };
 enum ACOES {UP, DOWN, LEFT, RIGHT, ATAQUE };
 enum ANIMACAO {DIREITA, ESQUERDA };
-
+enum VIDA {MAXIMA, ATUAL};
 typedef struct {
 	bool vivo;
-	int vida;
+	int vida[2];
 	double POS[2];
 	double velocidade;
 	bool acoes[QNT_ACOES];
@@ -24,6 +24,7 @@ typedef struct {
 	int hitboxLanca;
 	int linhaAnimacao;
 	int tipoAnimacao;
+	int dano;
 
 	ALLEGRO_BITMAP* sheets[NUM_SPRITES_PLAYER];
 } Player;
