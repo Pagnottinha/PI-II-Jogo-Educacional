@@ -93,7 +93,7 @@ void initPlayer(Player* player, ALLEGRO_DISPLAY* display) {
 	player->ContFrame = 0;
 	player->FrameAtual = 0;
 	player->linhaAnimacao = DIREITA;
-	player->frameDelay = 15;
+	player->frameDelay = 8;
 	player->dimensoesLanca[X] = 102;
 	player->dimensoesLanca[Y] = 11;
 	player->hitboxPlayer = 40;
@@ -165,12 +165,25 @@ void ataquePlayer(Player* player, Enemies* enemies) {
 		player->tipoAnimacao = ATACANDO;
 	}
 	
-	if (player->FrameAtual == 4) {
+	if (player->FrameAtual == 4 && player->ContFrame == 0) {
 		for (int i = 0; i < enemies->countEnemies; i++) {
 			Enemie* enemie = &enemies->enemie[i];
-			if (playerAcertou(player, enemie) && enemie->vida) {
-				enemie->vida = false;
-				enemies->enemieDeath++;
+			if (playerAcertou(player, enemie) && enemie->vivo) {
+
+				enemie->vida[ATUAL] -= rand() % 10 + 25;
+
+				if (enemie->vida[ATUAL] <= 0) {
+					enemie->vivo = false;
+					enemies->enemieDeath++;
+				}
+
+				if (player->linhaAnimacao == ESQUERDA) {
+					enemie->POS[X] -= 25;
+				}
+				else {
+					enemie->POS[X] += 25;
+				}
+			
 			}
 		}
 	}

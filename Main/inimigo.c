@@ -2,6 +2,10 @@
 
 void InitEnemie(Enemies* enemies)
 {
+    enemies->countEnemies = 0;
+    enemies->enemieDeath = 0;
+    enemies->waves[MAX] = 5;
+    enemies->waves[QNT] = 0;
 
     ALLEGRO_BITMAP* correndo = al_load_bitmap("Sprites/Inimigo/correr.png");
     ALLEGRO_BITMAP* atacando = al_load_bitmap("Sprites/Inimigo/ataque.png");
@@ -14,7 +18,7 @@ void InitEnemie(Enemies* enemies)
     {
         Enemie* enemie = &enemies->enemie[i];
 
-        enemie->vida = false;
+        enemie->vivo = false;
         enemie->velocidade = 1;
         enemie->dano = 30;
 
@@ -25,7 +29,7 @@ void InitEnemie(Enemies* enemies)
 		enemie->FrameAtual = 0;
 		enemie->linhaAnimacao = DIREITA;
         enemie->tipoAnimacao = CORRENDO;
-		enemie->frameDelay = 15;
+		enemie->frameDelay = 10;
         enemie->hitboxEspada = 87;
         enemie->dimensoesEspada[X] = 28;
         enemie->dimensoesEspada[Y] = 18;
@@ -43,7 +47,9 @@ void NewWave(Enemies* enemies) {
     for (int i = 0; i < enemies->countEnemies; i++) {
         Enemie* enemie = &enemies->enemie[i];
 
-        enemie->vida = true;
+        enemie->vivo = true;
+        enemie->vida[MAXIMA] = rand() % 20 + 50;
+        enemie->vida[ATUAL] = enemie->vida[MAXIMA];
 
         if (rand() % 2) {
             enemie->POS[X] = -enemie->dimensoesFrame[X];
@@ -61,7 +67,7 @@ void DrawEnemie(Enemies enemies)
     for (int i = 0; i < enemies.countEnemies; i++)
     {
         Enemie enemie = enemies.enemie[i];
-        if (enemie.vida)
+        if (enemie.vivo)
         {
 			int fx = enemie.FrameAtual * enemie.dimensoesFrame[X];
 			int fy = enemie.linhaAnimacao * enemie.dimensoesFrame[Y];
@@ -78,7 +84,7 @@ void UpdateEnemie(Enemies* enemies, Player* player)
     {
         Enemie *enemie = &enemies->enemie[i];
 
-        if (enemie->vida)
+        if (enemie->vivo)
         {
             if (enemieAtaca(enemie, player))
             {
@@ -143,7 +149,7 @@ void ataqueEnemie(Enemie* enemie, Player* player) {
         enemie->tipoAnimacao = ATACANDO;
     }
 
-    if ((enemie->FrameAtual == 3 || enemie->FrameAtual == 4) && enemieAcertou(enemie, player)) {
+    if ((enemie->FrameAtual == 3 || enemie->FrameAtual == 4) && enemie->ContFrame == 0 && enemieAcertou(enemie, player)) {
         
         player->vida[ATUAL] -= enemie->dano;
 

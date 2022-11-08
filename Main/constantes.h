@@ -3,6 +3,8 @@
 #define WIDTH 1080
 #define HEIGHT 720
 
+#define NUM_FONTS 1
+
 // SPRITES
 #define NUM_PATH 28
 #define NUM_CRIAR_SPRITES 2
@@ -13,4 +15,4 @@
 #define QNT_ACOES 5
 
 // INIMIES
-#define NUM_ENEMIES 10
+#define NUM_ENEMIES 5

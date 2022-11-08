@@ -4,7 +4,8 @@
 #include "player.h"
 
 typedef struct {
-	bool vida;
+	bool vivo;
+	int vida[2];
 
 	double POS[2];
 	double velocidade;
@@ -44,5 +45,5 @@ bool enemieAcertou(Enemie* enemie, Player* player);
 void destroyBitmapsEnemie(Enemies* enemies);
 
 // player ataque
-void ataquePlayer(Player* player, Enemie* enemie);
-bool playerAcertou(Player* player, Enemies* enemies);
+void ataquePlayer(Player* player, Enemies* enemies);
+bool playerAcertou(Player* player, Enemie* enemie);
