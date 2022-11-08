@@ -19,7 +19,6 @@ typedef struct {
 	int tipoAnimacao;
 	int hitboxEspada;
 	int dimensoesEspada[2];
-	int dano;
 
 	ALLEGRO_BITMAP* sheets[NUM_SPRITES_ENEMIE];
 } Enemie;
