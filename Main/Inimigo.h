@@ -16,6 +16,8 @@ typedef struct {
 	int dimensoesFrame[2];
 	int linhaAnimacao;
 	int tipoAnimacao;
+	int hitboxEspada;
+	int dimensoesEspada[2];
 
 	ALLEGRO_BITMAP* sheets[NUM_SPRITES_ENEMIE];
 } Enemie;
@@ -30,7 +32,10 @@ typedef struct {
 void InitEnemie(Enemies* enemies);
 void DrawEnemie(Enemies enemies);
 void NewWave(Enemies* enemies);
-void UpdateEnemie(Enemies* enemies, Player player);
+void UpdateEnemie(Enemies* enemies, Player* player);
+void ataqueEnemie(Enemie* enemie, Player* player);
+bool enemieAtaca(Enemie* enemie, Player* player);
+bool enemieAcertou(Enemie* enemie, Player* player);
 
 void destroyBitmapsEnemie(Enemies* enemies);
 

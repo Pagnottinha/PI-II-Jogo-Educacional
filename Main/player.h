@@ -9,6 +9,7 @@ enum ANIMACAO {DIREITA, ESQUERDA };
 
 typedef struct {
 	bool vivo;
+	int vida;
 	double POS[2];
 	double velocidade;
 	bool acoes[QNT_ACOES];

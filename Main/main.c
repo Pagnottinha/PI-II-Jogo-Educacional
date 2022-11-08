@@ -60,7 +60,7 @@ int main(void) {
 				player.ContFrame = 0;
 			}
 
-			UpdateEnemie(&enemies, player);
+			UpdateEnemie(&enemies, &player);
 
 			if (enemies.enemieDeath == enemies.countEnemies && enemies.countEnemies != 10) {
 				enemies.countEnemies += 2;

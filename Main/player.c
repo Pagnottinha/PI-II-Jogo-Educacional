@@ -70,7 +70,10 @@ void juntarSpriteSheets(char path[NUM_CRIAR_SPRITES][NUM_PATH], char name[]) { /
 }
 
 void initPlayer(Player* player, ALLEGRO_DISPLAY* display) {
+
 	player->vivo = true;
+	player->vida = 3;
+
 	// deixar todos os estados de ação em false
 	int i;
 	for (i = 0; i < QNT_ACOES; i++) {

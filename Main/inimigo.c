@@ -25,6 +25,9 @@ void InitEnemie(Enemies* enemies)
 		enemie->linhaAnimacao = DIREITA;
         enemie->tipoAnimacao = CORRENDO;
 		enemie->frameDelay = 15;
+        enemie->hitboxEspada = 87;
+        enemie->dimensoesEspada[X] = 28;
+        enemie->dimensoesEspada[Y] = 18;
 
 		enemie->maxFrame[CORRENDO] = 6;
 		enemie->maxFrame[ATACANDO] = 6;
@@ -68,7 +71,7 @@ void DrawEnemie(Enemies enemies)
     }
 }
 
-void UpdateEnemie(Enemies* enemies, Player player)
+void UpdateEnemie(Enemies* enemies, Player* player)
 {
     for (int i = 0; i < enemies->countEnemies; i++)
     {
@@ -76,31 +79,39 @@ void UpdateEnemie(Enemies* enemies, Player player)
 
         if (enemie->vida)
         {
-
-            if (enemie->POS[X] > player.POS[X] + 30) {
-                enemie->linhaAnimacao = ESQUERDA;
-                enemie->POS[X] -= enemie->velocidade;
+            if (enemieAtaca(enemie, player))
+            {
+                ataqueEnemie(enemie, player);
             }
-            else if (enemie->POS[X] < player.POS[X]) {
-                enemie->linhaAnimacao = DIREITA;
-                enemie->POS[X] += enemie->velocidade;
+            else if (enemie->tipoAnimacao == ATACANDO) {
+                enemie->tipoAnimacao = CORRENDO;
             }
+            else {
+
+                // ARRUMAR CONDIÇÕES
+                if (enemie->POS[X] > player->POS[X]) {
+                    enemie->linhaAnimacao = ESQUERDA;
+                    enemie->POS[X] -= enemie->velocidade;
+                }
+                else if (enemie->POS[X] < player->POS[X] + player->dimensoesFrame[X] / 2 + player->hitboxPlayer) {
+                    enemie->linhaAnimacao = DIREITA;
+                    enemie->POS[X] += enemie->velocidade;
+                }
 
 
-            if (enemie->POS[Y] > player.POS[Y]) {
-                enemie->POS[Y] -= enemie->velocidade;
-            }
-            else if (enemie->POS[Y] < player.POS[Y]) {
-                enemie->POS[Y] += enemie->velocidade;
+                if (enemie->POS[Y] > player->POS[Y]) {
+                    enemie->POS[Y] -= enemie->velocidade;
+                }
+                else if (enemie->POS[Y] < player->POS[Y]) {
+                    enemie->POS[Y] += enemie->velocidade;
+                }
             }
         }
 
-        if (enemie->POS[X] == player.POS[X] && enemie->POS[Y] == player.POS[Y] && enemie->vida)
-        {
-            enemie->vida = false;
-            enemies->enemieDeath++;
-        }
-        else if (++enemie->ContFrame >= enemie->frameDelay) {
+
+        
+        
+        if (++enemie->ContFrame >= enemie->frameDelay) {
             enemie->FrameAtual++;
 
             if (enemie->FrameAtual >= enemie->maxFrame[enemie->tipoAnimacao])
@@ -112,11 +123,57 @@ void UpdateEnemie(Enemies* enemies, Player player)
     }
 }
 
+bool enemieAtaca(Enemie* enemie, Player* player) {
+    int meioPlayer = player->POS[X] + player->dimensoesFrame[X] / 2;
+
+    return (enemie->POS[X] > player->POS[X] && enemie->POS[X] < meioPlayer + player->hitboxPlayer) &&
+        enemie->POS[Y] == player->POS[Y] &&
+        enemie->vida;
+}
+
 void destroyBitmapsEnemie(Enemies* enemies) {
     for (int i = 0; i < enemies->countEnemies; i++) {
         Enemie* enemie = &enemies->enemie[i];
         for (int j = 0; j < NUM_SPRITES_ENEMIE; j++) {
             al_destroy_bitmap(enemie->sheets[j]);
         }
+    }
+}
+
+void ataqueEnemie(Enemie* enemie, Player* player) {
+    if (enemie->tipoAnimacao != ATACANDO) {
+        enemie->FrameAtual = 0;
+        enemie->tipoAnimacao = ATACANDO;
+    }
+
+    if ((enemie->FrameAtual == 3 || enemie->FrameAtual == 4) && enemieAcertou(enemie, player)) {
+        
+        if (--player->vida == 0) {
+            player->vivo = false;
+            return;
+        }
+
+        if (enemie->linhaAnimacao == ESQUERDA) {
+            player->POS[X] -= 25;
+        }
+        else {
+            player->POS[X] += 25;
+        }
+    }
+}
+
+bool enemieAcertou(Enemie* enemie, Player* player) {
+    double meioPlayer = player->POS[X] + player->dimensoesFrame[X] / 2.0;
+    if (enemie->linhaAnimacao == ESQUERDA) {
+        return (enemie->POS[X] < meioPlayer + player->hitboxPlayer) &&
+            (enemie->POS[X] > meioPlayer - player->hitboxPlayer) &&
+            ((enemie->POS[Y] + enemie->hitboxEspada) > player->POS[Y]) &&
+            ((enemie->POS[Y] + enemie->hitboxEspada + enemie->dimensoesEspada[Y]) < meioPlayer + player->hitboxPlayer);
+    }
+    else {
+        return (enemie->POS[X] + enemie->dimensoesFrame[X] > meioPlayer - player->hitboxPlayer) &&
+            (enemie->POS[X] + enemie->dimensoesFrame[X] < meioPlayer + player->hitboxPlayer) &&
+            ((enemie->POS[Y] + enemie->hitboxEspada) > player->POS[Y]) &&
+            ((enemie->POS[Y] + enemie->hitboxEspada + enemie->dimensoesEspada[Y]) < player->POS[Y] + meioPlayer + player->hitboxPlayer);
     }
 }
