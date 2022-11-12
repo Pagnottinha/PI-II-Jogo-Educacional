@@ -193,16 +193,15 @@ void ataquePlayer(Player* player, Enemies* enemies) {
 }
 
 bool playerAcertou(Player* player, Enemie* enemie) {
+	int coordenadasX = enemie->POS[X];
+
 	if (player->linhaAnimacao == ESQUERDA) {
-		return (player->POS[X] < enemie->POS[X] + enemie->dimensoesFrame[X]) &&
-			(player->POS[X] > enemie->POS[X]) &&
-			((player->POS[Y] + player->hitboxLanca) > enemie->POS[Y]) &&
-			((player->POS[Y] + player->hitboxLanca + player->dimensoesLanca[Y]) < enemie->POS[Y] + enemie->dimensoesFrame[Y]);
+		coordenadasX += enemie->dimensoesFrame[X];
 	}
-	else {
-		return (player->POS[X] + player->dimensoesFrame[X] > enemie->POS[X]) &&
-			(player->POS[X] + player->dimensoesFrame[X] < enemie->POS[X] + enemie->dimensoesFrame[X]) &&
-			((player->POS[Y] + player->hitboxLanca) > enemie->POS[Y]) &&
-			((player->POS[Y] + player->hitboxLanca + player->dimensoesLanca[Y]) < enemie->POS[Y] + enemie->dimensoesFrame[Y]);
-	}
+
+	return (player->POS[X] < coordenadasX) &&
+		(player->POS[X] + player->dimensoesFrame[X] > coordenadasX) &&
+		((player->POS[Y] + player->hitboxLanca) > enemie->POS[Y]) && ((player->POS[Y] + player->hitboxLanca) < enemie->POS[Y] + enemie->dimensoesFrame[Y]) &&
+		((player->POS[Y] + player->hitboxLanca) > enemie->POS[Y]) &&
+		((player->POS[Y] + player->hitboxLanca + player->dimensoesLanca[Y]) < enemie->POS[Y] + enemie->dimensoesFrame[Y]);
 }
