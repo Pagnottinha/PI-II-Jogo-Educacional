@@ -1,4 +1,5 @@
 #include "Inimigo.h"
+#include <stdio.h>
 
 void InitEnemie(Enemies* enemies)
 {
@@ -19,7 +20,6 @@ void InitEnemie(Enemies* enemies)
         Enemie* enemie = &enemies->enemie[i];
 
         enemie->vivo = false;
-        enemie->velocidade = 1;
 
 		// frame
 		enemie->dimensoesFrame[X] = 151;
@@ -49,6 +49,7 @@ void NewWave(Enemies* enemies) {
         enemie->vivo = true;
         enemie->vida[MAXIMA] = rand() % 20 + 50;
         enemie->vida[ATUAL] = enemie->vida[MAXIMA];
+        enemie->velocidade = rand() % 501 / 1000.0 + 1;
 
         if (rand() % 2) {
             enemie->POS[X] = -enemie->dimensoesFrame[X];
@@ -85,7 +86,7 @@ void UpdateEnemie(Enemies* enemies, Player* player)
 
         if (enemie->vivo)
         {
-            if (enemieAtaca(enemie, player))
+            if (enemieAcerta(enemie, player))
             {
                 ataqueEnemie(enemie, player);
             }
@@ -94,22 +95,7 @@ void UpdateEnemie(Enemies* enemies, Player* player)
             }
             else {
 
-                // ARRUMAR CONDIÇÕES
-                if (enemie->POS[X] >= player->POS[X] + player->dimensoesFrame[X] / 2 + player->hitboxPlayer) {
-                    enemie->linhaAnimacao = ESQUERDA;
-                    enemie->POS[X] -= enemie->velocidade;
-                }
-                else if (enemie->POS[X] <= player->POS[X]) {
-                    enemie->linhaAnimacao = DIREITA;
-                    enemie->POS[X] += enemie->velocidade;
-                }
-
-                if (enemie->POS[Y] > player->POS[Y]) {
-                    enemie->POS[Y] -= enemie->velocidade;
-                }
-                else if (enemie->POS[Y] < player->POS[Y]) {
-                    enemie->POS[Y] += enemie->velocidade;
-                }
+                MoveEnemie(enemie, player);
             }
         }
         
@@ -125,12 +111,29 @@ void UpdateEnemie(Enemies* enemies, Player* player)
     }
 }
 
-bool enemieAtaca(Enemie* enemie, Player* player) {
-    int meioPlayer = player->POS[X] + player->dimensoesFrame[X] / 2;
+void MoveEnemie(Enemie* enemie, Player* player) {
+    int meioPlayer = player->POS[X] + player->dimensoesFrame[X] / 2.0;
 
-    return (enemie->POS[X] > player->POS[X] && enemie->POS[X] < meioPlayer + player->hitboxPlayer) &&
-        enemie->POS[Y] == player->POS[Y] &&
-        enemie->vida;
+    double dx = enemie->POS[X] > player->POS[X] ? enemie->POS[X] - player->POS[X] : player->POS[X] - enemie->POS[X];
+    double dy = enemie->POS[Y] > player->POS[Y] ? enemie->POS[Y] - player->POS[Y] : player->POS[Y] - enemie->POS[Y];
+
+    double angulo = atan(dx / dy);
+    
+    if (enemie->POS[X] >= meioPlayer) {
+        enemie->linhaAnimacao = ESQUERDA;
+        enemie->POS[X] -= sin(angulo) * enemie->velocidade;
+    }
+    else if (enemie->POS[X] + enemie->dimensoesFrame[X] <= meioPlayer) {
+        enemie->linhaAnimacao = DIREITA;
+        enemie->POS[X] += sin(angulo) * enemie->velocidade;
+    }
+    
+    if (enemie->POS[Y] > player->POS[Y] + 1) {
+        enemie->POS[Y] -= cos(angulo) * enemie->velocidade;
+    }
+    else if (enemie->POS[Y] < player->POS[Y] - 1) {
+        enemie->POS[Y] += cos(angulo) * enemie->velocidade;
+    }
 }
 
 void destroyBitmapsEnemie(Enemies* enemies) {
@@ -148,7 +151,7 @@ void ataqueEnemie(Enemie* enemie, Player* player) {
         enemie->tipoAnimacao = ATACANDO;
     }
 
-    if ((enemie->FrameAtual == 3 || enemie->FrameAtual == 4) && enemie->ContFrame == 0 && enemieAcertou(enemie, player)) {
+    if ((enemie->FrameAtual == 3 || enemie->FrameAtual == 4) && enemie->ContFrame == 0 && enemieAcerta(enemie, player)) {
         
         player->vida[ATUAL] -= rand() % 10 + 20;
 
@@ -167,18 +170,19 @@ void ataqueEnemie(Enemie* enemie, Player* player) {
     }
 }
 
-bool enemieAcertou(Enemie* enemie, Player* player) {
-    double meioPlayer = player->POS[X] + player->dimensoesFrame[X] / 2.0;
+bool enemieAcerta(Enemie* enemie, Player* player) {
+    int coordenadasX = player->POS[X] + player->dimensoesFrame[X] / 2.0;
+
     if (enemie->linhaAnimacao == ESQUERDA) {
-        return (enemie->POS[X] < meioPlayer + player->hitboxPlayer) &&
-            (enemie->POS[X] > meioPlayer - player->hitboxPlayer) &&
-            ((enemie->POS[Y] + enemie->hitboxEspada) > player->POS[Y]) &&
-            ((enemie->POS[Y] + enemie->hitboxEspada + enemie->dimensoesEspada[Y]) < meioPlayer + player->hitboxPlayer);
+        coordenadasX += player->hitboxPlayer;
     }
     else {
-        return (enemie->POS[X] + enemie->dimensoesFrame[X] > meioPlayer - player->hitboxPlayer) &&
-            (enemie->POS[X] + enemie->dimensoesFrame[X] < meioPlayer + player->hitboxPlayer) &&
-            ((enemie->POS[Y] + enemie->hitboxEspada) > player->POS[Y]) &&
-            ((enemie->POS[Y] + enemie->hitboxEspada + enemie->dimensoesEspada[Y]) < player->POS[Y] + meioPlayer + player->hitboxPlayer);
+        coordenadasX -= player->hitboxPlayer;
     }
+
+    return (enemie->POS[X] < coordenadasX) &&
+        (enemie->POS[X] + enemie->dimensoesFrame[X] > coordenadasX) &&
+        ((enemie->POS[Y] + enemie->hitboxEspada) > player->POS[Y]) && ((enemie->POS[Y] + enemie->hitboxEspada) < player->POS[Y] + player->dimensoesFrame[Y]) &&
+        ((enemie->POS[Y] + enemie->hitboxEspada) > player->POS[Y]) &&
+        ((enemie->POS[Y] + enemie->hitboxEspada + enemie->dimensoesEspada[Y]) < player->POS[Y] + player->dimensoesFrame[Y]);
 }

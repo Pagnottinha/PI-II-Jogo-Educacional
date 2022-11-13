@@ -86,7 +86,7 @@ void initPlayer(Player* player, ALLEGRO_DISPLAY* display) {
 	player->POS[Y] = al_get_display_height(display) / 2;
 
 	player->velocidade = 2;
-	
+
 	// frame
 	player->dimensoesFrame[X] = 286;
 	player->dimensoesFrame[Y] = 130;
@@ -96,14 +96,13 @@ void initPlayer(Player* player, ALLEGRO_DISPLAY* display) {
 	player->frameDelay = 8;
 	player->dimensoesLanca[X] = 102;
 	player->dimensoesLanca[Y] = 11;
-	player->hitboxPlayer = 40;
+	player->hitboxPlayer = 35;
 	player->hitboxLanca = 90;
 
 	player->maxFrame[CORRENDO] = 6;
 	player->maxFrame[IDLE] = 6;
 	player->maxFrame[ATACANDO] = 6;
 
-	// declarar 
 	player->sheets[CORRENDO] = al_load_bitmap("Sprites/Player/correr.png");
 	player->sheets[ATACANDO] = al_load_bitmap("Sprites/Player/ataque.png");
 	player->sheets[IDLE] = al_load_bitmap("Sprites/Player/idle.png");
@@ -178,10 +177,10 @@ void ataquePlayer(Player* player, Enemies* enemies) {
 				}
 
 				if (player->linhaAnimacao == ESQUERDA) {
-					enemie->POS[X] -= 25;
+					enemie->POS[X] -= 30;
 				}
 				else {
-					enemie->POS[X] += 25;
+					enemie->POS[X] += 30;
 				}
 			
 			}

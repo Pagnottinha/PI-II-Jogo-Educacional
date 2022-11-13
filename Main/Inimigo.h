@@ -1,5 +1,6 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
+#include <math.h>
 #include "constantes.h"
 #include "player.h"
 
@@ -37,9 +38,9 @@ void InitEnemie(Enemies* enemies);
 void DrawEnemie(Enemies enemies);
 void NewWave(Enemies* enemies);
 void UpdateEnemie(Enemies* enemies, Player* player);
+void MoveEnemie(Enemie* enemie, Player* player);
 void ataqueEnemie(Enemie* enemie, Player* player);
-bool enemieAtaca(Enemie* enemie, Player* player);
-bool enemieAcertou(Enemie* enemie, Player* player);
+bool enemieAcerta(Enemie* enemie, Player* player);
 
 void destroyBitmapsEnemie(Enemies* enemies);
 
