@@ -141,19 +141,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="inimigo.c" />
+    <ClCompile Include="Batalha\inimigo.c" />
+    <ClCompile Include="Batalha\batalha.c" />
     <ClCompile Include="Init.c" />
     <ClCompile Include="main.c" />
-    <ClCompile Include="player.c" />
+    <ClCompile Include="Batalha\player.c" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Batalha\Batalha.h" />
     <ClInclude Include="constantes.h" />
-    <ClInclude Include="Inimigo.h" />
+    <ClInclude Include="Batalha\Inimigo.h" />
     <ClInclude Include="Init.h" />
-    <ClInclude Include="player.h" />
+    <ClInclude Include="Batalha\player.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

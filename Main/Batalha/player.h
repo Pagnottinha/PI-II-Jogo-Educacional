@@ -1,6 +1,6 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
-#include "constantes.h"
+#include "../constantes.h"
 
 enum POS {X, Y };
 enum TYPE_BITMAP {CORRENDO, ATACANDO, IDLE };

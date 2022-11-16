@@ -1,7 +1,4 @@
-#include <allegro5/allegro.h>
-#include <allegro5/allegro_image.h>
 #include <math.h>
-#include "constantes.h"
 #include "player.h"
 
 typedef struct {

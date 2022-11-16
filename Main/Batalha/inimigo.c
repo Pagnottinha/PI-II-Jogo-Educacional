@@ -8,8 +8,8 @@ void InitEnemie(Enemies* enemies)
     enemies->waves[MAX] = 5;
     enemies->waves[QNT] = 0;
 
-    ALLEGRO_BITMAP* correndo = al_load_bitmap("Sprites/Inimigo/correr.png");
-    ALLEGRO_BITMAP* atacando = al_load_bitmap("Sprites/Inimigo/ataque.png");
+    ALLEGRO_BITMAP* correndo = al_load_bitmap("Batalha/Sprites/Inimigo/correr.png");
+    ALLEGRO_BITMAP* atacando = al_load_bitmap("Batalha/Sprites/Inimigo/ataque.png");
 
     al_convert_mask_to_alpha(correndo, al_map_rgb(0, 0, 0));
     al_convert_mask_to_alpha(atacando, al_map_rgb(0, 0, 0));

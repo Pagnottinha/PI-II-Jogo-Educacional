@@ -103,9 +103,9 @@ void initPlayer(Player* player, ALLEGRO_DISPLAY* display) {
 	player->maxFrame[IDLE] = 6;
 	player->maxFrame[ATACANDO] = 6;
 
-	player->sheets[CORRENDO] = al_load_bitmap("Sprites/Player/correr.png");
-	player->sheets[ATACANDO] = al_load_bitmap("Sprites/Player/ataque.png");
-	player->sheets[IDLE] = al_load_bitmap("Sprites/Player/idle.png");
+	player->sheets[CORRENDO] = al_load_bitmap("Batalha/Sprites/Player/correr.png");
+	player->sheets[ATACANDO] = al_load_bitmap("Batalha/Sprites/Player/ataque.png");
+	player->sheets[IDLE] = al_load_bitmap("Batalha/Sprites/Player/idle.png");
 	
 	for (i = 0; i < NUM_SPRITES_PLAYER; i++) {
 		al_convert_mask_to_alpha(player->sheets[i], al_map_rgb(0, 0, 0));
