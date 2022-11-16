@@ -26,7 +26,6 @@ void InitEnemie(Enemies* enemies)
 		enemie->dimensoesFrame[Y] = 130;
 		enemie->ContFrame = 0;
 		enemie->FrameAtual = 0;
-		enemie->linhaAnimacao = DIREITA;
         enemie->tipoAnimacao = CORRENDO;
 		enemie->frameDelay = 10;
         enemie->hitboxEspada = 87;
@@ -53,9 +52,11 @@ void NewWave(Enemies* enemies) {
 
         if (rand() % 2) {
             enemie->POS[X] = -enemie->dimensoesFrame[X];
+            enemie->linhaAnimacao = DIREITA;
         }
         else {
             enemie->POS[X] = WIDTH;
+            enemie->linhaAnimacao = ESQUERDA;
         }
 
         enemie->POS[Y] = rand() % HEIGHT;
@@ -112,18 +113,31 @@ void UpdateEnemie(Enemies* enemies, Player* player)
 }
 
 void MoveEnemie(Enemie* enemie, Player* player) {
-    int meioPlayer = player->POS[X] + player->dimensoesFrame[X] / 2.0;
+    int meioPlayer[2] = { player->POS[X] + player->dimensoesFrame[X] / 2.0, player->POS[Y] + player->dimensoesFrame[Y] / 2.0 };
 
-    double dx = enemie->POS[X] > player->POS[X] ? enemie->POS[X] - player->POS[X] : player->POS[X] - enemie->POS[X];
-    double dy = enemie->POS[Y] > player->POS[Y] ? enemie->POS[Y] - player->POS[Y] : player->POS[Y] - enemie->POS[Y];
+    double dx = 0;
+    double dy = enemie->POS[Y] > meioPlayer[Y] ? 
+        enemie->POS[Y] - meioPlayer[Y] :
+        meioPlayer[Y] - enemie->POS[Y];
+
+    if (enemie->linhaAnimacao == ESQUERDA) {
+        dx = enemie->POS[X] > meioPlayer[X] ?
+            enemie->POS[X] - meioPlayer[X] :
+            meioPlayer[X] - enemie->POS[X];
+    }
+    else {
+        dx = enemie->POS[X] + enemie->dimensoesFrame[X] > meioPlayer[X] ?
+            enemie->POS[X] + enemie->dimensoesFrame[X] - meioPlayer[X] :
+            meioPlayer[X] - (enemie->POS[X] + enemie->dimensoesFrame[X]);
+    }
 
     double angulo = atan(dx / dy);
     
-    if (enemie->POS[X] >= meioPlayer) {
+    if (enemie->POS[X] >= meioPlayer[X]) {
         enemie->linhaAnimacao = ESQUERDA;
         enemie->POS[X] -= sin(angulo) * enemie->velocidade;
     }
-    else if (enemie->POS[X] + enemie->dimensoesFrame[X] <= meioPlayer) {
+    else if (enemie->POS[X] + enemie->dimensoesFrame[X] <= meioPlayer[X]) {
         enemie->linhaAnimacao = DIREITA;
         enemie->POS[X] += sin(angulo) * enemie->velocidade;
     }
