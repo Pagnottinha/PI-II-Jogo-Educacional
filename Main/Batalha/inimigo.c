@@ -114,22 +114,14 @@ void UpdateEnemie(Enemies* enemies, Player* player)
 
 void MoveEnemie(Enemie* enemie, Player* player) {
     int meioPlayer[2] = { player->POS[X] + player->dimensoesFrame[X] / 2.0, player->POS[Y] + player->dimensoesFrame[Y] / 2.0 };
+    int meioEnemie[2] = { enemie->POS[X] + enemie->dimensoesFrame[X] / 2.0, enemie->POS[Y] + enemie->dimensoesFrame[Y] / 2.0 };
 
-    double dx = 0;
-    double dy = enemie->POS[Y] > meioPlayer[Y] ? 
-        enemie->POS[Y] - meioPlayer[Y] :
-        meioPlayer[Y] - enemie->POS[Y];
-
-    if (enemie->linhaAnimacao == ESQUERDA) {
-        dx = enemie->POS[X] > meioPlayer[X] ?
-            enemie->POS[X] - meioPlayer[X] :
-            meioPlayer[X] - enemie->POS[X];
-    }
-    else {
-        dx = enemie->POS[X] + enemie->dimensoesFrame[X] > meioPlayer[X] ?
-            enemie->POS[X] + enemie->dimensoesFrame[X] - meioPlayer[X] :
-            meioPlayer[X] - (enemie->POS[X] + enemie->dimensoesFrame[X]);
-    }
+    double dx = meioEnemie[X] > meioPlayer[X] ?
+        meioEnemie[X] - meioPlayer[X] :
+        meioPlayer[X] - meioEnemie[X];
+    double dy = meioEnemie[Y] > meioPlayer[Y] ?
+        meioEnemie[Y] - meioPlayer[Y] :
+        meioPlayer[Y] - meioEnemie[Y];
 
     double angulo = atan(dx / dy);
     
@@ -165,7 +157,7 @@ void ataqueEnemie(Enemie* enemie, Player* player) {
         enemie->tipoAnimacao = ATACANDO;
     }
 
-    if ((enemie->FrameAtual == 3 || enemie->FrameAtual == 4) && enemie->ContFrame == 0 && enemieAcerta(enemie, player)) {
+    if ((enemie->FrameAtual == 3 || enemie->FrameAtual == 4) && enemie->ContFrame == 0) {
         
         player->vida[ATUAL] -= rand() % 10 + 20;
 
