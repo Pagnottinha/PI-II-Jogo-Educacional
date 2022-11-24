@@ -9,7 +9,6 @@ Allegro init() {
 		allegro.display = al_create_display(WIDTH, HEIGHT);
 		allegro.eventQueue = al_create_event_queue();
 		allegro.timer = al_create_timer(1.0 / FPS);
-		allegro.bgImage = al_load_bitmap("backgroundGame.jpg");
 
 		if (deuCerto(&allegro)) {
 			srand(time(NULL));
@@ -41,7 +40,6 @@ bool deuCerto(Allegro* allegro) {
 
 void destroy(Allegro* allegro) {
 	al_destroy_display(allegro->display);
-	al_destroy_bitmap(allegro->bgImage);
 	al_destroy_event_queue(allegro->eventQueue);
 	al_destroy_timer(allegro->timer);
 	for (int i = 0; i < NUM_FONTS; i++)

@@ -1,6 +1,6 @@
 // DISPLAY
 #define FPS 60
-#define WIDTH 1080
+#define WIDTH 1280
 #define HEIGHT 720
 
 #define NUM_FONTS 1
