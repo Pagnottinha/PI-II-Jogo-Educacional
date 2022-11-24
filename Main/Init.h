@@ -14,6 +14,7 @@ typedef struct {
 	ALLEGRO_EVENT_QUEUE* eventQueue;
 	ALLEGRO_TIMER* timer;
 	ALLEGRO_FONT* font[1];
+	ALLEGRO_BITMAP* bgImage;
 	bool deuCerto;
 } Allegro;
 

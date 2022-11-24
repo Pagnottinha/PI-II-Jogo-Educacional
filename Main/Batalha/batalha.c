@@ -1,4 +1,5 @@
 #include "Batalha.h"
+#include "../Background.h"
 
 int batalha(Allegro allegro) {
 	// Booleans
@@ -8,6 +9,11 @@ int batalha(Allegro allegro) {
 	// Player
 	Player player;
 	Enemies enemies;
+
+	//BAckground
+	Background BG;
+
+	InitBackground(BG, 0, 0, WIDTH, HEIGHT, allegro.bgImage);
 
 	initPlayer(&player, allegro.display);
 	InitEnemie(&enemies);
@@ -122,6 +128,7 @@ int batalha(Allegro allegro) {
 
 			DrawEnemie(enemies);
 			desenharPlayer(&player);
+			DrawBackground(BG);
 
 			al_draw_text(allegro.font[a24], al_map_rgb(255, 255, 255), 20, 20, 0, "Vida: ");
 			al_draw_textf(allegro.font[a24], al_map_rgb(255, 255, 255), WIDTH - 150, 20, 0, "Onda %d", enemies.waves[QNT]);
