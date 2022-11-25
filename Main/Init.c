@@ -18,7 +18,7 @@ Allegro init() {
 			al_init_font_addon();
 			al_init_ttf_addon();
 
-			allegro.font[a24] = al_load_font("arial.ttf", 24, 0);
+			allegro.font[a24] = al_load_font("./Fontes PI/Fonte Roman/Roman SD.ttf", 25, 0);
 
 			al_install_keyboard();
 			al_init_image_addon();
