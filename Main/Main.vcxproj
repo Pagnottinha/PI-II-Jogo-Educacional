@@ -141,7 +141,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Batalha\Background.c" />
+    <ClCompile Include="Background.c" />
     <ClCompile Include="Batalha\inimigo.c" />
     <ClCompile Include="Batalha\batalha.c" />
     <ClCompile Include="Init.c" />
@@ -152,10 +152,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Batalha\Background.h" />
-    <ClInclude Include="Batalha\Batalha.h" />
+    <ClInclude Include="Background.h" />
     <ClInclude Include="constantes.h" />
     <ClInclude Include="Batalha\Inimigo.h" />
+    <ClInclude Include="game.h" />
     <ClInclude Include="Init.h" />
     <ClInclude Include="Batalha\player.h" />
   </ItemGroup>

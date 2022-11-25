@@ -1,7 +1,7 @@
 #include "allegro5/allegro.h"
 #include "allegro5/bitmap.h"
 
-typedef struct 
+typedef struct
 {
 	float x;
 	float y;
@@ -12,5 +12,5 @@ typedef struct
 
 }Background;
 
-void InitBackground(Background *back, float x, float y, int width, int height);
+void InitBackground(Background* back, float x, float y, int width, int height, char* imagePath);
 void DrawBackground(Background back);

@@ -171,7 +171,7 @@ void ataquePlayer(Player* player, Enemies* enemies) {
 
 				enemie->vida[ATUAL] -= rand() % 10 + 25;
 
-				if (enemie->vida[ATUAL] <= 0) {
+ 				if (enemie->vida[ATUAL] <= 0) {
 					enemie->vivo = false;
 					enemies->enemieDeath++;
 				}

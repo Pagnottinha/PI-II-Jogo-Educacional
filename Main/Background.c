@@ -1,12 +1,12 @@
 #include "Background.h"
 
-void InitBackground(Background *back, float x, float y, int width, int height)
+void InitBackground(Background *back, float x, float y, int width, int height, char* imagePath)
 {
 	back->x = x;
 	back->y = y;;
 	back->width = width;
 	back->height = height;
-	back->image = al_load_bitmap("BackgroundNovo.png");
+	back->image = al_load_bitmap(imagePath);
 }
 
 void DrawBackground(Background back)

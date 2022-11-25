@@ -6,6 +6,8 @@
 #include "constantes.h"
 #include "stdlib.h"
 #include "time.h"
+#include <stdio.h>
+#include <string.h>
 
 enum FONTSIZE {a24};
 
