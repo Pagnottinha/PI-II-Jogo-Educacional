@@ -81,10 +81,6 @@ void initPlayer(Player* player, ALLEGRO_DISPLAY* display) {
 		player->acoes[i] = false;
 	}
 
-	// posição player
-	player->POS[X] = al_get_display_width(display) / 2;
-	player->POS[Y] = al_get_display_height(display) / 2;
-
 	player->velocidade = 2;
 
 	// frame
@@ -107,6 +103,10 @@ void initPlayer(Player* player, ALLEGRO_DISPLAY* display) {
 	player->sheets[ATACANDO] = al_load_bitmap("Batalha/Sprites/Player/ataque.png");
 	player->sheets[IDLE] = al_load_bitmap("Batalha/Sprites/Player/idle.png");
 	
+	// posição player
+	player->POS[X] = al_get_display_width(display) / 2 - player->dimensoesFrame[X] / 2;
+	player->POS[Y] = (al_get_display_height(display) - MIN_HEIGHT) / 2 + MIN_HEIGHT - player->dimensoesFrame[Y] / 2;
+
 	for (i = 0; i < NUM_SPRITES_PLAYER; i++) {
 		al_convert_mask_to_alpha(player->sheets[i], al_map_rgb(0, 0, 0));
 	}
@@ -114,7 +114,7 @@ void initPlayer(Player* player, ALLEGRO_DISPLAY* display) {
 
 void andarPlayerCima(Player* player) {
 	player->tipoAnimacao = CORRENDO;
-	if (player->POS[Y] > 0) {
+	if (player->POS[Y] > 0 + MIN_HEIGHT) {
 		player->POS[Y] -= player->velocidade;
 	}
 }

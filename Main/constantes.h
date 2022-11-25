@@ -11,6 +11,9 @@
 #define NUM_SPRITES_PLAYER 3
 #define NUM_SPRITES_ENEMIE 2
 
+//GAME
+#define MIN_HEIGHT 455
+
 // PLAYER
 #define QNT_ACOES 5
 

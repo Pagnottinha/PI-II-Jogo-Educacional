@@ -13,7 +13,7 @@ int batalha(Allegro allegro) {
 	//BAckground
 	Background BG;
 
-	InitBackground(&BG, 0, 0, WIDTH, HEIGHT, "./Batalha/Sprites/BackgroundNovo.png");
+	InitBackground(&BG, 0, 0, WIDTH, HEIGHT, "./Batalha/Sprites/BackgroundDay.png");
 
 	initPlayer(&player, allegro.display);
 	InitEnemie(&enemies);

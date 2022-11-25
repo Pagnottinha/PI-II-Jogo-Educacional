@@ -59,7 +59,7 @@ void NewWave(Enemies* enemies) {
             enemie->linhaAnimacao = ESQUERDA;
         }
 
-        enemie->POS[Y] = rand() % HEIGHT;
+        enemie->POS[Y] = rand() % (HEIGHT - MIN_HEIGHT) + MIN_HEIGHT;
     }
 }
 
