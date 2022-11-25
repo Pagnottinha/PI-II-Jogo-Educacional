@@ -1,0 +1,6 @@
+Narrador /
+Odisseu ./Historias/Personagens/Sprites/Odisseu.png
+Menelau ./Historias/Personagens/Sprites/Menelau.png
+Agamemnon ./Historias/Personagens/Sprites/Agamemnon.png
+Espartano ./Historias/Personagens/Sprites/Espartano.png
+Troiano ./Historias/Personagens/Sprites/Troiano.png

@@ -9,6 +9,11 @@ int main(void) {
 
 	int resultado;
 
+	resultado = historia(allegro, "./Historias/Dialogos/dialogo1.txt");
+
+	if (resultado)
+		return resultado;
+
 	do {
 		resultado = batalha(allegro);
 	} while (resultado);

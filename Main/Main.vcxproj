@@ -144,6 +144,10 @@
     <ClCompile Include="Background.c" />
     <ClCompile Include="Batalha\inimigo.c" />
     <ClCompile Include="Batalha\batalha.c" />
+    <ClCompile Include="Historias\historia.c" />
+    <ClCompile Include="Historias\Dialogos\dialogos.c" />
+    <ClCompile Include="Historias\Escolhas\escolhas.c" />
+    <ClCompile Include="Historias\Personagens\personagens.c" />
     <ClCompile Include="Init.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="Batalha\player.c" />
@@ -156,8 +160,35 @@
     <ClInclude Include="constantes.h" />
     <ClInclude Include="Batalha\Inimigo.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="Historias\Dialogos\dialogos.h" />
+    <ClInclude Include="Historias\Escolhas\escolhas.h" />
+    <ClInclude Include="Historias\Personagens\personagens.h" />
     <ClInclude Include="Init.h" />
     <ClInclude Include="Batalha\player.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="allegro.log" />
+    <Text Include="Historias\Dialogos\dialogo1.txt" />
+    <Text Include="Historias\Dialogos\dialogo2.txt" />
+    <Text Include="Historias\Escolhas\escolhas.txt" />
+    <Text Include="Historias\Personagens\personagens.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Batalha\Sprites\BackgroundDay.png" />
+    <Image Include="Batalha\Sprites\BackgroundNight.png" />
+    <Image Include="Batalha\Sprites\Inimigo\ataque.png" />
+    <Image Include="Batalha\Sprites\Inimigo\correr.png" />
+    <Image Include="Batalha\Sprites\Player\ataque.png" />
+    <Image Include="Batalha\Sprites\Player\correr.png" />
+    <Image Include="Batalha\Sprites\Player\idle.png" />
+    <Image Include="Historias\Personagens\Sprites\Agamemnon.png" />
+    <Image Include="Historias\Personagens\Sprites\Espartano.png" />
+    <Image Include="Historias\Personagens\Sprites\Menelau.png" />
+    <Image Include="Historias\Personagens\Sprites\Odisseu.png" />
+    <Image Include="Historias\Personagens\Sprites\Troiano.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="arial.ttf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
