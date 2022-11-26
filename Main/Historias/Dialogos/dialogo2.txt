@@ -1,7 +1,6 @@
-0 0 0 Então, a guerra começou. Depois de muitas batalhas, ainda a guerra não acabou.
-0 0 0 Dessa maneira, Menelau decide fazer uma reunião com Odisseu e Agamemnon.
-0 0 0 Agamemnon é irmão de Menelau e comandante do exército espartano.
-1 0 0 Boa Tarde a todos! Nessa reunião decidiremos o futoro dessa guerra!
+0 0 0 A guerra continuou por 10 anos, puros de combates violentos e sangrentos. Sendo assim...
+0 0 0 Menelau decide fazer uma reunião com Odisseu e Agamemnon. Agamemnon é irmão de Menelau e comandante do exército espartano.
+2 0 0 Boa Tarde a todos! Nessa reunião decidiremos o futoro dessa guerra!
 3 1 1 Que tal a gente ficar escondido em frente a Troia e entrar quando abrirem o portão?
 2 1 0 É... também não acho tão inteligente irmão. Mas gostei da ideia de um ataque supreza...
 2 1 2 Odisseu você tem alguma ideia? Quero que ela seja muito boa, quero recuperar Helena de volta!

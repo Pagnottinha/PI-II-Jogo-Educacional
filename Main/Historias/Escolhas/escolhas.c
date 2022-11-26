@@ -1,17 +1,6 @@
 #include "escolhas.h"
 #include <stdio.h>
 
-void lerEscolhas(Escolhas es) {
-	for (int i = 0; i < es.size; i++) {
-		Escolha e = es.array[i];
-		printf("%d:\n", i);
-		printf("%d - %s\n", 1, e.escolha[0]);
-		printf("%d - %s\n", 2, e.escolha[1]);
-		printf("%d - %s\n", 3, e.escolha[2]);
-		printf("Certa: %d\n\n", e.certa);
-	}
-}
-
 int pegarEscolhas(Escolhas* es) {
 	FILE *escolhas = fopen("./Historias/Escolhas/escolhas.txt", "r");
 

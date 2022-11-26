@@ -10,5 +10,4 @@ typedef struct {
 	int size;
 } Escolhas;
 
-void lerEscolhas(Escolhas es);
 int pegarEscolhas(Escolhas* es);

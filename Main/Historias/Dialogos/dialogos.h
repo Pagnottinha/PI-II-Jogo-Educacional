@@ -2,15 +2,14 @@
 
 typedef struct {
 	int idPersonagem;
-	char fala[100];
+	char fala[150];
 	int posicao;
 	int idEscolha;
 } Dialogo;
 
 typedef struct {
-	Dialogo array[100];
+	Dialogo array[20];
 	int size;
 } Dialogos;
 
-void lerDialogos(Dialogos ds);
 int pegarDialogos(Dialogos* ds, char* path);

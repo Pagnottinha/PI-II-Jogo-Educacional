@@ -10,5 +10,4 @@ typedef struct {
 	int size;
 } Personagens;
 
-void lerPersonagens(Personagens ps);
 int pegarPersonagens(Personagens* ps);

@@ -77,6 +77,9 @@
     <ClInclude Include="Historias\Personagens\personagens.h">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
+    <ClInclude Include="Historias\historia.h">
+      <Filter>Arquivos de Cabeçalho</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Batalha\Sprites\BackgroundDay.png">

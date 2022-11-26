@@ -1,14 +1,6 @@
 #include "personagens.h"
 #include <stdio.h>
 
-void lerPersonagens(Personagens ps) {
-	for (int i = 0; i < ps.size; i++) {
-		Personagem p = ps.array[i];
-		printf("%d:\n", i);
-		printf("Nome: %s\n", p.nome);
-		printf("Imagem: %s\n\n", p.imagem);
-	}
-}
 
 int pegarPersonagens(Personagens* ps) {
 	FILE *personagens = fopen("./Historias/Personagens/personagens.txt", "r");

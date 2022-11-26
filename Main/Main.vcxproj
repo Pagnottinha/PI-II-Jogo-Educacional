@@ -162,6 +162,7 @@
     <ClInclude Include="game.h" />
     <ClInclude Include="Historias\Dialogos\dialogos.h" />
     <ClInclude Include="Historias\Escolhas\escolhas.h" />
+    <ClInclude Include="Historias\historia.h" />
     <ClInclude Include="Historias\Personagens\personagens.h" />
     <ClInclude Include="Init.h" />
     <ClInclude Include="Batalha\player.h" />
