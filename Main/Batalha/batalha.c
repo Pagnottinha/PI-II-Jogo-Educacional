@@ -13,7 +13,7 @@ int batalha(Allegro allegro) {
 	//BAckground
 	Background BG;
 
-	InitBackground(&BG, 0, 0, WIDTH, HEIGHT, "./Batalha/Sprites/BackgroundDay.png");
+	InitBackground(&BG, 0, 0, WIDTH, HEIGHT, "./Batalha/Sprites/BackgroundNight.png");
 
 	initPlayer(&player, allegro.display);
 	InitEnemie(&enemies);
@@ -130,9 +130,9 @@ int batalha(Allegro allegro) {
 			DrawEnemie(enemies);
 			desenharPlayer(&player);
 
-			al_draw_text(allegro.font[a24], al_map_rgb(255, 255, 255), 20, 20, 0, "Vida: ");
-			al_draw_textf(allegro.font[a24], al_map_rgb(255, 255, 255), WIDTH - 150, 20, 0, "Onda %d", enemies.waves[QNT]);
-			al_draw_textf(allegro.font[a24], al_map_rgb(255, 255, 255), 20, HEIGHT - 40, 0, "Inimigos Restantes %d", enemies.countEnemies - enemies.enemieDeath);
+			al_draw_text(allegro.font[r24], al_map_rgb(255, 255, 255), 20, 20, 0, "Vida: ");
+			al_draw_textf(allegro.font[r24], al_map_rgb(255, 255, 255), WIDTH - 150, 20, 0, "Onda %d", enemies.waves[QNT]);
+			al_draw_textf(allegro.font[r24], al_map_rgb(255, 255, 255), 20, HEIGHT - 40, 0, "Inimigos Restantes %d", enemies.countEnemies - enemies.enemieDeath);
 
 			al_draw_rectangle(80, 25, 200, 45, al_map_rgb(0, 255, 0), 2);
 

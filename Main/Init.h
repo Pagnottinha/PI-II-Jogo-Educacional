@@ -9,13 +9,13 @@
 #include <stdio.h>
 #include <string.h>
 
-enum FONTSIZE {a24};
+enum FONTSIZE {r24, r30};
 
 typedef struct {
 	ALLEGRO_DISPLAY* display;
 	ALLEGRO_EVENT_QUEUE* eventQueue;
 	ALLEGRO_TIMER* timer;
-	ALLEGRO_FONT* font[1];
+	ALLEGRO_FONT* font[2];
 	bool deuCerto;
 } Allegro;
 
