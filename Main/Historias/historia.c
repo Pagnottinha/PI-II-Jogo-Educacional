@@ -25,18 +25,11 @@ int historia(Allegro allegro, char* pathDialogo) {
 	bool desenhar = true;
 	bool acoes[2] = {false, false};
 	bool escolher = false;
-	int escolha;
+	bool acertou = false;
 	int cont = 0;
 	Dialogo dialogo = dialogos.array[cont];
 	Personagem perso = personagens.array[dialogo.idPersonagem];
 	Escolha escolhas;
-
-	// para escolhas
-	float height = HEIGHT / 3;
-
-	float escolha1[4] = { 100, 50, WIDTH - 100, height - 50 };
-	float escolha2[4] = { 100, height + 50, WIDTH - 100, height * 2 - 50 };
-	float escolha3[4] = { 100, height * 2 + 50, WIDTH - 100, height * 3 - 50 };
 
 	ALLEGRO_BITMAP* image = loadImage(perso.imagem);
 
@@ -46,26 +39,19 @@ int historia(Allegro allegro, char* pathDialogo) {
 
 		if (ev.type == ALLEGRO_EVENT_TIMER) { // quando der um frame do jogo
 
-			desenhar = true;
-
-			if (escolher && acoes[CLICOU]) {
-				if (escolha == escolhas.certa) {
-					escolher = false;
-				}
-
-				acoes[CLICOU] = false;
+			if (dialogo.idEscolha != 0 && !escolher && !acertou) {
+				escolher = true;
+				escolhas = escolhasTxt.array[dialogo.idEscolha - 1];
 			}
-			else if (acoes[PROXIMO] && dialogos.size > ++cont) {
-				if (dialogo.idEscolha != 0 && !escolher) {
-					escolher = true;
-					escolhas = escolhasTxt.array[dialogo.idEscolha - 1];
-				}
-				else {
-					dialogo = dialogos.array[cont];
-					perso = personagens.array[dialogo.idPersonagem];
-					image = loadImage(perso.imagem);
-					acoes[PROXIMO] = false;
-				}
+			else if (acoes[PROXIMO] && dialogos.size > cont) {
+				dialogo = dialogos.array[++cont];
+				perso = personagens.array[dialogo.idPersonagem];
+				image = loadImage(perso.imagem);
+				acoes[PROXIMO] = false;
+				acertou = false;
+			}
+			else {
+				desenhar = true;
 			}
 
 		}
@@ -88,26 +74,15 @@ int historia(Allegro allegro, char* pathDialogo) {
 					acoes[PROXIMO] = true;
 				}
 				else {
-					if (
-						ev.mouse.x > escolha1[0] && ev.mouse.x < escolha1[2] &&
-						ev.mouse.y > escolha1[1] && ev.mouse.y < escolha1[3]
-					) {
-						escolha = 1;
-					}
-					else if (
-						ev.mouse.x > escolha2[0] && ev.mouse.x < escolha2[2] &&
-						ev.mouse.y > escolha2[1] && ev.mouse.y < escolha2[3]
-					) {
-						escolha = 2;
-					}
-					else if (
-						ev.mouse.x > escolha3[0] && ev.mouse.x < escolha3[2] &&
-						ev.mouse.y > escolha3[1] && ev.mouse.y < escolha3[3]
-					) {
-						escolha = 3;
-					}
+					float* box = escolhasTxt.caixas[escolhas.certa - 1];
 
-					acoes[CLICOU] = true;
+					if (
+						ev.mouse.x > box[0] && ev.mouse.x < box[2] &&
+						ev.mouse.y > box[1] && ev.mouse.y < box[3]
+					) {
+						escolher = false;
+						acertou = true;
+					}
 				}
 			}
 		}
@@ -165,30 +140,18 @@ int historia(Allegro allegro, char* pathDialogo) {
 			}
 			else {
 
-				al_draw_filled_rectangle(escolha1[0], escolha1[1], escolha1[2], escolha1[3], al_map_rgb(120, 120, 120));
-				al_draw_filled_rectangle(escolha2[0], escolha2[1], escolha2[2], escolha2[3], al_map_rgb(120, 120, 120));
-				al_draw_filled_rectangle(escolha3[0], escolha3[1], escolha3[2], escolha3[3], al_map_rgb(120, 120, 120));
+				for (int i = 0; i < 3; i++) {
+					float* box = escolhasTxt.caixas[i];
 
-				al_draw_multiline_text(
-					allegro.font[r24], al_map_rgb(255, 255, 255),
-					WIDTH / 2, (escolha1[1] + escolha1[3]) / 2, escolha1[2] - 20,
-					al_get_font_line_height(allegro.font[r24]) + 10,
-					ALLEGRO_ALIGN_CENTRE, escolhas.escolha[0]
-				);
+					al_draw_filled_rectangle(box[0], box[1], box[2], box[3], al_map_rgb(120, 120, 120));
 
-				al_draw_multiline_text(
-					allegro.font[r24], al_map_rgb(255, 255, 255),
-					WIDTH / 2, (escolha2[1] + escolha2[3]) / 2, escolha2[2] - 20,
-					al_get_font_line_height(allegro.font[r24]) + 10,
-					ALLEGRO_ALIGN_CENTRE, escolhas.escolha[1]
-				);
-
-				al_draw_multiline_text(
-					allegro.font[r24], al_map_rgb(255, 255, 255),
-					WIDTH / 2, (escolha3[1] + escolha3[3]) / 2, escolha3[2] - 20,
-					al_get_font_line_height(allegro.font[r24]) + 10,
-					ALLEGRO_ALIGN_CENTRE, escolhas.escolha[2]
-				);
+					al_draw_multiline_text(
+						allegro.font[r24], al_map_rgb(255, 255, 255),
+						WIDTH / 2, (box[1] + box[3]) / 2, box[2] - 20,
+						al_get_font_line_height(allegro.font[r24]) + 10,
+						ALLEGRO_ALIGN_CENTRE, escolhas.escolha[i]
+					);
+				}
 			}
 
 			al_flip_display();

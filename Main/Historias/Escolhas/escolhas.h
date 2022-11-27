@@ -8,6 +8,7 @@ typedef struct {
 typedef struct {
 	Escolha array[50];
 	int size;
+	float caixas[3][4];
 } Escolhas;
 
 int pegarEscolhas(Escolhas* es);
