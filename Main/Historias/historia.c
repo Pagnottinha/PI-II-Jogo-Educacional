@@ -43,8 +43,8 @@ int historia(Allegro allegro, char* pathDialogo) {
 				escolher = true;
 				escolhas = escolhasTxt.array[dialogo.idEscolha - 1];
 			}
-			else if (acoes[PROXIMO] && dialogos.size > cont) {
-				dialogo = dialogos.array[++cont];
+			else if (acoes[PROXIMO] && dialogos.size > ++cont) {
+				dialogo = dialogos.array[cont];
 				perso = personagens.array[dialogo.idPersonagem];
 				image = loadImage(perso.imagem);
 				acoes[PROXIMO] = false;

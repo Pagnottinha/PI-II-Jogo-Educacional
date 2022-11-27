@@ -36,7 +36,7 @@ int pegarEscolhas(Escolhas* es) {
 	float height = HEIGHT / 3;
 
 	for (int i = 0; i < 3; i++) {
-		es->caixas[i][0] = 100; //{100, height 50, WIDTH - 100, height - 50};
+		es->caixas[i][0] = 100;
 		es->caixas[i][1] = height * i + 50;
 		es->caixas[i][2] = WIDTH - 100;
 		es->caixas[i][3] = height * (i + 1) - 50;
