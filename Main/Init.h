@@ -18,6 +18,7 @@ typedef struct {
 	ALLEGRO_FONT* font[4];
 	bool close;
 	bool deuCerto;
+	bool creditos;
 } Allegro;
 
 Allegro init();

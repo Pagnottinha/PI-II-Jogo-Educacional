@@ -98,7 +98,8 @@ int loadMenu(Allegro* allegro)
 				else if (mouseX > 522 && mouseX < 758 &&
 					mouseY > 320 && mouseY < 380)
 				{
-					return 2;
+					allegro->creditos = true;
+					done = true;
 				}
 				else if (mouseX > 522 && mouseX < 758 &&
 					mouseY > 395 && mouseY < 455)
@@ -132,7 +133,7 @@ int loadMenu(Allegro* allegro)
 			else
 				al_draw_bitmap(botaoJogar.botaoHover, botaoTutorial.posX, botaoTutorial.posY, 0);
 
-			al_draw_text(allegro->font[r30], al_map_rgb(255, 255, 255), WIDTH / 2 - 80, 335, 0, "TUTORIAL");
+			al_draw_text(allegro->font[r30], al_map_rgb(255, 255, 255), WIDTH / 2 - 77, 335, 0, "CREDITOS");
 
 			//botao de sair
 			if (!botaoSair.hover)
@@ -150,6 +151,7 @@ int loadMenu(Allegro* allegro)
 
 	al_destroy_bitmap(botaoJogar.botaoImage);
 	al_destroy_bitmap(botaoJogar.botaoHover);
+	al_destroy_bitmap(BG.backgroundMenu);
 
 	return 0;
 }

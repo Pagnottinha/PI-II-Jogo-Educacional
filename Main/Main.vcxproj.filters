@@ -14,6 +14,7 @@
     <ClCompile Include="Batalha\player.c" />
     <ClCompile Include="MenuInicial\MenuInicio.c" />
     <ClCompile Include="Tutorial\Tutorial.c" />
+    <ClCompile Include="Creditos\Creditos.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Background.h" />
@@ -52,6 +53,7 @@
     <Image Include="Sprites\Tutorial\MadeiraParaTutorial.png" />
     <Image Include="..\..\..\..\Desktop\Coisas do Erick\BackgroundFloresta.png" />
     <Image Include="Sprites\Background\BackgroundFloresta.png" />
+    <Image Include="Sprites\Background\ImagemCreditos.png" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="Fontes PI\Fonte Arial\arial.ttf" />

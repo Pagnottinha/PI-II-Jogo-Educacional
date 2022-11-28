@@ -10,10 +10,14 @@ int main(void) {
 	int resultado;
 	int cont = 0;
 
+	allegro.creditos = false;
+
 	do {
 		switch (cont) {
 		case 0:
 			resultado = loadMenu(&allegro);
+			if (allegro.creditos)
+				cont = 5;
 			break;
 		case 1:
 			resultado = historia(&allegro, "./Historias/Dialogos/dialogo1.txt");
@@ -28,6 +32,10 @@ int main(void) {
 			break;
 		case 4:
 			resultado = historia(&allegro, "./Historias/Dialogos/dialogoFinal.txt");
+			break;
+		case 6:
+			resultado = InitCreditos(&allegro);
+			allegro.creditos = false;
 			break;
 		default:
 			cont = -1;

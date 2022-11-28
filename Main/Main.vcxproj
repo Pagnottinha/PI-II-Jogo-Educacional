@@ -144,6 +144,7 @@
     <ClCompile Include="Background.c" />
     <ClCompile Include="Batalha\inimigo.c" />
     <ClCompile Include="Batalha\batalha.c" />
+    <ClCompile Include="Creditos\Creditos.c" />
     <ClCompile Include="Historias\Background\BackgroundDialogo.c" />
     <ClCompile Include="Historias\historia.c" />
     <ClCompile Include="Historias\Dialogos\dialogos.c" />
@@ -186,6 +187,7 @@
   <ItemGroup>
     <Image Include="..\..\..\..\Desktop\Coisas do Erick\BackgroundFloresta.png" />
     <Image Include="Sprites\Background\BackgroundFloresta.png" />
+    <Image Include="Sprites\Background\ImagemCreditos.png" />
     <Image Include="Sprites\Botoes\Button_Animation1.png" />
     <Image Include="Sprites\Botoes\Button_Animation2.png" />
     <Image Include="Sprites\Botoes\MenuInicialBG.png" />
