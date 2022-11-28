@@ -8,7 +8,7 @@ int loadMenu(Allegro allegro)
 
 	BackgroundMenu BG;
 
-	InitBackgroundMenu(&BG, 0, 0, WIDTH, HEIGHT, "./MenuInicial/Botoes/Sprites/MenuInicialBG.png");
+	InitBackgroundMenu(&BG, 0, 0, WIDTH, HEIGHT, "./Sprites/Botoes/MenuInicialBG.png");
 
 	Botao botaoJogar;
 	Botao botaoTutorial;
@@ -16,14 +16,14 @@ int loadMenu(Allegro allegro)
 
 	//inicializando os botoes com as suas respectivas imagens
 	//apesar de serem as mesmas imagens, cada botao tem uma funcao diferente
-	botaoJogar.botaoImage = al_load_bitmap("./MenuInicial/Botoes/Sprites/Button_Animation1.png");
-	botaoJogar.botaoHover = al_load_bitmap("./MenuInicial/Botoes/Sprites/Button_Animation2.png");
+	botaoJogar.botaoImage = al_load_bitmap("./Sprites/Botoes/Button_Animation1.png");
+	botaoJogar.botaoHover = al_load_bitmap("./Sprites/Botoes/Button_Animation2.png");
 
-	botaoTutorial.botaoImage = al_load_bitmap("./MenuInicial/Botoes/Sprites/Button_Animation1.png");
-	botaoTutorial.botaoHover = al_load_bitmap("./MenuInicial/Botoes/Sprites/Button_Animation2.png");
+	botaoTutorial.botaoImage = al_load_bitmap("./Sprites/Botoes/Button_Animation1.png");
+	botaoTutorial.botaoHover = al_load_bitmap("./Sprites/Botoes/Button_Animation2.png");
 
-	botaoSair.botaoImage = al_load_bitmap("./MenuInicial/Botoes/Sprites/Button_Animation1.png");
-	botaoSair.botaoHover = al_load_bitmap("./MenuInicial/Botoes/Sprites/Button_Animation2.png");
+	botaoSair.botaoImage = al_load_bitmap("./Sprites/Botoes/Button_Animation1.png");
+	botaoSair.botaoHover = al_load_bitmap("./Sprites/Botoes/Button_Animation2.png");
 
 	int mouseX;
 	int mouseY;

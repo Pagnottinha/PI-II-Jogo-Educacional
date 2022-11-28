@@ -14,9 +14,9 @@ int pegarDialogos(Dialogos* ds, char* path) {
 	do {
 		Dialogo d;	
 		
-		int read = fscanf(dialogos,"%d %d %d %[^\n]s", &d.idPersonagem, &d.posicao, &d.idEscolha, d.fala);
+		int read = fscanf(dialogos,"%d %d %d %d %[^\n]s", &d.idPersonagem, &d.posicao, &d.idEscolha, &d.idBackground, d.fala);
 
-		if (read == 4) {
+		if (read == 5) {
 			ds->array[ds->size] = d;
 			ds->size++;	
 		}

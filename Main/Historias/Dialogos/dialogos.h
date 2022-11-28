@@ -5,6 +5,7 @@ typedef struct {
 	char fala[150];
 	int posicao;
 	int idEscolha;
+	int idBackground;
 } Dialogo;
 
 typedef struct {

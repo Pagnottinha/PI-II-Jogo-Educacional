@@ -1,5 +1,6 @@
 #include "../game.h"
 #include "Inimigo.h"
+#include "../Background.h"
 
 int batalha(Allegro allegro) {
 	// Booleans
@@ -13,7 +14,7 @@ int batalha(Allegro allegro) {
 	//BAckground
 	Background BG;
 
-	InitBackground(&BG, 0, 0, WIDTH, HEIGHT, "./Batalha/Sprites/BackgroundNight.png");
+	InitBackground(&BG, 0, 0, "Sprites/Background/BatalhaNight.png");
 
 	initPlayer(&player, allegro.display);
 	InitEnemie(&enemies);

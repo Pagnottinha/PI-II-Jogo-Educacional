@@ -21,15 +21,27 @@ int historia(Allegro allegro, char* pathDialogo) {
 	if (flag != 0)
 		return flag;
 
+	Backgrounds bgs;
+	flag = pegarBackgrounds(&bgs);
+
+	if (flag != 0)
+		return flag;
+
 	bool done = false;
 	bool desenhar = true;
-	bool acoes[2] = {false, false};
+	bool acoes[5] = {false, false, false, false, false};
 	bool escolher = false;
 	bool acertou = false;
+	int opcao = -1;
 	int cont = 0;
+
 	Dialogo dialogo = dialogos.array[cont];
 	Personagem perso = personagens.array[dialogo.idPersonagem];
 	Escolha escolhas;
+
+	Background BG;
+	BG.image = al_load_bitmap(bgs.path[dialogo.idBackground]);
+	InitBackground(&BG, 0, 0, bgs.path[dialogo.idBackground]);
 
 	ALLEGRO_BITMAP* image = loadImage(perso.imagem);
 
@@ -39,34 +51,119 @@ int historia(Allegro allegro, char* pathDialogo) {
 
 		if (ev.type == ALLEGRO_EVENT_TIMER) { // quando der um frame do jogo
 
-			if (dialogo.idEscolha != 0 && !escolher && !acertou) {
-				escolher = true;
-				escolhas = escolhasTxt.array[dialogo.idEscolha - 1];
-			}
-			else if (acoes[PROXIMO] && dialogos.size > ++cont) {
-				dialogo = dialogos.array[cont];
-				perso = personagens.array[dialogo.idPersonagem];
-				image = loadImage(perso.imagem);
-				acoes[PROXIMO] = false;
-				acertou = false;
-			}
-			else {
-				desenhar = true;
-			}
+			desenhar = true;
 
+			if (acoes[PROXIMO]) {
+				if (dialogo.idEscolha != 0 && !escolher && !acertou) {
+					escolher = true;
+					escolhas = escolhasTxt.array[dialogo.idEscolha - 1];
+				}
+				else if (dialogos.size > ++cont) {
+					dialogo = dialogos.array[cont];
+					perso = personagens.array[dialogo.idPersonagem];
+					image = loadImage(perso.imagem);
+					InitBackground(&BG, 0, 0, bgs.path[dialogo.idBackground]);
+					acoes[PROXIMO] = false;
+					acertou = false;
+				}
+			}
+			else if (acoes[CONFIRMAR]) {
+				acoes[CONFIRMAR] = false;
+
+				if (opcao == escolhas.certa - 1) {
+					escolher = false;
+					acertou = true;
+					al_set_system_mouse_cursor(allegro.display, 1);
+					resetEscolhas(&escolhasTxt);
+					acoes[SELECIONAR] = false;
+				}
+				else if (acoes[SELECIONAR]) {
+					escolhasTxt.desabilitado[opcao] = 1;
+					escolhasTxt.color[opcao] = al_map_rgb(200, 0, 0);
+					al_set_system_mouse_cursor(allegro.display, ALLEGRO_SYSTEM_MOUSE_CURSOR_UNAVAILABLE);
+				}
+
+			}
+			else if (acoes[CIMA]) {
+				acoes[CIMA] = false;
+				acoes[SELECIONAR] = true;
+
+				if (opcao < 0) {
+					opcao = 0;
+				}
+				else if (opcao == 0) {
+					opcao = 2;
+				}
+				else {
+					opcao--;
+				}
+			}
+			else if (acoes[BAIXO]) {
+				acoes[BAIXO] = false;
+				acoes[SELECIONAR] = true;
+
+				if (opcao < 0) {
+					opcao = 3;
+				}
+				else if (opcao == 2) {
+					opcao = 0;
+				}
+				else {
+					opcao++;
+				}
+			}
+			else if (acoes[SELECIONAR]) {
+
+				if (!escolhasTxt.desabilitado[opcao]) {
+					resetEscolhas(&escolhasTxt);
+					escolhasTxt.color[opcao] = al_map_rgb(150, 150, 150);
+					al_set_system_mouse_cursor(allegro.display, ALLEGRO_SYSTEM_MOUSE_CURSOR_LINK);
+				}
+			}
+			
 		}
 		else if (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE) { // quando clicar no X do display
 			al_destroy_bitmap(image); 
 			return 1;
 		}
 		else if (ev.type == ALLEGRO_EVENT_KEY_DOWN) {
-			switch (ev.keyboard.keycode) {
-			case ALLEGRO_KEY_SPACE:
-			case ALLEGRO_KEY_ENTER:
-				if (!escolher)
-					acoes[PROXIMO] = true;
-				break;
+
+			if (!escolher) {
+				switch (ev.keyboard.keycode) {
+					case ALLEGRO_KEY_ENTER:
+						acoes[PROXIMO] = true;
+					break;
+				}
 			}
+			else {
+				switch (ev.keyboard.keycode) {
+					case ALLEGRO_KEY_ENTER:
+						acoes[CONFIRMAR] = true;
+					break;
+					case ALLEGRO_KEY_UP:
+						acoes[CIMA] = true;
+					break;
+					case ALLEGRO_KEY_DOWN:
+						acoes[BAIXO] = true;
+					break;
+				}
+			}
+			
+		}
+		else if (ev.type == ALLEGRO_EVENT_MOUSE_AXES && escolher) {
+
+			opcao = verificarHover(escolhasTxt, ev.mouse);
+
+			if (opcao >= 0) {
+				acoes[SELECIONAR] = true;
+			}
+			else {
+				acoes[SELECIONAR] = false;
+				resetEscolhas(&escolhasTxt);
+				al_set_system_mouse_cursor(allegro.display, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT);
+			}
+
+
 		}
 		else if (ev.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN) {
 			if (ev.mouse.button & 1) {
@@ -74,15 +171,7 @@ int historia(Allegro allegro, char* pathDialogo) {
 					acoes[PROXIMO] = true;
 				}
 				else {
-					float* box = escolhasTxt.caixas[escolhas.certa - 1];
-
-					if (
-						ev.mouse.x > box[0] && ev.mouse.x < box[2] &&
-						ev.mouse.y > box[1] && ev.mouse.y < box[3]
-					) {
-						escolher = false;
-						acertou = true;
-					}
+					acoes[CONFIRMAR] = true;
 				}
 			}
 		}
@@ -92,6 +181,8 @@ int historia(Allegro allegro, char* pathDialogo) {
 			desenhar = false;
 
 			al_clear_to_color(al_map_rgb(0, 0, 0));
+
+			DrawBackground(BG);
 
 			if (!escolher) {
 				float heightMenu = HEIGHT / 3 * 2.15;
@@ -145,7 +236,7 @@ int historia(Allegro allegro, char* pathDialogo) {
 				for (int i = 0; i < 3; i++) {
 					float* box = escolhasTxt.caixas[i];
 
-					al_draw_filled_rectangle(box[0], box[1], box[2], box[3], al_map_rgb(120, 120, 120));
+					al_draw_filled_rectangle(box[0], box[1], box[2], box[3], escolhasTxt.color[i]);
 
 					al_draw_multiline_text(
 						allegro.font[r24], al_map_rgb(255, 255, 255),

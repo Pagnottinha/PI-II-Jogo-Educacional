@@ -1,151 +1,55 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Arquivos de Origem">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Arquivos de Cabeçalho">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Arquivos de Recurso">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
+    <ClCompile Include="Background.c" />
+    <ClCompile Include="Batalha\inimigo.c" />
+    <ClCompile Include="Batalha\batalha.c" />
+    <ClCompile Include="Historias\Background\BackgroundDialogo.c" />
+    <ClCompile Include="Historias\historia.c" />
+    <ClCompile Include="Historias\Dialogos\dialogos.c" />
+    <ClCompile Include="Historias\Escolhas\escolhas.c" />
+    <ClCompile Include="Historias\Personagens\personagens.c" />
+    <ClCompile Include="Init.c" />
+    <ClCompile Include="main.c" />
+    <ClCompile Include="Batalha\player.c" />
+    <ClCompile Include="MenuInicial\MenuInicio.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.c">
-      <Filter>Arquivos de Origem</Filter>
-    </ClCompile>
-    <ClCompile Include="Batalha\player.c">
-      <Filter>Arquivos de Origem</Filter>
-    </ClCompile>
-    <ClCompile Include="Init.c">
-      <Filter>Arquivos de Origem</Filter>
-    </ClCompile>
-    <ClCompile Include="Batalha\inimigo.c">
-      <Filter>Arquivos de Origem</Filter>
-    </ClCompile>
-    <ClCompile Include="Batalha\batalha.c">
-      <Filter>Arquivos de Origem</Filter>
-    </ClCompile>
-    <ClCompile Include="Background.c">
-      <Filter>Arquivos de Origem</Filter>
-    </ClCompile>
-    <ClCompile Include="Historias\historia.c">
-      <Filter>Arquivos de Origem</Filter>
-    </ClCompile>
-    <ClCompile Include="Historias\Dialogos\dialogos.c">
-      <Filter>Arquivos de Origem</Filter>
-    </ClCompile>
-    <ClCompile Include="Historias\Escolhas\escolhas.c">
-      <Filter>Arquivos de Origem</Filter>
-    </ClCompile>
-    <ClCompile Include="Historias\Personagens\personagens.c">
-      <Filter>Arquivos de Origem</Filter>
-    </ClCompile>
-    <ClCompile Include="MenuInicial\MenuInicio.c">
-      <Filter>Arquivos de Origem</Filter>
-    </ClCompile>
+    <ClInclude Include="Background.h" />
+    <ClInclude Include="constantes.h" />
+    <ClInclude Include="Batalha\Inimigo.h" />
+    <ClInclude Include="game.h" />
+    <ClInclude Include="Historias\Background\BackgroundDialogo.h" />
+    <ClInclude Include="Historias\Dialogos\dialogos.h" />
+    <ClInclude Include="Historias\Escolhas\escolhas.h" />
+    <ClInclude Include="Historias\historia.h" />
+    <ClInclude Include="Historias\Personagens\personagens.h" />
+    <ClInclude Include="Init.h" />
+    <ClInclude Include="Batalha\player.h" />
+    <ClInclude Include="MenuInicial\Menu.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <Image Include="Sprites\Background\BatalhaDay.png" />
+    <Image Include="Sprites\Background\BatalhaNight.png" />
+    <Image Include="Sprites\Inimigo\ataque.png" />
+    <Image Include="Sprites\Inimigo\correr.png" />
+    <Image Include="Sprites\Player\ataque.png" />
+    <Image Include="Sprites\Player\correr.png" />
+    <Image Include="Sprites\Player\idle.png" />
+    <Image Include="Fontes PI\Fonte Roman\Roman.jpg" />
+    <Image Include="Sprites\Background\esparta.jpeg" />
+    <Image Include="Sprites\Background\itaca.jpeg" />
+    <Image Include="Sprites\Personagens\Agamemnon.png" />
+    <Image Include="Sprites\Personagens\Espartano.png" />
+    <Image Include="Sprites\Personagens\Menelau.png" />
+    <Image Include="Sprites\Personagens\Odisseu.png" />
+    <Image Include="Sprites\Personagens\Troiano.png" />
+    <Image Include="Sprites\Botoes\Button_Animation1.png" />
+    <Image Include="Sprites\Botoes\Button_Animation2.png" />
+    <Image Include="Sprites\Botoes\MenuInicialBG.png" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="constantes.h">
-      <Filter>Arquivos de Cabeçalho</Filter>
-    </ClInclude>
-    <ClInclude Include="Init.h">
-      <Filter>Arquivos de Cabeçalho</Filter>
-    </ClInclude>
-    <ClInclude Include="Batalha\Inimigo.h">
-      <Filter>Arquivos de Cabeçalho</Filter>
-    </ClInclude>
-    <ClInclude Include="Batalha\player.h">
-      <Filter>Arquivos de Cabeçalho</Filter>
-    </ClInclude>
-    <ClInclude Include="Background.h">
-      <Filter>Arquivos de Cabeçalho</Filter>
-    </ClInclude>
-    <ClInclude Include="game.h">
-      <Filter>Arquivos de Cabeçalho</Filter>
-    </ClInclude>
-    <ClInclude Include="Historias\Dialogos\dialogos.h">
-      <Filter>Arquivos de Cabeçalho</Filter>
-    </ClInclude>
-    <ClInclude Include="Historias\Escolhas\escolhas.h">
-      <Filter>Arquivos de Cabeçalho</Filter>
-    </ClInclude>
-    <ClInclude Include="Historias\Personagens\personagens.h">
-      <Filter>Arquivos de Cabeçalho</Filter>
-    </ClInclude>
-    <ClInclude Include="Historias\historia.h">
-      <Filter>Arquivos de Cabeçalho</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuInicial\Menu.h">
-      <Filter>Arquivos de Cabeçalho</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Batalha\Sprites\BackgroundDay.png">
-      <Filter>Arquivos de Recurso</Filter>
-    </Image>
-    <Image Include="Batalha\Sprites\BackgroundNight.png">
-      <Filter>Arquivos de Recurso</Filter>
-    </Image>
-    <Image Include="Batalha\Sprites\Inimigo\ataque.png">
-      <Filter>Arquivos de Recurso</Filter>
-    </Image>
-    <Image Include="Batalha\Sprites\Inimigo\correr.png">
-      <Filter>Arquivos de Recurso</Filter>
-    </Image>
-    <Image Include="Batalha\Sprites\Player\ataque.png">
-      <Filter>Arquivos de Recurso</Filter>
-    </Image>
-    <Image Include="Batalha\Sprites\Player\correr.png">
-      <Filter>Arquivos de Recurso</Filter>
-    </Image>
-    <Image Include="Batalha\Sprites\Player\idle.png">
-      <Filter>Arquivos de Recurso</Filter>
-    </Image>
-    <Image Include="Historias\Personagens\Sprites\Agamemnon.png">
-      <Filter>Arquivos de Recurso</Filter>
-    </Image>
-    <Image Include="Historias\Personagens\Sprites\Espartano.png">
-      <Filter>Arquivos de Recurso</Filter>
-    </Image>
-    <Image Include="Historias\Personagens\Sprites\Menelau.png">
-      <Filter>Arquivos de Recurso</Filter>
-    </Image>
-    <Image Include="Historias\Personagens\Sprites\Odisseu.png">
-      <Filter>Arquivos de Recurso</Filter>
-    </Image>
-    <Image Include="Historias\Personagens\Sprites\Troiano.png">
-      <Filter>Arquivos de Recurso</Filter>
-    </Image>
-    <Image Include="Fontes PI\Fonte Roman\Roman.jpg">
-      <Filter>Arquivos de Recurso</Filter>
-    </Image>
-    <Image Include="MenuInicial\Botoes\Sprites\Button_Animation2.png">
-      <Filter>Arquivos de Recurso</Filter>
-    </Image>
-    <Image Include="MenuInicial\Botoes\Sprites\Button_Animation1.png">
-      <Filter>Arquivos de Recurso</Filter>
-    </Image>
-    <Image Include="MenuInicial\Botoes\Sprites\MenuInicialBG.png">
-      <Filter>Arquivos de Recurso</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="allegro.log" />
-    <Text Include="Historias\Dialogos\dialogo1.txt" />
-    <Text Include="Historias\Dialogos\dialogo2.txt" />
-    <Text Include="Historias\Escolhas\escolhas.txt" />
-    <Text Include="Historias\Personagens\personagens.txt" />
-    <Text Include="Fontes PI\Fonte Roman\_Read Me.txt" />
-  </ItemGroup>
-  <ItemGroup>
+    <Font Include="Fontes PI\Fonte Arial\arial.ttf" />
     <Font Include="Fontes PI\Fonte Heorot\heorot.ttf" />
     <Font Include="Fontes PI\Fonte Heorot\heorote.ttf" />
     <Font Include="Fontes PI\Fonte Heorot\heorotei.ttf" />
@@ -153,7 +57,18 @@
     <Font Include="Fontes PI\Fonte Heorot\heorots.ttf" />
     <Font Include="Fontes PI\Fonte Heorot\heorotsi.ttf" />
     <Font Include="Fontes PI\Fonte Marathon\Marav2.ttf" />
-    <Font Include="Fontes PI\Fonte Arial\arial.ttf" />
     <Font Include="Fontes PI\Fonte Roman\Roman SD.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="allegro.log" />
+    <Text Include="Fontes PI\Fonte Roman\_Read Me.txt" />
+    <Text Include="Historias\Background\Backgrounds.txt" />
+    <Text Include="Historias\Dialogos\dialogo1.txt" />
+    <Text Include="Historias\Dialogos\dialogo2.txt" />
+    <Text Include="Historias\Escolhas\escolhas.txt" />
+    <Text Include="Historias\Personagens\personagens.txt" />
   </ItemGroup>
 </Project>

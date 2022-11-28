@@ -1,0 +1,3 @@
+.\Sprites\Background\itaca.jpeg
+.\Sprites\Background\esparta.jpeg
+.\Sprites\Background\BatalhaDay.png

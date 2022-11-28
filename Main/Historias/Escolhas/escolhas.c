@@ -40,7 +40,34 @@ int pegarEscolhas(Escolhas* es) {
 		es->caixas[i][1] = height * i + 50;
 		es->caixas[i][2] = WIDTH - 100;
 		es->caixas[i][3] = height * (i + 1) - 50;
+		es->color[i] = al_map_rgb(120, 120, 120);
+		es->desabilitado[i] = 0;
 	}
 
 	return 0;
+}
+
+void resetEscolhas(Escolhas* escolhas) {
+	for (int i = 0; i < 3; i++) {
+		escolhas->color[i] = al_map_rgb(120, 120, 120);
+		escolhas->desabilitado[i] = 0;
+	}
+}
+
+int verificarHover(Escolhas escolhas, ALLEGRO_MOUSE_EVENT mouse) {
+	for (int i = 0; i < 3; i++) {
+
+		float* box = escolhas.caixas[i];
+		if (
+			mouse.x > box[0] && mouse.x < box[2] &&
+			mouse.y > box[1] && mouse.y < box[3]
+			) {
+
+			return i;
+
+		}
+
+	}
+
+	return -1;
 }

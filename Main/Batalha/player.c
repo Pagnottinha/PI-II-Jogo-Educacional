@@ -99,9 +99,9 @@ void initPlayer(Player* player, ALLEGRO_DISPLAY* display) {
 	player->maxFrame[IDLE] = 6;
 	player->maxFrame[ATACANDO] = 6;
 
-	player->sheets[CORRENDO] = al_load_bitmap("Batalha/Sprites/Player/correr.png");
-	player->sheets[ATACANDO] = al_load_bitmap("Batalha/Sprites/Player/ataque.png");
-	player->sheets[IDLE] = al_load_bitmap("Batalha/Sprites/Player/idle.png");
+	player->sheets[CORRENDO] = al_load_bitmap("./Sprites/Player/correr.png");
+	player->sheets[ATACANDO] = al_load_bitmap("./Sprites/Player/ataque.png");
+	player->sheets[IDLE] = al_load_bitmap("./Sprites/Player/idle.png");
 	
 	// posição player
 	player->POS[X] = al_get_display_width(display) / 2 - player->dimensoesFrame[X] / 2;

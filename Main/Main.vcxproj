@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -144,6 +144,7 @@
     <ClCompile Include="Background.c" />
     <ClCompile Include="Batalha\inimigo.c" />
     <ClCompile Include="Batalha\batalha.c" />
+    <ClCompile Include="Historias\Background\BackgroundDialogo.c" />
     <ClCompile Include="Historias\historia.c" />
     <ClCompile Include="Historias\Dialogos\dialogos.c" />
     <ClCompile Include="Historias\Escolhas\escolhas.c" />
@@ -161,6 +162,7 @@
     <ClInclude Include="constantes.h" />
     <ClInclude Include="Batalha\Inimigo.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="Historias\Background\BackgroundDialogo.h" />
     <ClInclude Include="Historias\Dialogos\dialogos.h" />
     <ClInclude Include="Historias\Escolhas\escolhas.h" />
     <ClInclude Include="Historias\historia.h" />
@@ -172,28 +174,31 @@
   <ItemGroup>
     <Text Include="allegro.log" />
     <Text Include="Fontes PI\Fonte Roman\_Read Me.txt" />
+    <Text Include="Historias\Background\Backgrounds.txt" />
     <Text Include="Historias\Dialogos\dialogo1.txt" />
     <Text Include="Historias\Dialogos\dialogo2.txt" />
     <Text Include="Historias\Escolhas\escolhas.txt" />
     <Text Include="Historias\Personagens\personagens.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Batalha\Sprites\BackgroundDay.png" />
-    <Image Include="Batalha\Sprites\BackgroundNight.png" />
-    <Image Include="Batalha\Sprites\Inimigo\ataque.png" />
-    <Image Include="Batalha\Sprites\Inimigo\correr.png" />
-    <Image Include="Batalha\Sprites\Player\ataque.png" />
-    <Image Include="Batalha\Sprites\Player\correr.png" />
-    <Image Include="Batalha\Sprites\Player\idle.png" />
+    <Image Include="Sprites\Botoes\Button_Animation1.png" />
+    <Image Include="Sprites\Botoes\Button_Animation2.png" />
+    <Image Include="Sprites\Botoes\MenuInicialBG.png" />
+    <Image Include="Sprites\Background\BatalhaDay.png" />
+    <Image Include="Sprites\Background\BatalhaNight.png" />
+    <Image Include="Sprites\Inimigo\ataque.png" />
+    <Image Include="Sprites\Inimigo\correr.png" />
+    <Image Include="Sprites\Player\ataque.png" />
+    <Image Include="Sprites\Player\correr.png" />
+    <Image Include="Sprites\Player\idle.png" />
     <Image Include="Fontes PI\Fonte Roman\Roman.jpg" />
-    <Image Include="Historias\Personagens\Sprites\Agamemnon.png" />
-    <Image Include="Historias\Personagens\Sprites\Espartano.png" />
-    <Image Include="Historias\Personagens\Sprites\Menelau.png" />
-    <Image Include="Historias\Personagens\Sprites\Odisseu.png" />
-    <Image Include="Historias\Personagens\Sprites\Troiano.png" />
-    <Image Include="MenuInicial\Botoes\Sprites\MenuInicialBG.png" />
-    <Image Include="MenuInicial\Botoes\Sprites\Button_Animation1.png" />
-    <Image Include="MenuInicial\Botoes\Sprites\Button_Animation2.png" />
+    <Image Include="Sprites\Background\esparta.jpeg" />
+    <Image Include="Sprites\Background\itaca.jpeg" />
+    <Image Include="Sprites\Personagens\Agamemnon.png" />
+    <Image Include="Sprites\Personagens\Espartano.png" />
+    <Image Include="Sprites\Personagens\Menelau.png" />
+    <Image Include="Sprites\Personagens\Odisseu.png" />
+    <Image Include="Sprites\Personagens\Troiano.png" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="Fontes PI\Fonte Arial\arial.ttf" />

@@ -10,7 +10,7 @@ typedef struct
 
 	ALLEGRO_BITMAP* image;
 
-}Background;
+} Background;
 
-void InitBackground(Background* back, float x, float y, int width, int height, char* imagePath);
+void InitBackground(Background* back, float x, float y, char* imagePath);
 void DrawBackground(Background back);
