@@ -14,7 +14,7 @@ int batalha(Allegro* allegro) {
 	//BAckground
 	Background BG;
 
-	InitBackground(&BG, 0, 0, "Sprites/Background/BackgroundFloresta.png");
+	InitBackground(&BG, 0, 0, "Sprites/Background/BatalhaNight.png");
 
 	initPlayer(&player, allegro->display);
 	InitEnemie(&enemies);
