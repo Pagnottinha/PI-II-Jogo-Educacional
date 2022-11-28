@@ -1,11 +1,11 @@
 #include "Inimigo.h"
 #include <stdio.h>
 
-void InitEnemie(Enemies* enemies)
+void InitEnemie(Enemies* enemies, int numWaves)
 {
     enemies->countEnemies = 0;
     enemies->enemieDeath = 0;
-    enemies->waves[MAX] = 5;
+    enemies->waves[MAX] = numWaves;
     enemies->waves[QNT] = 0;
 
     ALLEGRO_BITMAP* correndo = al_load_bitmap("./Sprites/Inimigo/correr.png");

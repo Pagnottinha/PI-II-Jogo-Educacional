@@ -31,7 +31,7 @@ typedef struct {
 } Enemies;
 
 // Inimigo
-void InitEnemie(Enemies* enemies);
+void InitEnemie(Enemies* enemies, int numWaves);
 void DrawEnemie(Enemies enemies);
 void NewWave(Enemies* enemies);
 void UpdateEnemie(Enemies* enemies, Player* player);

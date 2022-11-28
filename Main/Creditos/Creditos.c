@@ -37,10 +37,9 @@ int InitCreditos(Allegro *allegro)
 		ALLEGRO_EVENT ev;
 		al_wait_for_event(allegro->eventQueue, &ev);
 
-		controleY--;
-
 		if (ev.type == ALLEGRO_EVENT_TIMER)
 		{
+			controleY--;
 			desenhar = true;
 		}
 		else if (ev.type == ALLEGRO_EVENT_KEY_DOWN)
@@ -86,7 +85,7 @@ int InitCreditos(Allegro *allegro)
 		}
 
 		if (controleY == -1200)
-			return 0;
+			done = true;
 
 		if (desenhar && al_is_event_queue_empty(allegro->eventQueue))
 		{

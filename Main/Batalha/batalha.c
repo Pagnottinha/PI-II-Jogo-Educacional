@@ -17,7 +17,7 @@ int batalha(Allegro* allegro) {
 	InitBackground(&BG, 0, 0, "Sprites/Background/BatalhaNight.png");
 
 	initPlayer(&player, allegro->display);
-	InitEnemie(&enemies);
+	InitEnemie(&enemies, 5);
 
 	// inicio do jogo
 	while (!done && player.vivo) {

@@ -63,7 +63,11 @@ int historia(Allegro* allegro, char* pathDialogo) {
 				else if (dialogos.size > ++cont) {
 					dialogo = dialogos.array[cont];
 					perso = personagens.array[dialogo.idPersonagem];
+
+					if (image != NULL)
+						al_destroy_bitmap(image);
 					image = loadImage(perso.imagem);
+
 					InitBackground(&BG, 0, 0, bgs.path[dialogo.idBackground]);
 					acoes[PROXIMO] = false;
 					acertou = false;
@@ -255,6 +259,7 @@ int historia(Allegro* allegro, char* pathDialogo) {
 	}
 
 	al_destroy_bitmap(image);
+	al_destroy_bitmap(BG.image);
 
 	return 0;
 }

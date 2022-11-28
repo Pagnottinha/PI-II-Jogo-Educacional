@@ -163,6 +163,7 @@
     <ClInclude Include="Background.h" />
     <ClInclude Include="constantes.h" />
     <ClInclude Include="Batalha\Inimigo.h" />
+    <ClInclude Include="Creditos\Creditos.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="Historias\Background\BackgroundDialogo.h" />
     <ClInclude Include="Historias\Dialogos\dialogos.h" />
@@ -185,7 +186,6 @@
     <Text Include="Historias\Personagens\personagens.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\..\..\Desktop\Coisas do Erick\BackgroundFloresta.png" />
     <Image Include="Sprites\Background\BackgroundFloresta.png" />
     <Image Include="Sprites\Background\ImagemCreditos.png" />
     <Image Include="Sprites\Botoes\Button_Animation1.png" />
