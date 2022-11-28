@@ -13,6 +13,7 @@
     <ClCompile Include="main.c" />
     <ClCompile Include="Batalha\player.c" />
     <ClCompile Include="MenuInicial\MenuInicio.c" />
+    <ClCompile Include="Tutorial\Tutorial.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Background.h" />
@@ -27,6 +28,7 @@
     <ClInclude Include="Init.h" />
     <ClInclude Include="Batalha\player.h" />
     <ClInclude Include="MenuInicial\Menu.h" />
+    <ClInclude Include="Tutorial\Tutorial.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Sprites\Background\BatalhaDay.png" />
@@ -47,6 +49,9 @@
     <Image Include="Sprites\Botoes\Button_Animation1.png" />
     <Image Include="Sprites\Botoes\Button_Animation2.png" />
     <Image Include="Sprites\Botoes\MenuInicialBG.png" />
+    <Image Include="Sprites\Tutorial\MadeiraParaTutorial.png" />
+    <Image Include="..\..\..\..\Desktop\Coisas do Erick\BackgroundFloresta.png" />
+    <Image Include="Sprites\Background\BackgroundFloresta.png" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="Fontes PI\Fonte Arial\arial.ttf" />

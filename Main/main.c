@@ -14,6 +14,10 @@ int main(void) {
 	if (resultado)
 		return resultado;
 
+	if (resultado == 2)
+		Tutorial(allegro);
+
+
 	resultado = historia(allegro, "./Historias/Dialogos/dialogo1.txt");
 
 	if (resultado)

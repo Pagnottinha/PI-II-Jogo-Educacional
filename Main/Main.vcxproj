@@ -153,6 +153,7 @@
     <ClCompile Include="main.c" />
     <ClCompile Include="Batalha\player.c" />
     <ClCompile Include="MenuInicial\MenuInicio.c" />
+    <ClCompile Include="Tutorial\Tutorial.c" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -170,6 +171,7 @@
     <ClInclude Include="Init.h" />
     <ClInclude Include="Batalha\player.h" />
     <ClInclude Include="MenuInicial\Menu.h" />
+    <ClInclude Include="Tutorial\Tutorial.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="allegro.log" />
@@ -181,6 +183,8 @@
     <Text Include="Historias\Personagens\personagens.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\..\..\..\Desktop\Coisas do Erick\BackgroundFloresta.png" />
+    <Image Include="Sprites\Background\BackgroundFloresta.png" />
     <Image Include="Sprites\Botoes\Button_Animation1.png" />
     <Image Include="Sprites\Botoes\Button_Animation2.png" />
     <Image Include="Sprites\Botoes\MenuInicialBG.png" />
@@ -199,6 +203,7 @@
     <Image Include="Sprites\Personagens\Menelau.png" />
     <Image Include="Sprites\Personagens\Odisseu.png" />
     <Image Include="Sprites\Personagens\Troiano.png" />
+    <Image Include="Sprites\Tutorial\MadeiraParaTutorial.png" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="Fontes PI\Fonte Arial\arial.ttf" />

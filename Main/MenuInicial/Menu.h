@@ -1,7 +1,5 @@
 #include "allegro5/allegro.h"
 
-enum ACOES {CLICOU};
-
 typedef struct {
 	int posX;
 	int posY;

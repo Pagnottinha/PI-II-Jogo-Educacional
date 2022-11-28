@@ -15,15 +15,8 @@ int loadMenu(Allegro allegro)
 	Botao botaoSair;
 
 	//inicializando os botoes com as suas respectivas imagens
-	//apesar de serem as mesmas imagens, cada botao tem uma funcao diferente
 	botaoJogar.botaoImage = al_load_bitmap("./Sprites/Botoes/Button_Animation1.png");
 	botaoJogar.botaoHover = al_load_bitmap("./Sprites/Botoes/Button_Animation2.png");
-
-	botaoTutorial.botaoImage = al_load_bitmap("./Sprites/Botoes/Button_Animation1.png");
-	botaoTutorial.botaoHover = al_load_bitmap("./Sprites/Botoes/Button_Animation2.png");
-
-	botaoSair.botaoImage = al_load_bitmap("./Sprites/Botoes/Button_Animation1.png");
-	botaoSair.botaoHover = al_load_bitmap("./Sprites/Botoes/Button_Animation2.png");
 
 	int mouseX;
 	int mouseY;
@@ -131,17 +124,17 @@ int loadMenu(Allegro allegro)
 
 			//botao de tutorial
 			if (!botaoTutorial.hover)
-				al_draw_bitmap(botaoTutorial.botaoImage, botaoTutorial.posX, botaoTutorial.posY, 0);
+				al_draw_bitmap(botaoJogar.botaoImage, botaoTutorial.posX, botaoTutorial.posY, 0);
 			else
-				al_draw_bitmap(botaoTutorial.botaoHover, botaoTutorial.posX, botaoTutorial.posY, 0);
+				al_draw_bitmap(botaoJogar.botaoHover, botaoTutorial.posX, botaoTutorial.posY, 0);
 
 			al_draw_text(allegro.font[r30], al_map_rgb(255, 255, 255), WIDTH / 2 - 80, 335, 0, "TUTORIAL");
 
 			//botao de sair
 			if (!botaoSair.hover)
-				al_draw_bitmap(botaoSair.botaoImage, botaoSair.posX, botaoSair.posY, 0);
+				al_draw_bitmap(botaoJogar.botaoImage, botaoSair.posX, botaoSair.posY, 0);
 			else
-				al_draw_bitmap(botaoSair.botaoHover, botaoSair.posX, botaoSair.posY, 0);
+				al_draw_bitmap(botaoJogar.botaoHover, botaoSair.posX, botaoSair.posY, 0);
 
 			al_draw_text(allegro.font[r30], al_map_rgb(255, 255, 255), WIDTH / 2 - 30, 410, 0, "SAIR");
 

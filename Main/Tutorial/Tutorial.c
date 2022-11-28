@@ -1,8 +1,8 @@
 #include "../game.h"
-#include "Inimigo.h"
+#include "../Batalha/Inimigo.h"
 #include "../Background.h"
 
-int batalha(Allegro allegro) {
+int Tutorial(Allegro allegro) {
 	// Booleans
 	bool done = false;
 	bool desenhar = true;
