@@ -45,6 +45,9 @@
     <ClCompile Include="Historias\Personagens\personagens.c">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
+    <ClCompile Include="MenuInicial\MenuInicio.c">
+      <Filter>Arquivos de Origem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -78,6 +81,9 @@
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
     <ClInclude Include="Historias\historia.h">
+      <Filter>Arquivos de Cabeçalho</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuInicial\Menu.h">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
   </ItemGroup>
@@ -119,6 +125,12 @@
       <Filter>Arquivos de Recurso</Filter>
     </Image>
     <Image Include="Fontes PI\Fonte Roman\Roman.jpg">
+      <Filter>Arquivos de Recurso</Filter>
+    </Image>
+    <Image Include="MenuInicial\Botoes\Sprites\Button_Animation2.png">
+      <Filter>Arquivos de Recurso</Filter>
+    </Image>
+    <Image Include="MenuInicial\Botoes\Sprites\Button_Animation1.png">
       <Filter>Arquivos de Recurso</Filter>
     </Image>
   </ItemGroup>

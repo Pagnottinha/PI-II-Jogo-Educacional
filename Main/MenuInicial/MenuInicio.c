@@ -1,0 +1,140 @@
+#include "Menu.h"
+#include "../game.h"
+
+int loadMenu(Allegro allegro)
+{
+	bool done = false;
+	bool desenhar = true;
+
+	Botao botaoJogar;
+	Botao botaoTutorial;
+	Botao botaoSair;
+
+	//inicializando os botoes com as suas respectivas imagens
+	botaoJogar.botaoImage = al_load_bitmap("./MenuInicial/Botoes/Sprites/Button_Animation1.png");
+	botaoJogar.botaoHover = al_load_bitmap("./MenuInicial/Botoes/Sprites/Button_Animation2.png");
+
+	botaoTutorial.botaoImage = al_load_bitmap("./MenuInicial/Botoes/Sprites/Button_Animation1.png");
+	botaoTutorial.botaoHover = al_load_bitmap("./MenuInicial/Botoes/Sprites/Button_Animation2.png");
+
+	botaoSair.botaoImage = al_load_bitmap("./MenuInicial/Botoes/Sprites/Button_Animation1.png");
+	botaoSair.botaoHover = al_load_bitmap("./MenuInicial/Botoes/Sprites/Button_Animation2.png");
+
+	int mouseX;
+	int mouseY;
+
+	botaoJogar.hover = false;
+	botaoTutorial.hover = false;
+	botaoSair.hover = false;
+
+	botaoJogar.posX = WIDTH / 2 - 175;
+	botaoJogar.posY = 200;
+
+	botaoTutorial.posX = WIDTH / 2 - 175;
+	botaoTutorial.posY = 275;
+
+	botaoSair.posX = WIDTH / 2 - 175;
+	botaoSair.posY = 350;
+
+	int width = al_get_bitmap_width(botaoJogar.botaoImage); //350
+	int height = al_get_bitmap_height(botaoJogar.botaoImage); //150
+
+	int teste = width + botaoJogar.posX;
+	int teste2 = botaoJogar.posY + height;
+
+
+	while (!done)
+	{
+		ALLEGRO_EVENT ev;
+		al_wait_for_event(allegro.eventQueue, &ev);
+
+		if (ev.type == ALLEGRO_EVENT_TIMER)
+		{
+			desenhar = true;
+		}
+		else if (ev.type == ALLEGRO_EVENT_KEY_DOWN)
+		{
+			switch (ev.keyboard.keycode)
+			{
+			case ALLEGRO_KEY_ESCAPE:
+				done = true;
+				break;
+			}
+		}
+		else if (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
+			done = true;
+		else if (ev.type == ALLEGRO_EVENT_MOUSE_AXES)
+		{
+			mouseX = ev.mouse.x;
+			mouseY = ev.mouse.y;
+
+			printf("Mouse X: %d\n", mouseX);
+			printf("Mouse Y: %d\n\n", mouseY);
+
+			botaoJogar.hover = mouseX > 522 && mouseX < 758 &&
+				mouseY > 245 && mouseY < 305;
+
+			botaoTutorial.hover = mouseX > 522 && mouseX < 758 &&
+				mouseY > 320 && mouseY < 380;
+
+			botaoSair.hover = mouseX > 522 && mouseX < 758 &&
+				mouseY > 395 && mouseY < 455;
+			
+					
+		}
+		else if (ev.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
+		{
+			if (ev.mouse.button & 1)
+			{
+				if (ev.mouse.x < botaoJogar.posX && ev.mouse.y > botaoJogar.posY)
+				{
+
+				}
+			}
+		}
+
+		if (desenhar && al_is_event_queue_empty(allegro.eventQueue))
+		{
+			desenhar = false;
+			al_clear_to_color(al_map_rgb(0, 0, 0));
+
+			al_draw_text(allegro.font[r60], al_map_rgb(255, 255, 255), WIDTH / 2 - 100, 100, 0, "ILIADA");
+
+			//botao jogar
+			if (!botaoJogar.hover)
+				al_draw_bitmap(botaoJogar.botaoImage, botaoJogar.posX, botaoJogar.posY, 0);
+			else
+				al_draw_bitmap(botaoJogar.botaoHover, botaoJogar.posX, botaoJogar.posY, 0);
+			
+			al_draw_text(allegro.font[r30], al_map_rgb(255, 255, 255), WIDTH / 2 - 50, 260, 0, "JOGAR");
+
+			//botao de tutorial
+			if (!botaoTutorial.hover)
+				al_draw_bitmap(botaoTutorial.botaoImage, botaoTutorial.posX, botaoTutorial.posY, 0);
+			else
+				al_draw_bitmap(botaoTutorial.botaoHover, botaoTutorial.posX, botaoTutorial.posY, 0);
+
+			al_draw_text(allegro.font[r30], al_map_rgb(255, 255, 255), WIDTH / 2 - 80, 335, 0, "TUTORIAL");
+
+			//botao de sair
+			if (!botaoSair.hover)
+				al_draw_bitmap(botaoSair.botaoImage, botaoSair.posX, botaoSair.posY, 0);
+			else
+				al_draw_bitmap(botaoSair.botaoHover, botaoSair.posX, botaoSair.posY, 0);
+
+			al_draw_text(allegro.font[r30], al_map_rgb(255, 255, 255), WIDTH / 2 - 30, 410, 0, "SAIR");
+
+
+
+			al_flip_display();
+		}	
+			
+		
+		
+	}
+
+	al_destroy_bitmap(botaoJogar.botaoImage);
+	al_destroy_bitmap(botaoJogar.botaoHover);
+
+	return 0;
+}

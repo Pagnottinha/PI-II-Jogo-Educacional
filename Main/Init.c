@@ -23,6 +23,7 @@ Allegro init() {
 
 			allegro.font[r24] = al_load_font("./Fontes PI/Fonte Roman/Roman SD.ttf", 24, 0);
 			allegro.font[r30] = al_load_font("./Fontes PI/Fonte Roman/Roman SD.ttf", 30, 0);
+			allegro.font[r60] = al_load_font("./Fontes PI/Fonte Roman/Roman SD.ttf", 60, 0);
 
 			al_install_keyboard();
 			al_install_mouse();

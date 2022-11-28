@@ -9,6 +9,8 @@ int main(void) {
 
 	int resultado;
 
+	loadMenu(allegro);
+
 	resultado = historia(allegro, "./Historias/Dialogos/dialogo1.txt");
 
 	if (resultado)

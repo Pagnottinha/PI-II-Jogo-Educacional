@@ -151,6 +151,7 @@
     <ClCompile Include="Init.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="Batalha\player.c" />
+    <ClCompile Include="MenuInicial\MenuInicio.c" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -166,6 +167,7 @@
     <ClInclude Include="Historias\Personagens\personagens.h" />
     <ClInclude Include="Init.h" />
     <ClInclude Include="Batalha\player.h" />
+    <ClInclude Include="MenuInicial\Menu.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="allegro.log" />
@@ -189,6 +191,8 @@
     <Image Include="Historias\Personagens\Sprites\Menelau.png" />
     <Image Include="Historias\Personagens\Sprites\Odisseu.png" />
     <Image Include="Historias\Personagens\Sprites\Troiano.png" />
+    <Image Include="MenuInicial\Botoes\Sprites\Button_Animation1.png" />
+    <Image Include="MenuInicial\Botoes\Sprites\Button_Animation2.png" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="Fontes PI\Fonte Arial\arial.ttf" />
