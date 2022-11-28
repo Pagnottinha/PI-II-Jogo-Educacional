@@ -8,27 +8,37 @@ int main(void) {
 		return -1;
 
 	int resultado;
-
-	resultado = loadMenu(allegro);
-
-	if (resultado)
-		return resultado;
-
-	resultado = historia(allegro, "./Historias/Dialogos/dialogo1.txt");
-
-	if (resultado)
-		return resultado;
-
-	resultado = historia(allegro, "./Historias/Dialogos/dialogo2.txt");
-
-	if (resultado)
-		return resultado;
+	int cont = 0;
 
 	do {
-		resultado = batalha(allegro);
-	} while (resultado);
+		switch (cont) {
+		case 0:
+			resultado = loadMenu(&allegro);
+			break;
+		case 1:
+			resultado = historia(&allegro, "./Historias/Dialogos/dialogo1.txt");
+			break;
+		case 2:
+			resultado = historia(&allegro, "./Historias/Dialogos/dialogo2.txt");
+			break;
+		case 3:
+			do {
+				resultado = batalha(&allegro);
+			} while (resultado && !allegro.close);
+			break;
+		case 4:
+			resultado = historia(&allegro, "./Historias/Dialogos/dialogoFinal.txt");
+			break;
+		default:
+			cont = -1;
+			break;
+		}
 
+		cont++;
+
+	} while (!allegro.close && resultado == 0);
+	
 	destroy(&allegro);
 
-	return 0;
+	return resultado;
 }

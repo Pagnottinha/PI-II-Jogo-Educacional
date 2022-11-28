@@ -70,5 +70,6 @@
     <Text Include="Historias\Dialogos\dialogo2.txt" />
     <Text Include="Historias\Escolhas\escolhas.txt" />
     <Text Include="Historias\Personagens\personagens.txt" />
+    <Text Include="Historias\Dialogos\dialogoFinal.txt" />
   </ItemGroup>
 </Project>

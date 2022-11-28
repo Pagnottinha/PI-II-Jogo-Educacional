@@ -1,6 +1,6 @@
 #include "historia.h"
 
-int historia(Allegro allegro, char* pathDialogo) {
+int historia(Allegro* allegro, char* pathDialogo) {
 	int flag;
 
 	Personagens personagens;
@@ -47,7 +47,7 @@ int historia(Allegro allegro, char* pathDialogo) {
 
 	while (!done && dialogos.size > cont) {
 		ALLEGRO_EVENT ev;
-		al_wait_for_event(allegro.eventQueue, &ev); // esperar evento
+		al_wait_for_event(allegro->eventQueue, &ev); // esperar evento
 
 		if (ev.type == ALLEGRO_EVENT_TIMER) { // quando der um frame do jogo
 
@@ -57,6 +57,8 @@ int historia(Allegro allegro, char* pathDialogo) {
 				if (dialogo.idEscolha != 0 && !escolher && !acertou) {
 					escolher = true;
 					escolhas = escolhasTxt.array[dialogo.idEscolha - 1];
+					opcao = -1;
+					resetEscolhas(&escolhasTxt);
 				}
 				else if (dialogos.size > ++cont) {
 					dialogo = dialogos.array[cont];
@@ -73,14 +75,13 @@ int historia(Allegro allegro, char* pathDialogo) {
 				if (opcao == escolhas.certa - 1) {
 					escolher = false;
 					acertou = true;
-					al_set_system_mouse_cursor(allegro.display, 1);
-					resetEscolhas(&escolhasTxt);
+					al_set_system_mouse_cursor(allegro->display, 1);
 					acoes[SELECIONAR] = false;
 				}
 				else if (acoes[SELECIONAR]) {
 					escolhasTxt.desabilitado[opcao] = 1;
 					escolhasTxt.color[opcao] = al_map_rgb(200, 0, 0);
-					al_set_system_mouse_cursor(allegro.display, ALLEGRO_SYSTEM_MOUSE_CURSOR_UNAVAILABLE);
+					al_set_system_mouse_cursor(allegro->display, ALLEGRO_SYSTEM_MOUSE_CURSOR_UNAVAILABLE);
 				}
 
 			}
@@ -103,7 +104,7 @@ int historia(Allegro allegro, char* pathDialogo) {
 				acoes[SELECIONAR] = true;
 
 				if (opcao < 0) {
-					opcao = 3;
+					opcao = 2;
 				}
 				else if (opcao == 2) {
 					opcao = 0;
@@ -117,14 +118,13 @@ int historia(Allegro allegro, char* pathDialogo) {
 				if (!escolhasTxt.desabilitado[opcao]) {
 					resetEscolhas(&escolhasTxt);
 					escolhasTxt.color[opcao] = al_map_rgb(150, 150, 150);
-					al_set_system_mouse_cursor(allegro.display, ALLEGRO_SYSTEM_MOUSE_CURSOR_LINK);
 				}
 			}
 			
 		}
 		else if (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE) { // quando clicar no X do display
-			al_destroy_bitmap(image); 
-			return 1;
+			done = true;
+			allegro->close = true;
 		}
 		else if (ev.type == ALLEGRO_EVENT_KEY_DOWN) {
 
@@ -156,11 +156,14 @@ int historia(Allegro allegro, char* pathDialogo) {
 
 			if (opcao >= 0) {
 				acoes[SELECIONAR] = true;
+				if (!escolhasTxt.desabilitado[opcao]) {
+					al_set_system_mouse_cursor(allegro->display, ALLEGRO_SYSTEM_MOUSE_CURSOR_LINK);
+				}
 			}
 			else {
 				acoes[SELECIONAR] = false;
 				resetEscolhas(&escolhasTxt);
-				al_set_system_mouse_cursor(allegro.display, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT);
+				al_set_system_mouse_cursor(allegro->display, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT);
 			}
 
 
@@ -176,7 +179,7 @@ int historia(Allegro allegro, char* pathDialogo) {
 			}
 		}
 
-		if (desenhar && al_is_event_queue_empty(allegro.eventQueue)) { // desenhar somente quando tiver frames
+		if (desenhar && al_is_event_queue_empty(allegro->eventQueue)) { // desenhar somente quando tiver frames
 
 			desenhar = false;
 
@@ -203,33 +206,33 @@ int historia(Allegro allegro, char* pathDialogo) {
 					(WIDTH - strlen(perso.nome) * 30) * dialogo.posicao,
 					heightMenu,
 					dialogo.posicao ? WIDTH : strlen(perso.nome) * 30,
-					heightMenu + al_get_font_line_height(allegro.font[r30]) * 1.5,
+					heightMenu + al_get_font_line_height(allegro->font[r30]) * 1.5,
 					al_map_rgb(200, 0, 0)
 				);
 
 				// texto nome
 				al_draw_multiline_text(
-					allegro.font[r24], al_map_rgb(255, 255, 255),
+					allegro->font[r24], al_map_rgb(255, 255, 255),
 					dialogo.posicao ? WIDTH - strlen(perso.nome) * 30 + 25 : 50,
 					heightMenu + 10,
 					WIDTH + 50 * (dialogo.posicao - 1),
-					al_get_font_line_height(allegro.font[r30]) + 10,
+					al_get_font_line_height(allegro->font[r30]) + 10,
 					0,
 					perso.nome
 				);
 
 				// texto fala
 				al_draw_multiline_text(
-					allegro.font[r24], al_map_rgb(255, 255, 255),
+					allegro->font[r24], al_map_rgb(255, 255, 255),
 					dialogo.posicao ? WIDTH - 50 : 50,
-					heightMenu + al_get_font_line_height(allegro.font[r30]) * 2.5,
+					heightMenu + al_get_font_line_height(allegro->font[r30]) * 2.5,
 					WIDTH - 50,
-					al_get_font_line_height(allegro.font[r24]) + 10,
+					al_get_font_line_height(allegro->font[r24]) + 10,
 					dialogo.posicao ? ALLEGRO_ALIGN_RIGHT : ALLEGRO_ALIGN_LEFT,
 					dialogo.fala
 				);
 
-				al_draw_text(allegro.font[r16], al_map_rgb(255, 255, 255), 1000, 690, 0, "APERTE ENTER PARA PULAR");
+				al_draw_text(allegro->font[r16], al_map_rgb(255, 255, 255), 1000, 690, 0, "APERTE ENTER PARA PULAR");
 			}
 			else {
 
@@ -239,9 +242,9 @@ int historia(Allegro allegro, char* pathDialogo) {
 					al_draw_filled_rectangle(box[0], box[1], box[2], box[3], escolhasTxt.color[i]);
 
 					al_draw_multiline_text(
-						allegro.font[r24], al_map_rgb(255, 255, 255),
+						allegro->font[r24], al_map_rgb(255, 255, 255),
 						WIDTH / 2, (box[1] + box[3]) / 2, box[2] - 20,
-						al_get_font_line_height(allegro.font[r24]) + 10,
+						al_get_font_line_height(allegro->font[r24]) + 10,
 						ALLEGRO_ALIGN_CENTRE, escolhas.escolha[i]
 					);
 				}

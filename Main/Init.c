@@ -16,6 +16,7 @@ Allegro init() {
 			srand(time(NULL));
 
 			allegro.deuCerto = true;
+			allegro.close = false;
 			al_set_window_title(allegro.display, "Iliada");
 
 			al_init_font_addon();
