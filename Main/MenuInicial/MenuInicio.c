@@ -67,8 +67,10 @@ int loadMenu(Allegro* allegro)
 				break;
 			}
 		}
-		else if (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
+		else if (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
+			allegro->close = true;
 			done = true;
+		}
 		else if (ev.type == ALLEGRO_EVENT_MOUSE_AXES)
 		{
 			mouseX = ev.mouse.x;
