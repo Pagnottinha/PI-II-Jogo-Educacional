@@ -2,7 +2,7 @@
 #include "Inimigo.h"
 #include "../Background.h"
 
-int batalha(Allegro allegro) {
+int batalha(Allegro* allegro) {
 	// Booleans
 	bool done = false;
 	bool desenhar = true;
@@ -16,13 +16,13 @@ int batalha(Allegro allegro) {
 
 	InitBackground(&BG, 0, 0, "Sprites/Background/BackgroundFloresta.png");
 
-	initPlayer(&player, allegro.display);
+	initPlayer(&player, allegro->display);
 	InitEnemie(&enemies);
 
 	// inicio do jogo
 	while (!done && player.vivo) {
 		ALLEGRO_EVENT ev;
-		al_wait_for_event(allegro.eventQueue, &ev); // esperar evento
+		al_wait_for_event(allegro->eventQueue, &ev); // esperar evento
 
 		if (ev.type == ALLEGRO_EVENT_TIMER) { // quando der um frame do jogo
 
@@ -75,6 +75,7 @@ int batalha(Allegro allegro) {
 		}
 		else if (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE) { // quando clicar no X do display
 			done = true;
+			allegro->close = true;
 		}
 		else if (ev.type == ALLEGRO_EVENT_KEY_DOWN) {
 			switch (ev.keyboard.keycode)
@@ -123,7 +124,7 @@ int batalha(Allegro allegro) {
 			}
 		}
 
-		if (desenhar && al_is_event_queue_empty(allegro.eventQueue)) { // desenhar somente quando tiver frames
+		if (desenhar && al_is_event_queue_empty(allegro->eventQueue)) { // desenhar somente quando tiver frames
 
 			desenhar = false;
 
@@ -131,9 +132,9 @@ int batalha(Allegro allegro) {
 			DrawEnemie(enemies);
 			desenharPlayer(&player);
 
-			al_draw_text(allegro.font[r24], al_map_rgb(255, 255, 255), 20, 20, 0, "Vida: ");
-			al_draw_textf(allegro.font[r24], al_map_rgb(255, 255, 255), WIDTH - 150, 20, 0, "Onda %d", enemies.waves[QNT]);
-			al_draw_textf(allegro.font[r24], al_map_rgb(255, 255, 255), 20, HEIGHT - 40, 0, "Inimigos Restantes %d", enemies.countEnemies - enemies.enemieDeath);
+			al_draw_text(allegro->font[r24], al_map_rgb(255, 255, 255), 20, 20, 0, "Vida: ");
+			al_draw_textf(allegro->font[r24], al_map_rgb(255, 255, 255), WIDTH - 150, 20, 0, "Onda %d", enemies.waves[QNT]);
+			al_draw_textf(allegro->font[r24], al_map_rgb(255, 255, 255), 20, HEIGHT - 40, 0, "Inimigos Restantes %d", enemies.countEnemies - enemies.enemieDeath);
 
 			al_draw_rectangle(100, 20, 220, 40, al_map_rgb(0, 255, 0), 2);
 

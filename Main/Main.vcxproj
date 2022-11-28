@@ -179,6 +179,7 @@
     <Text Include="Historias\Background\Backgrounds.txt" />
     <Text Include="Historias\Dialogos\dialogo1.txt" />
     <Text Include="Historias\Dialogos\dialogo2.txt" />
+    <Text Include="Historias\Dialogos\dialogoFinal.txt" />
     <Text Include="Historias\Escolhas\escolhas.txt" />
     <Text Include="Historias\Personagens\personagens.txt" />
   </ItemGroup>

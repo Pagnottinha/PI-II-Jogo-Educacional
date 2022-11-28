@@ -1,7 +1,7 @@
 #include "Menu.h"
 #include "../game.h"
 
-int loadMenu(Allegro allegro)
+int loadMenu(Allegro* allegro)
 {
 	bool done = false;
 	bool desenhar = true;
@@ -44,7 +44,7 @@ int loadMenu(Allegro allegro)
 	while (!done)
 	{
 		ALLEGRO_EVENT ev;
-		al_wait_for_event(allegro.eventQueue, &ev);
+		al_wait_for_event(allegro->eventQueue, &ev);
 
 		if (ev.type == ALLEGRO_EVENT_TIMER)
 		{
@@ -56,11 +56,14 @@ int loadMenu(Allegro allegro)
 			{
 			case ALLEGRO_KEY_ESCAPE:
 				done = true;
+				allegro->close = true;
 				break;
 			}
 		}
-		else if (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
+		else if (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
+			allegro->close = true;
 			done = true;
+		}
 		else if (ev.type == ALLEGRO_EVENT_MOUSE_AXES)
 		{
 			mouseX = ev.mouse.x;
@@ -100,19 +103,20 @@ int loadMenu(Allegro allegro)
 				else if (mouseX > 522 && mouseX < 758 &&
 					mouseY > 395 && mouseY < 455)
 				{
-					return 1;
+					allegro->close = true;
+					done = true;
 				}
 			}
 		}
 
-		if (desenhar && al_is_event_queue_empty(allegro.eventQueue))
+		if (desenhar && al_is_event_queue_empty(allegro->eventQueue))
 		{
 			desenhar = false;
 			al_clear_to_color(al_map_rgb(0, 0, 0));
 
 			DrawnBackMenu(BG);
 
-			al_draw_text(allegro.font[r60], al_map_rgb(255, 255, 255), WIDTH / 2 - 100, 100, 0, "ILIADA");
+			al_draw_text(allegro->font[r60], al_map_rgb(255, 255, 255), WIDTH / 2 - 100, 100, 0, "ILIADA");
 
 			//botao jogar
 			if (!botaoJogar.hover)
@@ -120,7 +124,7 @@ int loadMenu(Allegro allegro)
 			else
 				al_draw_bitmap(botaoJogar.botaoHover, botaoJogar.posX, botaoJogar.posY, 0);
 			
-			al_draw_text(allegro.font[r30], al_map_rgb(255, 255, 255), WIDTH / 2 - 50, 260, 0, "JOGAR");
+			al_draw_text(allegro->font[r30], al_map_rgb(255, 255, 255), WIDTH / 2 - 50, 260, 0, "JOGAR");
 
 			//botao de tutorial
 			if (!botaoTutorial.hover)
@@ -128,7 +132,7 @@ int loadMenu(Allegro allegro)
 			else
 				al_draw_bitmap(botaoJogar.botaoHover, botaoTutorial.posX, botaoTutorial.posY, 0);
 
-			al_draw_text(allegro.font[r30], al_map_rgb(255, 255, 255), WIDTH / 2 - 80, 335, 0, "TUTORIAL");
+			al_draw_text(allegro->font[r30], al_map_rgb(255, 255, 255), WIDTH / 2 - 80, 335, 0, "TUTORIAL");
 
 			//botao de sair
 			if (!botaoSair.hover)
@@ -136,7 +140,7 @@ int loadMenu(Allegro allegro)
 			else
 				al_draw_bitmap(botaoJogar.botaoHover, botaoSair.posX, botaoSair.posY, 0);
 
-			al_draw_text(allegro.font[r30], al_map_rgb(255, 255, 255), WIDTH / 2 - 30, 410, 0, "SAIR");
+			al_draw_text(allegro->font[r30], al_map_rgb(255, 255, 255), WIDTH / 2 - 30, 410, 0, "SAIR");
 
 
 			al_flip_display();
