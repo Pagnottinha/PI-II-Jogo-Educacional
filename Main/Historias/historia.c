@@ -137,6 +137,8 @@ int historia(Allegro allegro, char* pathDialogo) {
 					dialogo.posicao ? ALLEGRO_ALIGN_RIGHT : ALLEGRO_ALIGN_LEFT,
 					dialogo.fala
 				);
+
+				al_draw_text(allegro.font[r16], al_map_rgb(255, 255, 255), 1000, 690, 0, "APERTE ENTER PARA PULAR");
 			}
 			else {
 

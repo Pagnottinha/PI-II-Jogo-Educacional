@@ -15,8 +15,11 @@ typedef struct {
 typedef struct {
 	int X;
 	int Y;
+	int width;
+	int height;
 
 	ALLEGRO_BITMAP* backgroundMenu;
 } BackgroundMenu;
 
-void DrawnMenu(Botao* botao);
+void InitBackgroundMenu(BackgroundMenu* BG, float x, float y, int width, int height, char* imagePath);
+void DrawnBackMenu(BackgroundMenu BG);

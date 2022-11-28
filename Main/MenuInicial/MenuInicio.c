@@ -6,11 +6,16 @@ int loadMenu(Allegro allegro)
 	bool done = false;
 	bool desenhar = true;
 
+	BackgroundMenu BG;
+
+	InitBackgroundMenu(&BG, 0, 0, WIDTH, HEIGHT, "./MenuInicial/Botoes/Sprites/MenuInicialBG.png");
+
 	Botao botaoJogar;
 	Botao botaoTutorial;
 	Botao botaoSair;
 
 	//inicializando os botoes com as suas respectivas imagens
+	//apesar de serem as mesmas imagens, cada botao tem uma funcao diferente
 	botaoJogar.botaoImage = al_load_bitmap("./MenuInicial/Botoes/Sprites/Button_Animation1.png");
 	botaoJogar.botaoHover = al_load_bitmap("./MenuInicial/Botoes/Sprites/Button_Animation2.png");
 
@@ -84,11 +89,25 @@ int loadMenu(Allegro allegro)
 		}
 		else if (ev.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
 		{
+			mouseX = ev.mouse.x;
+			mouseY = ev.mouse.y;
+
 			if (ev.mouse.button & 1)
 			{
-				if (ev.mouse.x < botaoJogar.posX && ev.mouse.y > botaoJogar.posY)
+				if (mouseX > 522 && mouseX < 758 &&
+					mouseY > 245 && mouseY < 305)
 				{
-
+					return 0;
+				}
+				else if (mouseX > 522 && mouseX < 758 &&
+					mouseY > 320 && mouseY < 380)
+				{
+					return 2;
+				}
+				else if (mouseX > 522 && mouseX < 758 &&
+					mouseY > 395 && mouseY < 455)
+				{
+					return 1;
 				}
 			}
 		}
@@ -97,6 +116,8 @@ int loadMenu(Allegro allegro)
 		{
 			desenhar = false;
 			al_clear_to_color(al_map_rgb(0, 0, 0));
+
+			DrawnBackMenu(BG);
 
 			al_draw_text(allegro.font[r60], al_map_rgb(255, 255, 255), WIDTH / 2 - 100, 100, 0, "ILIADA");
 
@@ -125,11 +146,8 @@ int loadMenu(Allegro allegro)
 			al_draw_text(allegro.font[r30], al_map_rgb(255, 255, 255), WIDTH / 2 - 30, 410, 0, "SAIR");
 
 
-
 			al_flip_display();
 		}	
-			
-		
 		
 	}
 
@@ -137,4 +155,18 @@ int loadMenu(Allegro allegro)
 	al_destroy_bitmap(botaoJogar.botaoHover);
 
 	return 0;
+}
+
+void InitBackgroundMenu(BackgroundMenu* BG, float x, float y, int width, int height, char* imagePath)
+{
+	BG->X = x;
+	BG->Y = y;
+	BG->width = width;
+	BG->height = height;
+	BG->backgroundMenu = al_load_bitmap(imagePath);
+}
+
+void DrawnBackMenu(BackgroundMenu BG)
+{
+	al_draw_bitmap(BG.backgroundMenu, BG.X, BG.Y, 0);
 }

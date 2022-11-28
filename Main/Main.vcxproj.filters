@@ -133,6 +133,9 @@
     <Image Include="MenuInicial\Botoes\Sprites\Button_Animation1.png">
       <Filter>Arquivos de Recurso</Filter>
     </Image>
+    <Image Include="MenuInicial\Botoes\Sprites\MenuInicialBG.png">
+      <Filter>Arquivos de Recurso</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Text Include="allegro.log" />

@@ -191,6 +191,7 @@
     <Image Include="Historias\Personagens\Sprites\Menelau.png" />
     <Image Include="Historias\Personagens\Sprites\Odisseu.png" />
     <Image Include="Historias\Personagens\Sprites\Troiano.png" />
+    <Image Include="MenuInicial\Botoes\Sprites\MenuInicialBG.png" />
     <Image Include="MenuInicial\Botoes\Sprites\Button_Animation1.png" />
     <Image Include="MenuInicial\Botoes\Sprites\Button_Animation2.png" />
   </ItemGroup>
