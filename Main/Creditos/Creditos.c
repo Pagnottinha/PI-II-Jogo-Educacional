@@ -61,9 +61,6 @@ int InitCreditos(Allegro *allegro)
 			mouseX = ev.mouse.x;
 			mouseY = ev.mouse.y;
 
-			printf("Mouse X: %d\n", mouseX);
-			printf("Mouse Y: %d\n\n", mouseY);
-
 			botaoVoltar.hover = mouseX > 973 && mouseX < 1208 &&
 				mouseY > 624 && mouseY < 684;
 

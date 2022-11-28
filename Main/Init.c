@@ -26,6 +26,7 @@ Allegro init() {
 			allegro.font[r30] = al_load_font("./Fontes PI/Fonte Roman/Roman SD.ttf", 30, 0);
 			allegro.font[r60] = al_load_font("./Fontes PI/Fonte Roman/Roman SD.ttf", 60, 0);
 			allegro.font[r16] = al_load_font("./Fontes PI/Fonte Roman/Roman SD.ttf", 16, 0);
+			allegro.font[r20] = al_load_font("./Fontes PI/Fonte Roman/Roman SD.ttf", 20, 0);
 
 
 			al_install_keyboard();

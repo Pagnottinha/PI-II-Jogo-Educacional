@@ -173,12 +173,12 @@ int tutorial(Allegro* allegro) {
 
 			al_draw_bitmap(fundoMensagem.image, fundoMensagem.x - fundoMensagem.width / 2.0, fundoMensagem.y, 0);
 			al_draw_multiline_text(
-				allegro->font[r16],
+				allegro->font[r20],
 				al_map_rgb(255, 255, 255),
 				fundoMensagem.x,
 				fundoMensagem.y + fundoMensagem.height / 2.0 - al_get_font_line_height(allegro->font[r16]),
 				fundoMensagem.width,
-				al_get_font_line_height(allegro->font[r16]) + 10,
+				al_get_font_line_height(allegro->font[r20]) + 10,
 				ALLEGRO_ALIGN_CENTRE,
 				mensagem[niveis]
 			);

@@ -68,6 +68,7 @@ int historia(Allegro* allegro, char* pathDialogo) {
 						al_destroy_bitmap(image);
 					image = loadImage(perso.imagem);
 
+					al_destroy_bitmap(BG.image);
 					InitBackground(&BG, 0, 0, bgs.path[dialogo.idBackground]);
 					acoes[PROXIMO] = false;
 					acertou = false;
