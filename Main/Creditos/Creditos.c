@@ -76,7 +76,7 @@ int InitCreditos(Allegro *allegro)
 				if (mouseX > 973 && mouseX < 1208 &&
 					mouseY > 624 && mouseY < 684)
 				{
-					return 0;
+					done = true;
 				}
 			}
 		}

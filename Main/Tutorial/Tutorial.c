@@ -191,6 +191,7 @@ int tutorial(Allegro* allegro) {
 	destroyBitmapsEnemie(&enemies);
 	destroyBitmapsPlayer(&player);
 	al_destroy_bitmap(BG.image);
+	al_destroy_bitmap(fundoMensagem.image);
 
 	return !player.vivo;
 }

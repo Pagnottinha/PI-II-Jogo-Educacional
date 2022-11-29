@@ -69,7 +69,7 @@ void juntarSpriteSheets(char path[NUM_CRIAR_SPRITES][NUM_PATH], char name[]) { /
 	
 }
 
-void initPlayer(Player* player, ALLEGRO_DISPLAY* display) {
+void initPlayer(Player* player, ALLEGRO_DISPLAY* display, int vida) {
 
 	player->vivo = true;
 	player->vida[MAXIMA] = 120;
@@ -105,7 +105,7 @@ void initPlayer(Player* player, ALLEGRO_DISPLAY* display) {
 	
 	// posição player
 	player->POS[X] = al_get_display_width(display) / 2 - player->dimensoesFrame[X] / 2;
-	player->POS[Y] = (al_get_display_height(display) - MIN_HEIGHT) / 2 + MIN_HEIGHT - player->dimensoesFrame[Y] / 2;
+	player->POS[Y] = (al_get_display_height(display) - MIN_HEIGHT) / 2.0 + MIN_HEIGHT - player->dimensoesFrame[Y] / 2;
 
 	for (i = 0; i < NUM_SPRITES_PLAYER; i++) {
 		al_convert_mask_to_alpha(player->sheets[i], al_map_rgb(0, 0, 0));
@@ -201,6 +201,6 @@ bool playerAcertou(Player* player, Enemie* enemie) {
 	return (player->POS[X] < coordenadasX) &&
 		(player->POS[X] + player->dimensoesFrame[X] > coordenadasX) &&
 		((player->POS[Y] + player->hitboxLanca) > enemie->POS[Y]) && ((player->POS[Y] + player->hitboxLanca) < enemie->POS[Y] + enemie->dimensoesFrame[Y]) &&
-		((player->POS[Y] + player->hitboxLanca) > enemie->POS[Y]) &&
+		((player->POS[Y] + player->hitboxLanca) + player->dimensoesLanca[Y] > enemie->POS[Y]) &&
 		((player->POS[Y] + player->hitboxLanca + player->dimensoesLanca[Y]) < enemie->POS[Y] + enemie->dimensoesFrame[Y]);
 }

@@ -4,6 +4,7 @@
 #include "./Escolhas/escolhas.h"
 #include "./Background/BackgroundDialogo.h"
 
-enum ACOES { PROXIMO, SELECIONAR, CIMA, BAIXO, CONFIRMAR };
+enum ACOES { PROXIMO };
 
 ALLEGRO_BITMAP* loadImage(char* path);
+void escolher(Allegro* allegro, Escolhas escolhas, int id, ALLEGRO_BITMAP* background);
