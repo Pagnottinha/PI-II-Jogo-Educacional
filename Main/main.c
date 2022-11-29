@@ -23,14 +23,19 @@ int main(void) {
 			resultado = historia(&allegro, "./Historias/Dialogos/dialogo1.txt");
 			break;
 		case 2:
-			resultado = historia(&allegro, "./Historias/Dialogos/dialogo2.txt");
+			do {
+				resultado = tutorial(&allegro);
+			} while (resultado && !allegro.close);
 			break;
 		case 3:
+			resultado = historia(&allegro, "./Historias/Dialogos/dialogo2.txt");
+			break;
+		case 4:
 			do {
 				resultado = batalha(&allegro);
 			} while (resultado && !allegro.close);
 			break;
-		case 4:
+		case 5:
 			resultado = historia(&allegro, "./Historias/Dialogos/dialogoFinal.txt");
 			break;
 		case 6:

@@ -30,6 +30,7 @@
     <ClInclude Include="Batalha\player.h" />
     <ClInclude Include="MenuInicial\Menu.h" />
     <ClInclude Include="Tutorial\Tutorial.h" />
+    <ClInclude Include="Creditos\Creditos.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Sprites\Background\BatalhaDay.png" />
@@ -51,7 +52,6 @@
     <Image Include="Sprites\Botoes\Button_Animation2.png" />
     <Image Include="Sprites\Botoes\MenuInicialBG.png" />
     <Image Include="Sprites\Tutorial\MadeiraParaTutorial.png" />
-    <Image Include="..\..\..\..\Desktop\Coisas do Erick\BackgroundFloresta.png" />
     <Image Include="Sprites\Background\BackgroundFloresta.png" />
     <Image Include="Sprites\Background\ImagemCreditos.png" />
   </ItemGroup>
@@ -70,7 +70,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="allegro.log" />
     <Text Include="Fontes PI\Fonte Roman\_Read Me.txt" />
     <Text Include="Historias\Background\Backgrounds.txt" />
     <Text Include="Historias\Dialogos\dialogo1.txt" />
@@ -78,5 +77,6 @@
     <Text Include="Historias\Escolhas\escolhas.txt" />
     <Text Include="Historias\Personagens\personagens.txt" />
     <Text Include="Historias\Dialogos\dialogoFinal.txt" />
+    <Text Include="allegro.log" />
   </ItemGroup>
 </Project>

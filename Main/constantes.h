@@ -3,7 +3,7 @@
 #define WIDTH 1280
 #define HEIGHT 720
 
-#define NUM_FONTS 1
+#define NUM_FONTS 5
 
 // SPRITES
 #define NUM_PATH 28
