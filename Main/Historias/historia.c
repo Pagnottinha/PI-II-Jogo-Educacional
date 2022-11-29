@@ -161,7 +161,7 @@ void escolher(Allegro* allegro, Escolhas escolhas, int id, ALLEGRO_BITMAP* backg
 
 	bool done = false;
 	bool desenhar = true;
-	bool acoes[4] = { false, false, false, false };
+	bool acoes[5] = { false, false, false, false, false };
 	int opcao = -1;
 	int cont = 0;
 
@@ -183,7 +183,11 @@ void escolher(Allegro* allegro, Escolhas escolhas, int id, ALLEGRO_BITMAP* backg
 				else if (acoes[SELECIONAR]) {
 					escolhas.desabilitado[opcao] = 1;
 					escolhas.color[opcao] = al_map_rgb(200, 0, 0);
-					al_set_system_mouse_cursor(allegro->display, ALLEGRO_SYSTEM_MOUSE_CURSOR_UNAVAILABLE);
+					if (acoes[CLICOU]) {
+						al_set_system_mouse_cursor(allegro->display, ALLEGRO_SYSTEM_MOUSE_CURSOR_UNAVAILABLE);
+						acoes[CLICOU] = false;
+					}
+					
 				}
 			}
 			else if (acoes[CIMA]) {
@@ -261,6 +265,7 @@ void escolher(Allegro* allegro, Escolhas escolhas, int id, ALLEGRO_BITMAP* backg
 		}
 		else if (ev.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN) {
 			if (ev.mouse.button & 1) {
+				acoes[CLICOU] = true;
 				acoes[CONFIRMAR] = true;
 			}
 		}

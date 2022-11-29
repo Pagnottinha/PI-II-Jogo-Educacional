@@ -60,7 +60,7 @@ int batalha(Allegro* allegro) {
 
 			if (enemies.enemieDeath == enemies.countEnemies) {
 				enemies.waves[QNT]++;
-				enemies.countEnemies++;
+				enemies.countEnemies += 2;
 				enemies.enemieDeath = 0;
 
 				if (enemies.waves[QNT] <= enemies.waves[MAX])

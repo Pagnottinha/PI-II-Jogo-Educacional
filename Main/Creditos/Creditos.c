@@ -91,10 +91,10 @@ int InitCreditos(Allegro *allegro)
 
 			DrawBackground(BG);
 
-			al_draw_text(allegro->font[r60], al_map_rgb(255, 255, 255), WIDTH / 2 - 100, controleY, 0, "ILIADA");
+			al_draw_text(allegro->font[r60], al_map_rgb(255, 255, 255), WIDTH / 2 - 100, controleY, 0, "ILíADA");
 
 			al_draw_multiline_text(allegro->font[r24], al_map_rgb(255, 255, 255), WIDTH / 2, controleY + 100, 
-				500, 24, ALLEGRO_ALIGN_CENTER, "Creditos\n\nMebros do Grupo:\n\n\nErick Lima\nGustavo Faria\nLorran Palmeira\nRaphael Rocha\n\n\nLivro Base:\n\nIliada - Homero\n\n\nProgramacao:\n\nErick Lima\nGustavo Faria\n\n\nAnimacoes:\n\nErick Lima\nGustavo Faria\n\n\nEnredo:\n\nErick Lima\nGustavo Faria\nLorran Palmeira\nRaphael Rocha\n\n\n");
+				500, 24, ALLEGRO_ALIGN_CENTER, "Créditos\n\nMembros do Grupo:\n\n\nErick Lima\nGustavo Faria\nLorran Palmeira\nRaphael Rocha\n\n\nLivro Base:\n\nIlíada - Homéro\n\n\nProgramação:\n\nErick Lima\nGustavo Faria\n\n\nAnimações:\n\nErick Lima\nGustavo Faria\n\n\nEnredo:\n\nErick Lima\nGustavo Faria\nLorran Palmeira\nRaphael Rocha\n\n\n");
 
 			al_draw_text(allegro->font[r60], al_map_rgb(255, 255, 255), WIDTH / 2, controleY + 1000, ALLEGRO_ALIGN_CENTER, "OBRIGADO");
 			//botao jogar
@@ -103,7 +103,7 @@ int InitCreditos(Allegro *allegro)
 			else
 				al_draw_bitmap(botaoVoltar.botaoHover, botaoVoltar.posX, botaoVoltar.posY, 0);
 
-			al_draw_text(allegro->font[r30], al_map_rgb(255, 255, 255),botaoVoltar.posX + 110, 640, 0, "VOLTAR");
+			al_draw_text(allegro->font[r30], al_map_rgb(255, 255, 255),botaoVoltar.posX + 110, 640, 0, "MENU");
 
 			al_flip_display();
 		}

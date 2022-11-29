@@ -1,4 +1,4 @@
-#include "allegro5/allegro.h"
+#include <allegro5/allegro.h>
 
 typedef struct {
 	int posX;
@@ -9,15 +9,3 @@ typedef struct {
 	ALLEGRO_BITMAP* botaoImage;
 	ALLEGRO_BITMAP* botaoHover;
 } Botao;
-
-typedef struct {
-	int X;
-	int Y;
-	int width;
-	int height;
-
-	ALLEGRO_BITMAP* backgroundMenu;
-} BackgroundMenu;
-
-void InitBackgroundMenu(BackgroundMenu* BG, float x, float y, int width, int height, char* imagePath);
-void DrawnBackMenu(BackgroundMenu BG);

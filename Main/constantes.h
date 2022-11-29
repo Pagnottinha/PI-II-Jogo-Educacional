@@ -18,4 +18,4 @@
 #define QNT_ACOES 5
 
 // INIMIES
-#define NUM_ENEMIES 5
+#define NUM_ENEMIES 10

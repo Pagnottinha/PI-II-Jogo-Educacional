@@ -1,7 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <allegro5/allegro.h>
 
-enum ACOES_ESCOLHAS { SELECIONAR, CIMA, BAIXO, CONFIRMAR };
+enum ACOES_ESCOLHAS { SELECIONAR, CIMA, BAIXO, CONFIRMAR, CLICOU };
 
 typedef struct {
 	char escolha[3][50];

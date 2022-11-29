@@ -1,4 +1,5 @@
 #include "Menu.h"
+#include "../Background.h"
 #include "../game.h"
 
 int loadMenu(Allegro* allegro)
@@ -6,9 +7,9 @@ int loadMenu(Allegro* allegro)
 	bool done = false;
 	bool desenhar = true;
 
-	BackgroundMenu BG;
+	Background BG;
 
-	InitBackgroundMenu(&BG, 0, 0, WIDTH, HEIGHT, "./Sprites/Botoes/MenuInicialBG.png");
+	InitBackground(&BG, 0, 0, "./Sprites/Botoes/MenuInicialBG.png");
 
 	Botao botaoJogar;
 	Botao botaoTutorial;
@@ -41,7 +42,7 @@ int loadMenu(Allegro* allegro)
 	int teste2 = botaoJogar.posY + height;
 
 
-	while (!done)
+	while (!done && !allegro->close && !allegro->creditos)
 	{
 		ALLEGRO_EVENT ev;
 		al_wait_for_event(allegro->eventQueue, &ev);
@@ -62,7 +63,6 @@ int loadMenu(Allegro* allegro)
 		}
 		else if (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
 			allegro->close = true;
-			done = true;
 		}
 		else if (ev.type == ALLEGRO_EVENT_MOUSE_AXES)
 		{
@@ -96,13 +96,11 @@ int loadMenu(Allegro* allegro)
 					mouseY > 320 && mouseY < 380)
 				{
 					allegro->creditos = true;
-					done = true;
 				}
 				else if (mouseX > 522 && mouseX < 758 &&
 					mouseY > 395 && mouseY < 455)
 				{
 					allegro->close = true;
-					done = true;
 				}
 			}
 		}
@@ -112,9 +110,9 @@ int loadMenu(Allegro* allegro)
 			desenhar = false;
 			al_clear_to_color(al_map_rgb(0, 0, 0));
 
-			DrawnBackMenu(BG);
+			DrawBackground(BG);
 
-			al_draw_text(allegro->font[r60], al_map_rgb(255, 255, 255), WIDTH / 2 - 100, 100, 0, "ILIADA");
+			al_draw_text(allegro->font[r60], al_map_rgb(255, 255, 255), WIDTH / 2 - 100, 100, 0, "ILíADA");
 
 			//botao jogar
 			if (!botaoJogar.hover)
@@ -148,21 +146,7 @@ int loadMenu(Allegro* allegro)
 
 	al_destroy_bitmap(botaoJogar.botaoImage);
 	al_destroy_bitmap(botaoJogar.botaoHover);
-	al_destroy_bitmap(BG.backgroundMenu);
+	al_destroy_bitmap(BG.image);
 
 	return 0;
-}
-
-void InitBackgroundMenu(BackgroundMenu* BG, float x, float y, int width, int height, char* imagePath)
-{
-	BG->X = x;
-	BG->Y = y;
-	BG->width = width;
-	BG->height = height;
-	BG->backgroundMenu = al_load_bitmap(imagePath);
-}
-
-void DrawnBackMenu(BackgroundMenu BG)
-{
-	al_draw_bitmap(BG.backgroundMenu, BG.X, BG.Y, 0);
 }
