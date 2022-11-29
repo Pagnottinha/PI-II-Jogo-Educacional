@@ -35,7 +35,8 @@ int main(void) {
 				resultado = batalha(&allegro);
 
 				if (resultado) {
-					resultado = GameOver(&allegro);
+					GameOver(&allegro);
+					resultado = 0;
 				}
 
 			} while (resultado && !allegro.close && !allegro.menu);

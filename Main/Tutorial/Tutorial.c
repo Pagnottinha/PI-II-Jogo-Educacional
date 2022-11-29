@@ -26,7 +26,6 @@ int tutorial(Allegro* allegro) {
 	InitBackground(&BG, 0, 0, "Sprites/Background/BackgroundFloresta.png");
 
 	initPlayer(&player, allegro->display);
-	InitEnemie(&enemies, 0);
 
 	// inicio do jogo
 	while (!done && player.vivo) {
@@ -160,7 +159,10 @@ int tutorial(Allegro* allegro) {
 			al_clear_to_color(al_map_rgb(0, 0, 0));
 
 			DrawBackground(BG);
-			DrawEnemie(enemies);
+
+			if (niveis == 2)
+				DrawEnemie(enemies);
+
 			desenharPlayer(&player);
 
 			al_draw_text(allegro->font[r24], al_map_rgb(255, 255, 255), 20, 20, 0, "Vida: ");

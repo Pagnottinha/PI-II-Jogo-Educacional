@@ -128,6 +128,8 @@ int batalha(Allegro* allegro) {
 
 			desenhar = false;
 
+			al_clear_to_color(al_map_rgb(0, 0, 0));
+
 			DrawBackground(BG);
 			DrawEnemie(enemies);
 			desenharPlayer(&player);
@@ -141,8 +143,6 @@ int batalha(Allegro* allegro) {
 			al_draw_filled_rectangle(100, 20, player.vida[ATUAL] + 100, 40, al_map_rgb(0, 255, 0));
 
 			al_flip_display();
-
-			al_clear_to_color(al_map_rgb(0, 0, 0));
 		}
 
 	}

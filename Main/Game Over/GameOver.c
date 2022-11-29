@@ -95,14 +95,12 @@ int GameOver(Allegro *allegro) {
 					mouseY > 624 && mouseY < 684)
 				{
 					done = true;
-					return 1;
 				}
 				else if (mouseX > 848 && mouseX < 1083 &&
 					mouseY > 624 && mouseY < 684)
 				{
 					allegro->close = true;
 					done = true;
-					return 0;
 				}
 			}
 		}

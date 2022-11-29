@@ -151,7 +151,8 @@ int historia(Allegro* allegro, char* pathDialogo) {
 		}
 	}
 
-	al_destroy_bitmap(image);
+	if (image != NULL)
+		al_destroy_bitmap(image);
 	al_destroy_bitmap(BG.image);
 
 	return 0;
