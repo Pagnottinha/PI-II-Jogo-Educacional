@@ -94,7 +94,7 @@ int InitCreditos(Allegro *allegro)
 			al_draw_text(allegro->font[r60], al_map_rgb(255, 255, 255), WIDTH / 2 - 100, controleY, 0, "ILíADA");
 
 			al_draw_multiline_text(allegro->font[r24], al_map_rgb(255, 255, 255), WIDTH / 2, controleY + 100, 
-				500, 24, ALLEGRO_ALIGN_CENTER, "CRÉDITOS\n\nMEMBROS DO GRUPO:\n\n\nErick Lima\nGustavo Faria\nLorran Palmeira\nRaphael Rocha\n\n\nUMA OBRA BASEADA EM:\n\nIlíada - Homéro\n\n\nPROGRAMAÇÃO:\n\nErick Lima\nGustavo Faria\n\n\nANIMAÇÕES:\n\nErick Lima\nGustavo Faria\n\n\nENREDO:\n\nErick Lima\nGustavo Faria\nLorran Palmeira\nRaphael Rocha\n\n\nROTEIRO:\n\nErick Lima\nGustavo Faria\n\n\nUM TRABALHO FEITO PARA:\n\nSenac - Curso de Ciência da Computação\n\n\nUMA REALIZAÇÃO DE:\n\nCentro Univesitário Senac");
+				500, 24, ALLEGRO_ALIGN_CENTER, "CRÉDITOS\n\nMEMBROS DO GRUPO:\n\n\nErick Lima\nGustavo Faria\nLorran Palmeira\nRaphael Rocha\n\n\nUMA OBRA BASEADA EM:\n\nIlíada - Homéro\n\n\nPROGRAMAÇÃO:\n\nErick Lima\nGustavo Faria\n\n\nANIMAÇÕES:\n\nErick Lima\nGustavo Faria\n\nLorran Palmeira\n\nENREDO:\n\nErick Lima\nGustavo Faria\nLorran Palmeira\nRaphael Rocha\n\n\nROTEIRO:\n\nErick Lima\nGustavo Faria\n\n\nUM TRABALHO FEITO PARA:\n\nSenac - Curso de Ciência da Computação\n\n\nUMA REALIZAÇÃO DE:\n\nCentro Univesitário Senac");
 
 			al_draw_text(allegro->font[r60], al_map_rgb(255, 255, 255), WIDTH / 2, controleY + 1400, ALLEGRO_ALIGN_CENTER, "OBRIGADO");
 			//botao jogar
