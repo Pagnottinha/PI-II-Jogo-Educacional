@@ -15,6 +15,7 @@
     <ClCompile Include="MenuInicial\MenuInicio.c" />
     <ClCompile Include="Tutorial\Tutorial.c" />
     <ClCompile Include="Creditos\Creditos.c" />
+    <ClCompile Include="Game Over\GameOver.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Background.h" />

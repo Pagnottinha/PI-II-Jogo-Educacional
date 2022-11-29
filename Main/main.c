@@ -10,7 +10,7 @@ int main(void) {
 	int resultado;
 	int cont = 0;
 
-	allegro.creditos = false;
+	//GameOver(&allegro);
 
 	do {
 		switch (cont) {
@@ -33,7 +33,12 @@ int main(void) {
 		case 4:
 			do {
 				resultado = batalha(&allegro);
-			} while (resultado && !allegro.close);
+
+				if (resultado) {
+					resultado = GameOver(&allegro);
+				}
+
+			} while (resultado && !allegro.close && !allegro.menu);
 			break;
 		case 5:
 			resultado = historia(&allegro, "./Historias/Dialogos/dialogoFinal.txt");
@@ -48,6 +53,11 @@ int main(void) {
 		}
 
 		cont++;
+
+		if (allegro.menu) {
+			allegro.menu = false;
+			cont = 0;
+		}
 
 	} while (!allegro.close && resultado == 0);
 	
