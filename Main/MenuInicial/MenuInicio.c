@@ -69,9 +69,6 @@ int loadMenu(Allegro* allegro)
 			mouseX = ev.mouse.x;
 			mouseY = ev.mouse.y;
 
-			printf("Mouse X: %d\n", mouseX);
-			printf("Mouse Y: %d\n\n", mouseY);
-
 			botaoJogar.hover = mouseX > 522 && mouseX < 758 &&
 				mouseY > 245 && mouseY < 305;
 
