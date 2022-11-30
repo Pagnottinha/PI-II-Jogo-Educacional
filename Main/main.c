@@ -36,7 +36,7 @@ int main(void) {
 
 				if (resultado) {
 					GameOver(&allegro);
-					resultado = 1;
+					resultado = 0;
 				}
 
 			} while (resultado && !allegro.close && !allegro.menu);

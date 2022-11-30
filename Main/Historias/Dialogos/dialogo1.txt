@@ -1,9 +1,9 @@
 0 0 0 0 Nesse jogo será contada a história de Ilíada, criada por Homero.
 0 0 0 0 Você acompanhará Odisseu, rei de Ítaca. Um grande rei guerreiro e estrategista!
-0 0 0 0 Odisseu estava vivendo sua vida tranquilamente em seu reino até a chegada de Menelau.
+0 0 0 0 Odisseu estava vivendo sua vida tranquilamente eu seu reino até a chegada de Menelau.
 1 0 0 0 Rei de Esparta? O que você está fazendo aqui?
 2 1 0 0 Você não vai acreditar Odisseu! Minha esposa, Helena, foi raptada por Paris!
-1 0 0 0 Paris? Ele não é de Troia?
+1 0 0 0 Paris? Eles não é de Troia?
 2 1 0 0 Sim, ele é! Por isso vou começar uma guerra contra eles. Vou conquistar minha esposa...
 2 1 0 0 e glória de volta! Mas só estou aqui para te avisar que vou começar a guerra.
 2 1 0 0 Não vou precisar de sua ajuda.
